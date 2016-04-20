@@ -43,26 +43,19 @@ class inPhoodRN extends Component {
   render() {
     return (
 
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          inPhood!
-        </Text>
-
-        <Camera
-          ref="cam"
-          style={styles.container}
-          type={this.state.cameraType}>
-          <View style={styles.buttonBar}>
-            <TouchableHighlight style={styles.button} onPress={this._switchCamera}>
-              <Text style={styles.buttonText}>Flip</Text>
-            </TouchableHighlight>
-            <TouchableHighlight style={styles.button} onPress={this._takePicture}>
-              <Text style={styles.buttonText}>Take</Text>
-            </TouchableHighlight>
-          </View>
-        </Camera>
-
-      </View>
+      <Camera
+        ref="cam"
+        style={styles.container}
+        type={this.state.cameraType}>
+        <View style={styles.buttonBar}>
+          <TouchableHighlight style={styles.button} onPress={this._switchCamera}>
+            <Text style={styles.buttonText}>Flip</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={this._takePicture}>
+            <Text style={styles.buttonText}>Take</Text>
+          </TouchableHighlight>
+        </View>
+      </Camera>
 /*
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -104,19 +97,19 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#FFFFFF"
-  },
+  }
 
   /*container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },*/
+  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-  }/*,
+  },
   instructions: {
     textAlign: 'center',
     color: '#333333',
