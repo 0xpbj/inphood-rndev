@@ -20,6 +20,13 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		750C06481CC9D6880054AA98 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750C06441CC9D6880054AA98 /* Bolts.framework */; };
+		750C06491CC9D6880054AA98 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750C06451CC9D6880054AA98 /* FBSDKCoreKit.framework */; };
+		750C064A1CC9D6880054AA98 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750C06461CC9D6880054AA98 /* FBSDKLoginKit.framework */; };
+		750C064B1CC9D6880054AA98 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750C06471CC9D6880054AA98 /* FBSDKShareKit.framework */; };
+		750C064D1CC9DA970054AA98 /* react-native-fbsdkcore in Resources */ = {isa = PBXBuildFile; fileRef = 750C064C1CC9DA970054AA98 /* react-native-fbsdkcore */; };
+		750C064F1CC9DAD00054AA98 /* react-native-fbsdklogin in Resources */ = {isa = PBXBuildFile; fileRef = 750C064E1CC9DAD00054AA98 /* react-native-fbsdklogin */; };
+		750C06511CC9DAF60054AA98 /* react-native-fbsdkshare in Resources */ = {isa = PBXBuildFile; fileRef = 750C06501CC9DAF60054AA98 /* react-native-fbsdkshare */; };
 		79C3951F1CC18DC3008AAB49 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79C395151CC18D53008AAB49 /* libRCTCamera.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
@@ -130,6 +137,13 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = inPhoodRN/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = inPhoodRN/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		750C06441CC9D6880054AA98 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../../Documents/FacebookSDKs-iOS/Bolts.framework"; sourceTree = "<group>"; };
+		750C06451CC9D6880054AA98 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Documents/FacebookSDKs-iOS/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		750C06461CC9D6880054AA98 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Documents/FacebookSDKs-iOS/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		750C06471CC9D6880054AA98 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../../Documents/FacebookSDKs-iOS/FBSDKShareKit.framework"; sourceTree = "<group>"; };
+		750C064C1CC9DA970054AA98 /* react-native-fbsdkcore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "react-native-fbsdkcore"; path = "../node_modules/react-native-fbsdkcore/react-native-fbsdkcore"; sourceTree = "<group>"; };
+		750C064E1CC9DAD00054AA98 /* react-native-fbsdklogin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "react-native-fbsdklogin"; path = "../node_modules/react-native-fbsdklogin/react-native-fbsdklogin"; sourceTree = "<group>"; };
+		750C06501CC9DAF60054AA98 /* react-native-fbsdkshare */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "react-native-fbsdkshare"; path = "../node_modules/react-native-fbsdkshare/react-native-fbsdkshare"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		79C3950F1CC18D53008AAB49 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -149,11 +163,15 @@
 			files = (
 				79C3951F1CC18DC3008AAB49 /* libRCTCamera.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				750C064B1CC9D6880054AA98 /* FBSDKShareKit.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
+				750C06481CC9D6880054AA98 /* Bolts.framework in Frameworks */,
+				750C064A1CC9D6880054AA98 /* FBSDKLoginKit.framework in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
+				750C06491CC9D6880054AA98 /* FBSDKCoreKit.framework in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
@@ -240,6 +258,9 @@
 		13B07FAE1A68108700A75B9A /* inPhoodRN */ = {
 			isa = PBXGroup;
 			children = (
+				750C06501CC9DAF60054AA98 /* react-native-fbsdkshare */,
+				750C064E1CC9DAD00054AA98 /* react-native-fbsdklogin */,
+				750C064C1CC9DA970054AA98 /* react-native-fbsdkcore */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -256,6 +277,17 @@
 				146834041AC3E56700842450 /* libReact.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		750C063B1CC9D56C0054AA98 /* Framerworks */ = {
+			isa = PBXGroup;
+			children = (
+				750C06441CC9D6880054AA98 /* Bolts.framework */,
+				750C06451CC9D6880054AA98 /* FBSDKCoreKit.framework */,
+				750C06461CC9D6880054AA98 /* FBSDKLoginKit.framework */,
+				750C06471CC9D6880054AA98 /* FBSDKShareKit.framework */,
+			);
+			name = Framerworks;
 			sourceTree = "<group>";
 		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
@@ -303,6 +335,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				750C063B1CC9D56C0054AA98 /* Framerworks */,
 				13B07FAE1A68108700A75B9A /* inPhoodRN */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* inPhoodRNTests */,
@@ -366,7 +399,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -535,6 +568,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				750C064F1CC9DAD00054AA98 /* react-native-fbsdklogin in Resources */,
+				750C064D1CC9DA970054AA98 /* react-native-fbsdkcore in Resources */,
+				750C06511CC9DAF60054AA98 /* react-native-fbsdkshare in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -602,6 +638,7 @@
 				INFOPLIST_FILE = inPhoodRNTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/inPhoodRN.app/inPhoodRN";
 			};
@@ -619,6 +656,7 @@
 				INFOPLIST_FILE = inPhoodRNTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/inPhoodRN.app/inPhoodRN";
 			};
@@ -632,6 +670,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../Documents/FacebookSDKs-iOS\"";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -640,6 +679,7 @@
 				INFOPLIST_FILE = inPhoodRN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = InPhoodRN;
 				PRODUCT_NAME = inPhoodRN;
 				PROVISIONING_PROFILE = "";
 			};
@@ -652,6 +692,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../../../Documents/FacebookSDKs-iOS\"";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -660,6 +701,7 @@
 				INFOPLIST_FILE = inPhoodRN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = InPhoodRN;
 				PRODUCT_NAME = inPhoodRN;
 				PROVISIONING_PROFILE = "";
 			};
@@ -685,6 +727,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
