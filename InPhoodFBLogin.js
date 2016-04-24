@@ -9,45 +9,47 @@ import React, {
   View
 } from 'react-native';
 
-// const FBSDK = require('react-native-fbsdklogin');
-// const {
-//   LoginButton,
-// } = FBSDK;
-
-// class InPhoodFBLogin extends Component {
-//   render() {
-//     return (
-//       <View>
-//         <LoginButton
-//           publishPermissions={["publish_actions"]}
-//           onLoginFinished={
-//             (error, result) => {
-//               if (error) {
-//                 alert("login has error: " + result.error);
-//               } else if (result.isCancelled) {
-//                 alert("login is cancelled.");
-//               } else {
-//                 alert("login has finished with permissions: " + result.grantedPermissions)
-//               }
-//             }
-//           }
-//           onLogoutFinished={() => alert("logout.")}/>
-//       </View>
-//     );
-//   }
-// };
+var FBSDKLogin = require('react-native-fbsdklogin');
+  var {
+    FBSDKLoginButton,
+  } = FBSDKLogin;
 
 class InPhoodFBLogin extends Component {
   render() {
     return (
-      <View style={styles.container}> 
-        <Text style={styles.welcome}>
-          Social Login Placeholder
-        </Text>
+      <View style={styles.container}>
+        <FBSDKLoginButton
+          onLoginFinished={(error, result) => {
+            if (error) {
+              alert('Error logging in.');
+            } else {
+              if (result.isCanceled) {
+                alert('Login cancelled.');
+              } else {
+                alert('Logged in.');
+              }
+            }
+          }}
+          onLogoutFinished={() => alert('Logged out.')}
+          readPermissions={[]}
+          publishPermissions={['publish_actions']}
+        />
       </View>
     );
   }
 };
+
+// class InPhoodFBLogin extends Component {
+//   render() {
+//     return (
+//       <View style={styles.container}> 
+//         <Text style={styles.welcome}>
+//           Social Login Placeholder
+//         </Text>
+//       </View>
+//     );
+//   }
+// };
 
 const styles = StyleSheet.create({
   container: {

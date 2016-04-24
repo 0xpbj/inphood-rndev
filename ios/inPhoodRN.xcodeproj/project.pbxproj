@@ -24,9 +24,9 @@
 		750C06491CC9D6880054AA98 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750C06451CC9D6880054AA98 /* FBSDKCoreKit.framework */; };
 		750C064A1CC9D6880054AA98 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750C06461CC9D6880054AA98 /* FBSDKLoginKit.framework */; };
 		750C064B1CC9D6880054AA98 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750C06471CC9D6880054AA98 /* FBSDKShareKit.framework */; };
-		750C064D1CC9DA970054AA98 /* react-native-fbsdkcore in Resources */ = {isa = PBXBuildFile; fileRef = 750C064C1CC9DA970054AA98 /* react-native-fbsdkcore */; };
-		750C064F1CC9DAD00054AA98 /* react-native-fbsdklogin in Resources */ = {isa = PBXBuildFile; fileRef = 750C064E1CC9DAD00054AA98 /* react-native-fbsdklogin */; };
-		750C06511CC9DAF60054AA98 /* react-native-fbsdkshare in Resources */ = {isa = PBXBuildFile; fileRef = 750C06501CC9DAF60054AA98 /* react-native-fbsdkshare */; };
+		750C06531CCC815F0054AA98 /* react-native-fbsdkcore in Resources */ = {isa = PBXBuildFile; fileRef = 750C06521CCC815F0054AA98 /* react-native-fbsdkcore */; };
+		756220CC1CCC81BB00B97CD7 /* react-native-fbsdklogin in Resources */ = {isa = PBXBuildFile; fileRef = 756220CB1CCC81BB00B97CD7 /* react-native-fbsdklogin */; };
+		756220D21CCC824100B97CD7 /* react-native-fbsdkshare in Resources */ = {isa = PBXBuildFile; fileRef = 756220D11CCC824100B97CD7 /* react-native-fbsdkshare */; };
 		79C3951F1CC18DC3008AAB49 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79C395151CC18D53008AAB49 /* libRCTCamera.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
@@ -119,7 +119,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
 		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
@@ -141,9 +140,9 @@
 		750C06451CC9D6880054AA98 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Documents/FacebookSDKs-iOS/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		750C06461CC9D6880054AA98 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Documents/FacebookSDKs-iOS/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		750C06471CC9D6880054AA98 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../../Documents/FacebookSDKs-iOS/FBSDKShareKit.framework"; sourceTree = "<group>"; };
-		750C064C1CC9DA970054AA98 /* react-native-fbsdkcore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "react-native-fbsdkcore"; path = "../node_modules/react-native-fbsdkcore/react-native-fbsdkcore"; sourceTree = "<group>"; };
-		750C064E1CC9DAD00054AA98 /* react-native-fbsdklogin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "react-native-fbsdklogin"; path = "../node_modules/react-native-fbsdklogin/react-native-fbsdklogin"; sourceTree = "<group>"; };
-		750C06501CC9DAF60054AA98 /* react-native-fbsdkshare */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "react-native-fbsdkshare"; path = "../node_modules/react-native-fbsdkshare/react-native-fbsdkshare"; sourceTree = "<group>"; };
+		750C06521CCC815F0054AA98 /* react-native-fbsdkcore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "react-native-fbsdkcore"; path = "../node_modules/react-native-fbsdkcore/react-native-fbsdkcore"; sourceTree = "<group>"; };
+		756220CB1CCC81BB00B97CD7 /* react-native-fbsdklogin */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "react-native-fbsdklogin"; path = "../node_modules/react-native-fbsdkcore/react-native-fbsdkcore/react-native-fbsdkshare/react-native-fbsdklogin"; sourceTree = "<group>"; };
+		756220D11CCC824100B97CD7 /* react-native-fbsdkshare */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "react-native-fbsdkshare"; path = "../node_modules/react-native-fbsdkshare/react-native-fbsdkshare"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		79C3950F1CC18D53008AAB49 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -258,10 +257,9 @@
 		13B07FAE1A68108700A75B9A /* inPhoodRN */ = {
 			isa = PBXGroup;
 			children = (
-				750C06501CC9DAF60054AA98 /* react-native-fbsdkshare */,
-				750C064E1CC9DAD00054AA98 /* react-native-fbsdklogin */,
-				750C064C1CC9DA970054AA98 /* react-native-fbsdkcore */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				756220D11CCC824100B97CD7 /* react-native-fbsdkshare */,
+				756220CB1CCC81BB00B97CD7 /* react-native-fbsdklogin */,
+				750C06521CCC815F0054AA98 /* react-native-fbsdkcore */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -568,10 +566,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				750C064F1CC9DAD00054AA98 /* react-native-fbsdklogin in Resources */,
-				750C064D1CC9DA970054AA98 /* react-native-fbsdkcore in Resources */,
-				750C06511CC9DAF60054AA98 /* react-native-fbsdkshare in Resources */,
+				756220D21CCC824100B97CD7 /* react-native-fbsdkshare in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				756220CC1CCC81BB00B97CD7 /* react-native-fbsdklogin in Resources */,
+				750C06531CCC815F0054AA98 /* react-native-fbsdkcore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
