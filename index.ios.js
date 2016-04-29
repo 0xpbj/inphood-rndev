@@ -5,7 +5,9 @@
 
 'use strict';
 
+const Firebase = require('firebase');
 var InPhoodNavigation = require('./InPhoodNavigation');
+var InPhoodFBLogin = require('./InPhoodFBLogin');
 
 import React, {
   AppRegistry,
@@ -22,8 +24,8 @@ class InPhoodApp extends React.Component {
       <React.NavigatorIOS
         style={styles.container}
         initialRoute={{
-          title: 'LandingPage',
-          component: InPhoodNavigation,
+          title: 'InPhood Login',
+          component: InPhoodFBLogin,
         }}
       />
     );

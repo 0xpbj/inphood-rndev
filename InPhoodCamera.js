@@ -5,6 +5,7 @@
 'use strict';
 
 var Camera = require("react-native-camera");
+var InPhoodCollage = require('./InPhoodCollage');
 
 import React, {
   AppRegistry,
@@ -16,9 +17,8 @@ import React, {
 } from 'react-native';
 
 class InPhoodCamera extends Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
     // From: https://facebook.github.io/react/docs/reusable-components.html#no-autobinding
     this._switchCamera = this._switchCamera.bind(this);
     this._takePicture = this._takePicture.bind(this);
@@ -37,13 +37,28 @@ class InPhoodCamera extends Component {
 
   _takePicture() {
     this.refs.cam.capture(function(err, data) {
-      console.log(err, data);
-    });
+      if (data) {
+        console.log("Camera Props");
+        console.log(this);
+        this.setState({data: data});
+        this.props.navigator.push({
+          title: 'Collage',
+          component: InPhoodCollage,
+          passProps: {
+                        userId: this.state.userId,
+                        data: this.state.data
+                     }
+        });
+      }
+      else {
+        alert('Camera Error!');
+      }
+    }.bind(this));
   }
 
   render() {
+    //console.log(this);
     return (
-
       <Camera
         ref="cam"
         style={styles.container}
@@ -52,24 +67,11 @@ class InPhoodCamera extends Component {
           <TouchableHighlight style={styles.button} onPress={this._switchCamera}>
             <Text style={styles.buttonText}>Flip</Text>
           </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={this._takePicture}>
+          <TouchableHighlight style={styles.button} onPress={this._takePicture.bind(this)}>
             <Text style={styles.buttonText}>Take</Text>
           </TouchableHighlight>
         </View>
       </Camera>
-/*
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-         inPhood! 
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>*/
     );
   }
 }

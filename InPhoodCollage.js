@@ -13,7 +13,12 @@ import React, {
 } from 'react-native';
 
 class InPhoodCollage extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
+    console.log("Collage Props");
+    console.log(this);
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>

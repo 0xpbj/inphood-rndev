@@ -9,12 +9,28 @@ import React, {
   View
 } from 'react-native';
 
+var InPhoodCamera = require('./InPhoodCamera');
+
 var FBSDKLogin = require('react-native-fbsdklogin');
-  var {
-    FBSDKLoginButton,
-  } = FBSDKLogin;
+var {
+  FBSDKLoginButton,
+} = FBSDKLogin;
+
+var FBSDKCore = require('react-native-fbsdkcore');
+var {
+  FBSDKAccessToken,
+  FBSDKProfile,
+} = FBSDKCore;
 
 class InPhoodFBLogin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userId: '',
+      data: '',
+      message: ''
+    };
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -22,11 +38,21 @@ class InPhoodFBLogin extends Component {
           onLoginFinished={(error, result) => {
             if (error) {
               alert('Error logging in.');
-            } else {
+            } 
+            else {
               if (result.isCanceled) {
                 alert('Login cancelled.');
               } else {
-                alert('Logged in.');
+                FBSDKAccessToken.getCurrentAccessToken((token) => {
+                  console.log(token);
+                  this.setState({userId: token.userId});
+                  console.log(this);
+                  this.props.navigator.push({
+                    title: 'Camera',
+                    component: InPhoodCamera,
+                    passProps: {userId: this.state.userId, data: ''}
+                  });
+                });
               }
             }
           }}
@@ -38,18 +64,6 @@ class InPhoodFBLogin extends Component {
     );
   }
 };
-
-// class InPhoodFBLogin extends Component {
-//   render() {
-//     return (
-//       <View style={styles.container}> 
-//         <Text style={styles.welcome}>
-//           Social Login Placeholder
-//         </Text>
-//       </View>
-//     );
-//   }
-// };
 
 const styles = StyleSheet.create({
   container: {
