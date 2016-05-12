@@ -49,7 +49,7 @@ class InPhoodCamera extends Component {
 
   render() {
     //console.log(this);
-    
+
     return (
       <Camera
         ref="cam"
@@ -57,7 +57,8 @@ class InPhoodCamera extends Component {
         type={this.state.cameraType}>
         <View style={styles.buttonBar}>
           <TouchableHighlight style={styles.shutter603X} onPress={this._takePicture.bind(this)}>
-            <Image source={require('./img/shutterInvert60@3x.png')} style={styles.shutter603X}/>
+            {/* Using Images:  https://facebook.github.io/react-native/docs/images.html -- density chosen automatically @2x vs. @3x */}
+            <Image source={require('./img/shutterInvert60.png')} style={styles.shutter30}/>
             {/*<Text style={styles.buttonText}>Take</Text>*/}
           </TouchableHighlight>
         </View>
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#FFFFFF"
   },
-  shutter603X: {
+  shutter30: {
     margin: 0,
     width: 30,
     height: 30,

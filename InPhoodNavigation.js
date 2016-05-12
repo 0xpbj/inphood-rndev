@@ -22,7 +22,7 @@ class InPhoodNavigation extends Component {
               https://github.com/skv-headless/react-native-scrollable-tab-view 
               https://github.com/skv-headless/react-native-scrollable-tab-view/wiki/Custom-tab-bar
       */ } 
-        <ScrollableTabView tabBarPosition="bottom" locked="true">
+        <ScrollableTabView tabBarPosition="bottom" locked={false}>
           <InPhoodFBLogin tabLabel="Social" />
           <InPhoodCamera tabLabel="Camera" />
           <InPhoodCollage tabLabel="Collage" />

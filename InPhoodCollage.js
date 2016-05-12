@@ -30,6 +30,7 @@ class FoodImage extends Component {
           https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSxyQ5UxODEz093JHQR9HE6o5JAA4V1YSoVliAcrr1bdS9L4vwu
        */
 
+    /* Using Images:  https://facebook.github.io/react-native/docs/images.html */
     return (
       <Image 
         style={styles.cellStyle}
@@ -58,7 +59,7 @@ class FoodImageList extends Component {
             <FoodImage />
             <FoodImage />
             <FoodImage />
-            
+
           </ScrollView>
         </View>
       </View>
