@@ -13,26 +13,17 @@ import React, {
   StyleSheet,
   Text,
   TouchableHighlight,
-  View
+  View,
+  Image
 } from 'react-native';
 
 class InPhoodCamera extends Component {
   constructor(props) {
     super(props);
     // From: https://facebook.github.io/react/docs/reusable-components.html#no-autobinding
-    this._switchCamera = this._switchCamera.bind(this);
     this._takePicture = this._takePicture.bind(this);
 
     this.state = {cameraType: Camera.constants.Type.back};
-  }
-
-  _switchCamera() {
-    this.state.cameraType = this.state.cameraType === Camera.constants.Type.back ? Camera.constants.Type.front : Camera.constants.Type.back;
-    this.setState(this.state);
-
-    console.log("In _switchCamera:");
-    console.log("%s", this.state.cameraType)
-
   }
 
   _takePicture() {
@@ -58,17 +49,16 @@ class InPhoodCamera extends Component {
 
   render() {
     //console.log(this);
+    
     return (
       <Camera
         ref="cam"
         style={styles.container}
         type={this.state.cameraType}>
         <View style={styles.buttonBar}>
-          <TouchableHighlight style={styles.button} onPress={this._switchCamera}>
-            <Text style={styles.buttonText}>Flip</Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.button} onPress={this._takePicture.bind(this)}>
-            <Text style={styles.buttonText}>Take</Text>
+          <TouchableHighlight style={styles.shutter603X} onPress={this._takePicture.bind(this)}>
+            <Image source={require('./img/shutterInvert60@3x.png')} style={styles.shutter603X}/>
+            {/*<Text style={styles.buttonText}>Take</Text>*/}
           </TouchableHighlight>
         </View>
       </Camera>
@@ -100,6 +90,12 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#FFFFFF"
+  },
+  shutter603X: {
+    margin: 0,
+    width: 30,
+    height: 30,
+    backgroundColor: 'black',
   }
 });
 

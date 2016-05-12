@@ -17,13 +17,27 @@ import React, {
 class InPhoodNavigation extends Component {
   render() {
     return (
-      <ScrollableTabView>
-        <InPhoodFBLogin tabLabel="Social" />
-        <InPhoodCamera tabLabel="Camera" />
-        <InPhoodCollage tabLabel="Collage" />
-      </ScrollableTabView>
+      <View style={styles.container}>
+      { /* Documented here: 
+              https://github.com/skv-headless/react-native-scrollable-tab-view 
+              https://github.com/skv-headless/react-native-scrollable-tab-view/wiki/Custom-tab-bar
+      */ } 
+        <ScrollableTabView tabBarPosition="bottom" locked="true">
+          <InPhoodFBLogin tabLabel="Social" />
+          <InPhoodCamera tabLabel="Camera" />
+          <InPhoodCollage tabLabel="Collage" />
+        </ScrollableTabView>
+      </View>
     );
   }
 };
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 20,
+  },
+});
 
 module.exports = InPhoodNavigation;
