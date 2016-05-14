@@ -36,32 +36,36 @@ class InPhoodFBLogin extends Component {
     return (
       <View style={styles.container}>
         <Image source={require('./img/LaunchRetina4.png')} style={styles.containerImage}>
-          <FBSDKLoginButton 
-            onLoginFinished={(error, result) => {
-              if (error) {
-                alert('Error logging in.');
-              } 
-              else {
-                if (result.isCanceled) {
-                  alert('Login cancelled.');
-                } else {
-                  FBSDKAccessToken.getCurrentAccessToken((token) => {
-                    console.log(token);
-                    this.setState({userId: token.userId});
-                    console.log(this);
-                    this.props.navigator.push({
-                      title: 'Camera',
-                      component: InPhoodCamera,
-                      passProps: {userId: this.state.userId, data: ''}
+          <View style={styles.flexThreeStyle}>
+          </View>
+          <View style={styles.flexOneStyle}>
+            <FBSDKLoginButton 
+              onLoginFinished={(error, result) => {
+                if (error) {
+                  alert('Error logging in.');
+                } 
+                else {
+                  if (result.isCanceled) {
+                    alert('Login cancelled.');
+                  } else {
+                    FBSDKAccessToken.getCurrentAccessToken((token) => {
+                      console.log(token);
+                      this.setState({userId: token.userId});
+                      console.log(this);
+                      this.props.navigator.push({
+                        title: 'Camera',
+                        component: InPhoodCamera,
+                        passProps: {userId: this.state.userId, data: ''}
+                      });
                     });
-                  });
+                  }
                 }
-              }
-            }}
-            onLogoutFinished={() => alert('Logged out.')}
-            readPermissions={[]}
-            publishPermissions={['publish_actions']}
-          />
+              }}
+              onLogoutFinished={() => alert('Logged out.')}
+              readPermissions={[]}
+              publishPermissions={['publish_actions']}
+            />
+          </View>
         </Image>
       </View>
     );
@@ -69,6 +73,12 @@ class InPhoodFBLogin extends Component {
 };
 
 const styles = StyleSheet.create({
+  flexThreeStyle: {
+    flex: 7,
+  },
+  flexOneStyle: {
+    flex: 1,
+  },
   facebookButtonStyle: {
     borderWidth: 1,
     borderColor: 'black',
