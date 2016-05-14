@@ -6,7 +6,8 @@ import React, {
   StyleSheet,
   Text,
   TouchableHighlight,
-  View
+  View,
+  Image
 } from 'react-native';
 
 var InPhoodCamera = require('./InPhoodCamera');
@@ -34,38 +35,53 @@ class InPhoodFBLogin extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <FBSDKLoginButton
-          onLoginFinished={(error, result) => {
-            if (error) {
-              alert('Error logging in.');
-            } 
-            else {
-              if (result.isCanceled) {
-                alert('Login cancelled.');
-              } else {
-                FBSDKAccessToken.getCurrentAccessToken((token) => {
-                  console.log(token);
-                  this.setState({userId: token.userId});
-                  console.log(this);
-                  this.props.navigator.push({
-                    title: 'Camera',
-                    component: InPhoodCamera,
-                    passProps: {userId: this.state.userId, data: ''}
+        <Image source={require('./img/LaunchRetina4.png')} style={styles.containerImage}>
+          <FBSDKLoginButton 
+            onLoginFinished={(error, result) => {
+              if (error) {
+                alert('Error logging in.');
+              } 
+              else {
+                if (result.isCanceled) {
+                  alert('Login cancelled.');
+                } else {
+                  FBSDKAccessToken.getCurrentAccessToken((token) => {
+                    console.log(token);
+                    this.setState({userId: token.userId});
+                    console.log(this);
+                    this.props.navigator.push({
+                      title: 'Camera',
+                      component: InPhoodCamera,
+                      passProps: {userId: this.state.userId, data: ''}
+                    });
                   });
-                });
+                }
               }
-            }
-          }}
-          onLogoutFinished={() => alert('Logged out.')}
-          readPermissions={[]}
-          publishPermissions={['publish_actions']}
-        />
+            }}
+            onLogoutFinished={() => alert('Logged out.')}
+            readPermissions={[]}
+            publishPermissions={['publish_actions']}
+          />
+        </Image>
       </View>
     );
   }
 };
 
 const styles = StyleSheet.create({
+  facebookButtonStyle: {
+    borderWidth: 1,
+    borderColor: 'black',
+    flex: 1,
+  },
+  containerImage: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 1136,
+    width: 640,
+    resizeMode: 'contain',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
