@@ -81,6 +81,7 @@ class InPhoodCollage extends Component {
     console.log(this);
     return (
       <View style={styles.collageContainer}>
+        
         <View style={styles.height20Style}>
         </View>
         <ScrollView horizontal={true} style={styles.flexStyle}>

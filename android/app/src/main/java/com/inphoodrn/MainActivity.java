@@ -1,6 +1,7 @@
 package com.inphoodrn;
 
 import com.facebook.react.ReactActivity;
+import com.oblador.vectoricons.VectorIconsPackage;
 import fr.bamlab.rncameraroll.CameraRollPackage;
 import com.lwansbrough.ReactCamera.ReactCamera;
 import com.facebook.react.ReactPackage;
@@ -37,6 +38,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new VectorIconsPackage(),
             new CameraRollPackage(),
             new ReactCamera()
         );
