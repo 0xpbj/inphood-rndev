@@ -2,10 +2,11 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  */
-'use strict';
+ /* @flow */
+
+ 'use strict';
 
 var Camera = require("react-native-camera");
-var InPhoodCollage = require('./InPhoodCollage');
 
 import React, {
   AppRegistry,
@@ -29,17 +30,9 @@ class InPhoodCamera extends Component {
   _takePicture() {
     this.refs.cam.capture(function(err, data) {
       if (data) {
-        console.log("Camera Props");
-        console.log(this);
-        this.setState({data: data});
-        this.props.navigator.push({
-          title: 'Collage',
-          component: InPhoodCollage,
-          passProps: {
-                        userId: this.state.userId,
-                        data: this.state.data
-                     }
-        });
+        this.props.onChange(
+          data,
+        );
       }
       else {
         alert('Camera Error!');
@@ -48,8 +41,6 @@ class InPhoodCamera extends Component {
   }
 
   render() {
-    //console.log(this);
-
     return (
       <Camera
         ref="cam"

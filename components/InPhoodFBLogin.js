@@ -1,3 +1,5 @@
+/* @flow */
+
 'use strict';
 
 import React, {
@@ -9,8 +11,6 @@ import React, {
   View,
   Image
 } from 'react-native';
-
-var InPhoodCamera = require('./InPhoodCamera');
 
 var FBSDKLogin = require('react-native-fbsdklogin');
 var {
@@ -24,13 +24,10 @@ var {
 } = FBSDKCore;
 
 class InPhoodFBLogin extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userId: '',
-      data: '',
-      message: ''
-    };
+  handleChange (token) {
+    this.props.onChange(
+      token,
+    );
   }
   render() {
     return (
@@ -39,25 +36,16 @@ class InPhoodFBLogin extends Component {
           <View style={styles.flexThreeStyle}>
           </View>
           <View style={styles.flexOneStyle}>
-            <FBSDKLoginButton 
+            <FBSDKLoginButton
               onLoginFinished={(error, result) => {
                 if (error) {
                   alert('Error logging in.');
-                } 
+                }
                 else {
                   if (result.isCanceled) {
                     alert('Login cancelled.');
                   } else {
-                    FBSDKAccessToken.getCurrentAccessToken((token) => {
-                      console.log(token);
-                      this.setState({userId: token.userId});
-                      console.log(this);
-                      this.props.navigator.push({
-                        title: 'Camera',
-                        component: InPhoodCamera,
-                        passProps: {userId: this.state.userId, data: ''}
-                      });
-                    });
+                    FBSDKAccessToken.getCurrentAccessToken((token) => this.handleChange(token));
                   }
                 }
               }}

@@ -1,9 +1,12 @@
+/* @flow */
+
 'use strict';
 
 var ScrollableTabView = require('react-native-scrollable-tab-view');
-var InPhoodCamera = require('./InPhoodCamera');
 var InPhoodFBLogin = require('./InPhoodFBLogin');
+var InPhoodCamera = require('./InPhoodCamera');
 var InPhoodCollage = require('./InPhoodCollage');
+var InPhoodEmailLogin = require('./InPhoodEmailLogin');
 
 import React, {
   AppRegistry,
@@ -18,30 +21,51 @@ import FacebookTabBar from './FacebookTabBar';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 class InPhoodNavigation extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      token: '',
+      image: '',
+    };
+  }
+  onUserLogin (token) {
+    this.setState({
+      token: token,
+    });
+  }
+  onCaptureImage (photo) {
+    this.setState({
+      image: photo,
+    });
+  }
   render() {
     return (
       <View style={styles.container}>
 
-      { /* Documented here: 
-              https://github.com/skv-headless/react-native-scrollable-tab-view 
+      { /* Documented here:
+              https://github.com/skv-headless/react-native-scrollable-tab-view
               https://github.com/skv-headless/react-native-scrollable-tab-view/wiki/Custom-tab-bar
-      */ } 
+      */ }
 
         <ScrollableTabView tabBarPosition="bottom" locked={false} renderTabBar={() => <FacebookTabBar /> }>
 
-          <InPhoodFBLogin 
-            tabLabel="ios-person-outline" 
+          <InPhoodFBLogin
+            tabLabel="ios-person-outline"
             style={styles.tabView}
+            onChange={this.onUserLogin.bind(this)}
           />
 
           <InPhoodCamera
             tabLabel="ios-camera-outline"
             style={styles.tabView}
+            onChange={this.onCaptureImage.bind(this)}
           />
 
           <InPhoodCollage
             tabLabel="ios-photos-outline"
             style={styles.tabView}
+            token={this.state.token}
+            image={this.state.image}
           />
 
         </ScrollableTabView>

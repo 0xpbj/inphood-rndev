@@ -2,7 +2,9 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  */
-'use strict';
+ /* @flow */
+
+ 'use strict';
 
 import React, {
   AppRegistry,
@@ -15,6 +17,7 @@ import React, {
 } from 'react-native';
 
 import CameraRoll from 'rn-camera-roll';
+const Firebase = require('firebase');
 
 class FoodImage extends Component {
   render() {
@@ -32,7 +35,7 @@ class FoodImage extends Component {
 
     /* Using Images:  https://facebook.github.io/react-native/docs/images.html */
     return (
-      <Image 
+      <Image
         style={styles.cellStyle}
         source={require('./img/exampleBanana.jpg')}
       />
@@ -68,7 +71,6 @@ class FoodImageList extends Component {
 }
 
 class InPhoodCollage extends Component {
-
   constructor(props) {
     super(props);
   }
@@ -81,7 +83,7 @@ class InPhoodCollage extends Component {
     console.log(this);
     return (
       <View style={styles.collageContainer}>
-        
+
         <View style={styles.height20Style}>
         </View>
         <ScrollView horizontal={true} style={styles.flexStyle}>
