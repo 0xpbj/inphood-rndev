@@ -7,6 +7,7 @@ var InPhoodFBLogin = require('./InPhoodFBLogin');
 var InPhoodCamera = require('./InPhoodCamera');
 var InPhoodCollage = require('./InPhoodCollage');
 var InPhoodEmailLogin = require('./InPhoodEmailLogin');
+// var InPhoodCaption = require('./InPhoodCaption');
 
 import React, {
   AppRegistry,
@@ -26,6 +27,9 @@ class InPhoodNavigation extends Component {
     this.state = {
       token: '',
       image: '',
+      caption: '',
+      client: false,
+      trainer: false,
     };
   }
   onUserLogin (token) {
@@ -36,6 +40,23 @@ class InPhoodNavigation extends Component {
   onCaptureImage (photo) {
     this.setState({
       image: photo,
+    });
+  }
+  onCaptionChange (caption) {
+    this.setState({
+      caption: caption,
+    });
+  }
+  onSelectClient(flag) {
+    this.setState({
+      client: true,
+      trainer: false
+    });
+  }
+  onSelectTrainer(flag) {
+    this.setState({
+      client: false,
+      trainer: true
     });
   }
   render() {
@@ -53,6 +74,10 @@ class InPhoodNavigation extends Component {
             tabLabel="ios-person-outline"
             style={styles.tabView}
             onChange={this.onUserLogin.bind(this)}
+            client={this.state.client}
+            trainer={this.state.trainer}
+            onSelectClient={this.onSelectClient.bind(this)}
+            onSelectTrainer={this.onSelectTrainer.bind(this)}
           />
 
           <InPhoodCamera
@@ -61,11 +86,18 @@ class InPhoodNavigation extends Component {
             onChange={this.onCaptureImage.bind(this)}
           />
 
+          {/*<InPhoodCaption
+            tabLabel="ios-message-outline"
+            style={styles.tabView}
+            onChange={this.onCaptionChange.bind(this)}
+          />*/}
+
           <InPhoodCollage
             tabLabel="ios-photos-outline"
             style={styles.tabView}
             token={this.state.token}
             image={this.state.image}
+            caption={this.state.caption}
           />
 
         </ScrollableTabView>

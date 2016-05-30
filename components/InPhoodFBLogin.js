@@ -12,6 +12,8 @@ import React, {
   Image
 } from 'react-native';
 
+var Button = require('./Button');
+
 var FBSDKLogin = require('react-native-fbsdklogin');
 var {
   FBSDKLoginButton,
@@ -34,6 +36,20 @@ class InPhoodFBLogin extends Component {
       <View style={styles.container}>
         <Image source={require('./img/LaunchRetina4.png')} style={styles.containerImage}>
           <View style={styles.flexThreeStyle}>
+          </View>
+          <View style={styles.flexTwoStyle}>
+            <Button
+              onPress={this.props.onSelectClient.bind(this)}
+              active={this.props.client}
+              style={styles.modalButton}>
+              Client
+            </Button>
+            <Button
+              onPress={this.props.onSelectTrainer.bind(this)}
+              active={this.props.trainer}
+              style={styles.modalButton}>
+              Trainer
+            </Button>
           </View>
           <View style={styles.flexOneStyle}>
             <FBSDKLoginButton
@@ -67,6 +83,10 @@ const styles = StyleSheet.create({
   flexOneStyle: {
     flex: 1,
   },
+  flexTwoStyle: {
+    flex: 2,
+    paddingBottom: 80,
+  },
   facebookButtonStyle: {
     borderWidth: 1,
     borderColor: 'black',
@@ -95,6 +115,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  modalButton: {
+    marginTop: 10,
   },
 });
 
