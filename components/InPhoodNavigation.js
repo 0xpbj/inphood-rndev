@@ -7,7 +7,7 @@ var InPhoodFBLogin = require('./InPhoodFBLogin');
 var InPhoodCamera = require('./InPhoodCamera');
 var InPhoodCollage = require('./InPhoodCollage');
 var InPhoodEmailLogin = require('./InPhoodEmailLogin');
-// var InPhoodCaption = require('./InPhoodCaption');
+var CameraRollExample = require('./CameraRollExample');
 
 import React, {
   AppRegistry,
@@ -86,19 +86,21 @@ class InPhoodNavigation extends Component {
             onChange={this.onCaptureImage.bind(this)}
           />
 
-          {/*<InPhoodCaption
-            tabLabel="ios-message-outline"
-            style={styles.tabView}
-            onChange={this.onCaptionChange.bind(this)}
-          />*/}
-
-          <InPhoodCollage
+          <CameraRollExample
             tabLabel="ios-photos-outline"
             style={styles.tabView}
             token={this.state.token}
             image={this.state.image}
             caption={this.state.caption}
           />
+
+          {/*<InPhoodCollage
+            tabLabel="ios-photos-outline"
+            style={styles.tabView}
+            token={this.state.token}
+            image={this.state.image}
+            caption={this.state.caption}
+          />*/}
 
         </ScrollableTabView>
       </View>
