@@ -16,6 +16,8 @@ const {
     NativeModules,
 } = React;
 
+var InPhoodImage = require('./InPhoodImage');
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -35,39 +37,44 @@ const styles = StyleSheet.create({
 });
 
 const CameraRollExample = React.createClass({
+    // https://thebhwgroup.com/blog/accessing-iphone-camera-roll-images-react-native
     getInitialState() {
-        return {
-            images: [],
-            selected: '',
-        };
+      return {
+        images: [],
+        selected: '',
+      };
     },
 
     componentDidMount() {
-        const fetchParams = {
-            first: 25,
-        };
-        CameraRoll.getPhotos(fetchParams, this.storeImages, this.logImageError);
+      const fetchParams = {
+        first: 25,
+      };
+      CameraRoll.getPhotos(fetchParams, this.storeImages, this.logImageError);
     },
 
     storeImages(data) {
-        const assets = data.edges;
-        const images = assets.map((asset) => asset.node.image);
-        this.setState({
-            images: images,
-        });
+      const assets = data.edges;
+      const images = assets.map((asset) => asset.node.image);
+      this.setState({
+        images: images,
+      });
     },
 
     logImageError(err) {
-        console.log(err);
+      console.log(err);
     },
 
     selectImage(uri) {
-        NativeModules.ReadImageData.readImage(uri, (image) => {
-            this.setState({
-                selected: image,
-            });
-            console.log(image);
+      NativeModules.ReadImageData.readImage(uri, (image) => {
+        this.setState({
+          selected: image,
         });
+      });
+      this.props.navigator.push({
+        title: 'PhoodImage',
+        component: InPhoodImage,
+        passProps: {image: uri}
+      });
     },
 
     render() {
