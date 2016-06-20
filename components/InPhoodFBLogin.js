@@ -37,7 +37,8 @@ class InPhoodFBLogin extends Component {
         <Image source={require('./img/LaunchRetina4.png')} style={styles.containerImage}>
           <View style={styles.flexThreeStyle}>
           </View>
-          <View style={styles.flexTwoStyle}>
+          {/*Commenting this out for now*/}
+          {/*<View style={styles.flexTwoStyle}>
             <Button
               onPress={this.props.onSelectClient.bind(this)}
               active={this.props.client}
@@ -50,7 +51,7 @@ class InPhoodFBLogin extends Component {
               style={styles.modalButton}>
               Trainer
             </Button>
-          </View>
+          </View>*/}
           <View style={styles.flexOneStyle}>
             <FBSDKLoginButton
               onLoginFinished={(error, result) => {

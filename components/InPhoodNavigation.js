@@ -15,7 +15,8 @@ import React, {
   StyleSheet,
   Text,
   TouchableHighlight,
-  View
+  View,
+  NavigatorIOS
 } from 'react-native';
 
 import FacebookTabBar from './FacebookTabBar';
@@ -60,6 +61,7 @@ class InPhoodNavigation extends Component {
     });
   }
   render() {
+    console.disableYellowBox = true;
     return (
       <View style={styles.container}>
 
@@ -86,13 +88,25 @@ class InPhoodNavigation extends Component {
             onChange={this.onCaptureImage.bind(this)}
           />
 
+          <NavigatorIOS
+            initialRoute={{
+              component: CameraRollExample,
+              title: 'Photo Library',
+              passProps: {
+                token: '',
+              },
+            }}
+            tabLabel="ios-photos-outline"
+            style={styles.tabView}
+          />
+{/*
           <CameraRollExample
             tabLabel="ios-photos-outline"
             style={styles.tabView}
             token={this.state.token}
             image={this.state.image}
             caption={this.state.caption}
-          />
+          />*/}
 
           {/*<InPhoodCollage
             tabLabel="ios-photos-outline"
