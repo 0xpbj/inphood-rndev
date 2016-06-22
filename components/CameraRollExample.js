@@ -70,11 +70,11 @@ const CameraRollExample = React.createClass({
           selected: image,
         });
       });
-      this.props.navigator.push({
-        title: 'PhoodImage',
-        component: InPhoodImage,
-        passProps: {image: uri}
-      });
+      // this.props.navigator.push({
+      //   title: 'PhoodImage',
+      //   component: InPhoodImage,
+      //   passProps: {image: uri}
+      // });
     },
 
     render() {

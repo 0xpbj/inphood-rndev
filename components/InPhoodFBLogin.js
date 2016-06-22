@@ -13,24 +13,74 @@ import React, {
 } from 'react-native';
 
 var Button = require('./Button');
+var InPhoodCamera = require('./InPhoodCamera');
 
-var FBSDKLogin = require('react-native-fbsdklogin');
-var {
-  FBSDKLoginButton,
-} = FBSDKLogin;
+const FBSDK = require('react-native-fbsdk');
+const {
+  GraphRequest,
+  GraphRequestManager,
+  LoginButton,
+  LoginManager,
+  AccessToken,
+  Profile,
+} = FBSDK;
 
-var FBSDKCore = require('react-native-fbsdkcore');
-var {
-  FBSDKAccessToken,
-  FBSDKProfile,
-} = FBSDKCore;
 
 class InPhoodFBLogin extends Component {
-  handleChange (token) {
+  constructor(props) {
+    super(props);
+    this.state = {
+      profile: '',
+    };
+    this._responseInfoCallback = this._responseInfoCallback.bind(this);
+  }
+
+  handleTokenChange (token) {
     this.props.onChange(
       token,
     );
   }
+
+  //Create response callback.
+  _responseInfoCallback(error: ?Object, result: ?Object) {
+    if (error) {
+      alert('Error fetching data: ' + error.toString());
+    }
+    else {
+      this.props.onProfileChange(
+        result,
+      );
+      this.setState({
+        profile: result.picture.data.url,
+      });
+    }
+  }
+
+  componentDidMount() {
+    AccessToken.getCurrentAccessToken()
+    .then(
+      (token) => {
+        this.handleTokenChange(token.accessToken.toString())
+        const infoRequest = new GraphRequest(
+          '/me?fields=id,first_name,last_name,name,picture.type(normal),email,gender,birthday',
+          null,
+          this._responseInfoCallback
+        );
+        // Start the graph request.
+        const graphManager = new GraphRequestManager();
+        graphManager.addRequest(infoRequest);
+        graphManager.start();
+        // this.props.navigator.push({
+        //   title: 'Camera',
+        //   component: InPhoodCamera,
+        //   passProps: {
+        //     onChange: this.props.onCameraChange,
+        //   }
+        // });
+      }
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -52,8 +102,19 @@ class InPhoodFBLogin extends Component {
               Trainer
             </Button>
           </View>*/}
+          <Image
+            source={{uri: this.state.profile}}
+            style={{
+              width: 60,
+              height: 60,
+              marginBottom: 10,
+              borderRadius: 30,
+              // backgroundColor: 'transparent',
+              // marginRight: 10,
+            }}
+          />
           <View style={styles.flexOneStyle}>
-            <FBSDKLoginButton
+            <LoginButton
               onLoginFinished={(error, result) => {
                 if (error) {
                   alert('Error logging in.');
@@ -62,12 +123,27 @@ class InPhoodFBLogin extends Component {
                   if (result.isCanceled) {
                     alert('Login cancelled.');
                   } else {
-                    FBSDKAccessToken.getCurrentAccessToken((token) => this.handleChange(token));
+                    AccessToken.getCurrentAccessToken()
+                    .then(
+                      (token) => {
+                        this.handleTokenChange(token.accessToken.toString())
+                        // Create a graph request asking for user information with a callback to handle the response.
+                        const infoRequest = new GraphRequest(
+                          '/me?fields=id,first_name,last_name,name,picture.type(normal),email,gender,birthday',
+                          null,
+                          this._responseInfoCallback
+                        );
+                        // Start the graph request.
+                        const graphManager = new GraphRequestManager();
+                        graphManager.addRequest(infoRequest);
+                        graphManager.start();
+                      }
+                    )
                   }
                 }
               }}
               onLogoutFinished={() => alert('Logged out.')}
-              readPermissions={[]}
+              readPermissions={["email", "user_friends", "user_birthday", "user_photos"]}
               publishPermissions={['publish_actions']}
             />
           </View>

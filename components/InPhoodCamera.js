@@ -7,6 +7,7 @@
  'use strict';
 
 var Camera = require("react-native-camera");
+var CameraRollExample = require('./CameraRollExample');
 
 import React, {
   AppRegistry,

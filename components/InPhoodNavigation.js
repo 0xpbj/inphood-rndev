@@ -27,15 +27,55 @@ class InPhoodNavigation extends Component {
     super(props);
     this.state = {
       token: '',
+      profile: '',
       image: '',
       caption: '',
       client: false,
       trainer: false,
     };
   }
+
+  propTypes: {
+    token: React.PropTypes.string.isRequired,
+    profile: React.PropTypes.object.isRequired,
+    image: React.PropTypes.object,
+    caption: React.PropTypes.string,
+    client: React.PropTypes.bool.isRequired,
+    trainer: React.PropTypes.bool.isRequired,
+  }
+
+  componentWillMount() {
+
+  }
+
+  componentDidMount() {
+
+  }
+
+  // shouldComponentUpdate (nextProps, nextState) {
+  //   return nextProps.id !== this.props.id;
+  // }
+
+  componentWillUpdate() {
+
+  }
+
+  componentDidUpdate() {
+
+  }
+
+  componentWillUnmount() {
+
+  }
+
   onUserLogin (token) {
     this.setState({
       token: token,
+    });
+  }
+  onProfile (data) {
+    this.setState({
+      profile: data,
     });
   }
   onCaptureImage (photo) {
@@ -60,6 +100,7 @@ class InPhoodNavigation extends Component {
       trainer: true
     });
   }
+
   render() {
     console.disableYellowBox = true;
     return (
@@ -76,6 +117,7 @@ class InPhoodNavigation extends Component {
             tabLabel="ios-person-outline"
             style={styles.tabView}
             onChange={this.onUserLogin.bind(this)}
+            onProfileChange={this.onProfile.bind(this)}
             client={this.state.client}
             trainer={this.state.trainer}
             onSelectClient={this.onSelectClient.bind(this)}
@@ -88,7 +130,12 @@ class InPhoodNavigation extends Component {
             onChange={this.onCaptureImage.bind(this)}
           />
 
-          <NavigatorIOS
+          <CameraRollExample
+            tabLabel="ios-photos-outline"
+            style={styles.tabView}
+          />
+
+          {/*<NavigatorIOS
             initialRoute={{
               component: CameraRollExample,
               title: 'Photo Library',
@@ -98,7 +145,7 @@ class InPhoodNavigation extends Component {
             }}
             tabLabel="ios-photos-outline"
             style={styles.tabView}
-          />
+          />*/}
 {/*
           <CameraRollExample
             tabLabel="ios-photos-outline"
