@@ -4,10 +4,7 @@
  */
  /* @flow */
 
- 'use strict';
-
-var Camera = require("react-native-camera");
-var CameraRollExample = require('./CameraRollExample');
+'use strict';
 
 import React, {
   AppRegistry,
@@ -18,6 +15,11 @@ import React, {
   View,
   Image
 } from 'react-native';
+
+import Icon from 'react-native-vector-icons/Ionicons';
+
+var Camera = require("react-native-camera");
+var InPhoodLibrary = require('./InPhoodLibrary');
 
 class InPhoodCamera extends Component {
   constructor(props) {
@@ -38,7 +40,7 @@ class InPhoodCamera extends Component {
         );
         this.props.navigator.push({
           title: 'Collage',
-          component: CameraRollExample,
+          component: InPhoodLibrary,
           passProps: {
             token: this.props.token,
             image: data,
@@ -59,7 +61,7 @@ class InPhoodCamera extends Component {
   _handleFwdPage() {
     this.props.navigator.push({
       title: 'Collage',
-      component: CameraRollExample,
+      component: InPhoodLibrary,
       passProps: {
         token: this.props.token,
         image: this.props.image,
@@ -75,15 +77,11 @@ class InPhoodCamera extends Component {
           style={styles.container}
           type={this.state.cameraType}>
           <TouchableHighlight onPress={this._handleBackPage}>
-            <View style={styles.buttonNavLeft}>
-              <Text style={styles.buttonTextNav}>Profile</Text>
-            </View>
+            <Icon name="ios-person" size={30} color="#4F8EF7" style={{marginRight: 240}}/>
           </TouchableHighlight>
           <TouchableHighlight onPress={this._handleFwdPage}>
-            <View style={styles.buttonNavRight}>
-              <Text style={styles.buttonTextNav}>Collage</Text>
-            </View>
-            </TouchableHighlight>
+            <Icon name="ios-photos" size={30} color="#4F8EF7" style={{marginLeft: 240}}/>
+          </TouchableHighlight>
           <View style={styles.buttonBar}>
             <TouchableHighlight style={styles.shutter603X} onPress={this._takePicture.bind(this)}>
               {/* Using Images:  https://facebook.github.io/react-native/docs/images.html -- density chosen automatically @2x vs. @3x */}
@@ -132,19 +130,6 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: 'black',
   },
-  buttonNavLeft: {
-    backgroundColor: "#009DDD",
-    justifyContent: 'flex-end',
-    marginRight: 240,
-  },
-  buttonNavRight: {
-    backgroundColor: "#009DDD",
-    justifyContent: 'flex-end',
-    marginLeft: 240,
-  },
-  buttonTextNav: {
-    color: "#fff"
-  }
 });
 
 module.exports = InPhoodCamera;

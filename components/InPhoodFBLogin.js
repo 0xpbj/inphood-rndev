@@ -12,6 +12,8 @@ import React, {
   Image
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/Ionicons';
+
 var Button = require('./Button');
 var InPhoodCamera = require('./InPhoodCamera');
 
@@ -24,7 +26,6 @@ const {
   AccessToken,
   Profile,
 } = FBSDK;
-
 
 class InPhoodFBLogin extends Component {
   constructor(props) {
@@ -111,9 +112,7 @@ class InPhoodFBLogin extends Component {
     return (
       <View style={styles.container}>
         <TouchableHighlight onPress={this._handleChangePage}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Camera</Text>
-          </View>
+          <Icon name="ios-camera" size={30} color="#4F8EF7" style={{marginLeft: 240}}/>
         </TouchableHighlight>
         <Image source={require('./img/LaunchRetina4.png')} style={styles.containerImage}>
           <View style={styles.flexThreeStyle}>
@@ -239,7 +238,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#fff"
-  }
+  },
 });
 
 module.exports = InPhoodFBLogin;

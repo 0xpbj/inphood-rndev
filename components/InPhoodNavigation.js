@@ -2,12 +2,7 @@
 
 'use strict';
 
-var ScrollableTabView = require('react-native-scrollable-tab-view');
 var InPhoodFBLogin = require('./InPhoodFBLogin');
-var InPhoodCamera = require('./InPhoodCamera');
-var InPhoodCollage = require('./InPhoodCollage');
-var InPhoodEmailLogin = require('./InPhoodEmailLogin');
-var CameraRollExample = require('./CameraRollExample');
 
 import React, {
   AppRegistry,
@@ -18,9 +13,6 @@ import React, {
   View,
   NavigatorIOS
 } from 'react-native';
-
-import FacebookTabBar from './FacebookTabBar';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 class InPhoodNavigation extends Component {
   constructor(props) {
@@ -132,56 +124,6 @@ class InPhoodNavigation extends Component {
     );
   }
 };
-          { /* Documented here:
-                  https://github.com/skv-headless/react-native-scrollable-tab-view
-                  https://github.com/skv-headless/react-native-scrollable-tab-view/wiki/Custom-tab-bar
-          */ }
-
-            {/*<ScrollableTabView tabBarPosition="bottom" locked={false} renderTabBar={() => <FacebookTabBar /> }>*/}
-
-{/*
-          <InPhoodCamera
-            tabLabel="ios-camera-outline"
-            style={styles.tabView}
-            onChange={this.onCaptureImage.bind(this)}
-          />
-
-          <CameraRollExample
-            tabLabel="ios-photos-outline"
-            style={styles.tabView}
-          />*/}
-
-          {/*<NavigatorIOS
-            initialRoute={{
-              component: CameraRollExample,
-              title: 'Photo Library',
-              passProps: {
-                token: '',
-              },
-            }}
-            tabLabel="ios-photos-outline"
-            style={styles.tabView}
-          />*/}
-{/*
-          <CameraRollExample
-            tabLabel="ios-photos-outline"
-            style={styles.tabView}
-            token={this.state.token}
-            image={this.state.image}
-            caption={this.state.caption}
-          />*/}
-
-          {/*<InPhoodCollage
-            tabLabel="ios-photos-outline"
-            style={styles.tabView}
-            token={this.state.token}
-            image={this.state.image}
-            caption={this.state.caption}
-          />*/}
-
-        {/*</ScrollableTabView>*/}
-
-
 
 const styles = StyleSheet.create({
   container: {

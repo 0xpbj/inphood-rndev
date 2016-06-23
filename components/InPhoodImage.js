@@ -14,9 +14,44 @@ import React, {
   TouchableHighlight
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/Ionicons';
 
-var fullImage = {uri: 'http://facebook.github.io/react/img/logo_og.png'};
-var smallImage = {uri: 'http://facebook.github.io/react/img/logo_small_2x.png'};
+class InPhoodImage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: '',
+    };
+    this._handleBackPage = this._handleBackPage.bind(this);
+  }
+  componentDidMount() {
+    const fetchParams = {
+        first: 25,
+    };
+  }
+  _handleBackPage() {
+    this.props.navigator.pop();
+  }
+  render() {
+    console.log(this.props);
+    return (
+      <View style={{ borderBottomColor: '#000000', borderBottomWidth: 1, }}>
+        <TouchableHighlight onPress={this._handleBackPage}>
+          <Icon name="ios-photos" size={30} color="#4F8EF7" style={{marginRight: 240}}/>
+        </TouchableHighlight>
+        <Image
+          style={styles.gif}
+          source={{uri: this.props.image}}
+        />
+        <TextInput
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(text) => this.setState({text})}
+          value={this.state.text}
+        />
+      </View>
+    );
+  }
+};
 
 var styles = StyleSheet.create({
   base: {
@@ -70,63 +105,6 @@ var styles = StyleSheet.create({
     height: 50,
     resizeMode: 'contain',
   },
-  buttonNavLeft: {
-    backgroundColor: "#009DDD",
-    justifyContent: 'flex-end',
-    marginRight: 240,
-  },
-  buttonNavRight: {
-    backgroundColor: "#009DDD",
-    justifyContent: 'flex-end',
-    marginLeft: 240,
-  },
-  buttonTextNav: {
-    color: "#fff"
-  }
 });
-
-class InPhoodImage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: '',
-    };
-    this._handleBackPage = this._handleBackPage.bind(this);
-  }
-  getInitialState() {
-    return {
-      text: '',
-    };
-  }
-  componentDidMount() {
-    const fetchParams = {
-        first: 25,
-    };
-  }
-  _handleBackPage() {
-    this.props.navigator.pop();
-  }
-  render() {
-    console.log(this.props);
-    return (
-      <View style={{ borderBottomColor: '#000000', borderBottomWidth: 1, }}>
-      <TouchableHighlight onPress={this._handleBackPage}>
-        <View style={styles.buttonNavLeft}>
-          <Text style={styles.buttonTextNav}>Collage</Text>
-        </View>
-        </TouchableHighlight>
-        <Image
-          style={styles.gif}
-          source={{uri: this.props.image}}
-        />
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(text) => this.setState({text})}
-          value={this.state.text}
-        />
-      </View>
-    );
-  }
-};
 
 module.exports = InPhoodImage;
