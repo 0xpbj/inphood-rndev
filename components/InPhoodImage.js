@@ -70,6 +70,19 @@ var styles = StyleSheet.create({
     height: 50,
     resizeMode: 'contain',
   },
+  buttonNavLeft: {
+    backgroundColor: "#009DDD",
+    justifyContent: 'flex-end',
+    marginRight: 240,
+  },
+  buttonNavRight: {
+    backgroundColor: "#009DDD",
+    justifyContent: 'flex-end',
+    marginLeft: 240,
+  },
+  buttonTextNav: {
+    color: "#fff"
+  }
 });
 
 class InPhoodImage extends Component {
@@ -78,6 +91,7 @@ class InPhoodImage extends Component {
     this.state = {
       text: '',
     };
+    this._handleBackPage = this._handleBackPage.bind(this);
   }
   getInitialState() {
     return {
@@ -89,10 +103,18 @@ class InPhoodImage extends Component {
         first: 25,
     };
   }
+  _handleBackPage() {
+    this.props.navigator.pop();
+  }
   render() {
     console.log(this.props);
     return (
       <View style={{ borderBottomColor: '#000000', borderBottomWidth: 1, }}>
+      <TouchableHighlight onPress={this._handleBackPage}>
+        <View style={styles.buttonNavLeft}>
+          <Text style={styles.buttonTextNav}>Collage</Text>
+        </View>
+        </TouchableHighlight>
         <Image
           style={styles.gif}
           source={{uri: this.props.image}}

@@ -33,12 +33,22 @@ class InPhoodFBLogin extends Component {
       profile: '',
     };
     this._responseInfoCallback = this._responseInfoCallback.bind(this);
+    this._handleChangePage = this._handleChangePage.bind(this);
   }
 
   handleTokenChange (token) {
     this.props.onChange(
       token,
     );
+  }
+
+  handleCleanup() {
+    this.props.onProfileChange(
+      '',
+    );
+    this.setState({
+      profile: '',
+    });
   }
 
   //Create response callback.
@@ -53,7 +63,30 @@ class InPhoodFBLogin extends Component {
       this.setState({
         profile: result.picture.data.url,
       });
+      this.props.navigator.push({
+        title: 'Camera',
+        component: InPhoodCamera,
+        passProps: {
+          onChange: this.props.onCameraChange,
+          token: this.props.token,
+          image: this.props.image,
+          caption: this.props.caption,
+        }
+      });
     }
+  }
+
+  _handleChangePage() {
+    this.props.navigator.push({
+      title: 'Camera',
+      component: InPhoodCamera,
+      passProps: {
+        onChange: this.props.onCameraChange,
+        token: this.props.token,
+        image: this.props.image,
+        caption: this.props.caption,
+      }
+    });
   }
 
   componentDidMount() {
@@ -70,13 +103,6 @@ class InPhoodFBLogin extends Component {
         const graphManager = new GraphRequestManager();
         graphManager.addRequest(infoRequest);
         graphManager.start();
-        // this.props.navigator.push({
-        //   title: 'Camera',
-        //   component: InPhoodCamera,
-        //   passProps: {
-        //     onChange: this.props.onCameraChange,
-        //   }
-        // });
       }
     );
   }
@@ -84,6 +110,11 @@ class InPhoodFBLogin extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <TouchableHighlight onPress={this._handleChangePage}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Camera</Text>
+          </View>
+        </TouchableHighlight>
         <Image source={require('./img/LaunchRetina4.png')} style={styles.containerImage}>
           <View style={styles.flexThreeStyle}>
           </View>
@@ -142,7 +173,12 @@ class InPhoodFBLogin extends Component {
                   }
                 }
               }}
-              onLogoutFinished={() => alert('Logged out.')}
+              onLogoutFinished={
+                () => {
+                  alert('Logged out.')
+                  this.handleCleanup()
+                }
+              }
               readPermissions={["email", "user_friends", "user_birthday", "user_photos"]}
               publishPermissions={['publish_actions']}
             />
@@ -196,6 +232,14 @@ const styles = StyleSheet.create({
   modalButton: {
     marginTop: 10,
   },
+  button: {
+    backgroundColor: "#009DDD",
+    justifyContent: 'flex-end',
+    marginLeft: 240,
+  },
+  buttonText: {
+    color: "#fff"
+  }
 });
 
 module.exports = InPhoodFBLogin;

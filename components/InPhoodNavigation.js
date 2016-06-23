@@ -32,6 +32,7 @@ class InPhoodNavigation extends Component {
       caption: '',
       client: false,
       trainer: false,
+      navBarHidden: true,
     };
   }
 
@@ -105,25 +106,40 @@ class InPhoodNavigation extends Component {
     console.disableYellowBox = true;
     return (
       <View style={styles.container}>
+        <NavigatorIOS
+          initialRoute={{
+            component: InPhoodFBLogin,
+            title: 'Login',
+            passProps: {
+              onChange: this.onUserLogin.bind(this),
+              onProfileChange: this.onProfile.bind(this),
+              client: this.state.client,
+              trainer: this.state.trainer,
+              onSelectClient: this.onSelectClient.bind(this),
+              onSelectTrainer: this.onSelectTrainer.bind(this),
+              navBarHidden: this.state.navBarHidden,
+              onCameraChange: this.onCaptureImage.bind(this),
+              token: this.state.token,
+              image: this.state.image,
+              caption: this.state.caption,
+            },
+          }}
+          tabLabel="ios-person-outline"
+          style={styles.tabView}
+          navigationBarHidden={this.state.navBarHidden}
+        />
+      </View>
+    );
+  }
+};
+          { /* Documented here:
+                  https://github.com/skv-headless/react-native-scrollable-tab-view
+                  https://github.com/skv-headless/react-native-scrollable-tab-view/wiki/Custom-tab-bar
+          */ }
 
-      { /* Documented here:
-              https://github.com/skv-headless/react-native-scrollable-tab-view
-              https://github.com/skv-headless/react-native-scrollable-tab-view/wiki/Custom-tab-bar
-      */ }
+            {/*<ScrollableTabView tabBarPosition="bottom" locked={false} renderTabBar={() => <FacebookTabBar /> }>*/}
 
-        <ScrollableTabView tabBarPosition="bottom" locked={false} renderTabBar={() => <FacebookTabBar /> }>
-
-          <InPhoodFBLogin
-            tabLabel="ios-person-outline"
-            style={styles.tabView}
-            onChange={this.onUserLogin.bind(this)}
-            onProfileChange={this.onProfile.bind(this)}
-            client={this.state.client}
-            trainer={this.state.trainer}
-            onSelectClient={this.onSelectClient.bind(this)}
-            onSelectTrainer={this.onSelectTrainer.bind(this)}
-          />
-
+{/*
           <InPhoodCamera
             tabLabel="ios-camera-outline"
             style={styles.tabView}
@@ -133,7 +149,7 @@ class InPhoodNavigation extends Component {
           <CameraRollExample
             tabLabel="ios-photos-outline"
             style={styles.tabView}
-          />
+          />*/}
 
           {/*<NavigatorIOS
             initialRoute={{
@@ -163,11 +179,8 @@ class InPhoodNavigation extends Component {
             caption={this.state.caption}
           />*/}
 
-        </ScrollableTabView>
-      </View>
-    );
-  }
-};
+        {/*</ScrollableTabView>*/}
+
 
 
 const styles = StyleSheet.create({

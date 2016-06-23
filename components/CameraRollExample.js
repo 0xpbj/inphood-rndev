@@ -33,6 +33,19 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         margin: 10,
+    },
+    buttonNavLeft: {
+      backgroundColor: "#009DDD",
+      justifyContent: 'flex-end',
+      marginRight: 240,
+    },
+    buttonNavRight: {
+      backgroundColor: "#009DDD",
+      justifyContent: 'flex-end',
+      marginLeft: 240,
+    },
+    buttonTextNav: {
+      color: "#fff"
     }
 });
 
@@ -70,16 +83,38 @@ const CameraRollExample = React.createClass({
           selected: image,
         });
       });
-      // this.props.navigator.push({
-      //   title: 'PhoodImage',
-      //   component: InPhoodImage,
-      //   passProps: {image: uri}
-      // });
+      this.props.navigator.push({
+        title: 'PhoodImage',
+        component: InPhoodImage,
+        passProps: {image: uri}
+      });
+    },
+
+    _handleBackPage() {
+      this.props.navigator.pop();
+    },
+
+    _handleFwdPage() {
+      this.props.navigator.push({
+        title: 'PhoodImage',
+        component: InPhoodImage,
+        passProps: {}
+      });
     },
 
     render() {
         return (
             <ScrollView style={styles.container}>
+              <TouchableHighlight onPress={this._handleBackPage.bind(this)}>
+                <View style={styles.buttonNavLeft}>
+                  <Text style={styles.buttonTextNav}>Camera</Text>
+                </View>
+              </TouchableHighlight>
+              <TouchableHighlight onPress={this._handleFwdPage.bind(this)}>
+              <View style={styles.buttonNavRight}>
+                <Text style={styles.buttonTextNav}>Image</Text>
+              </View>
+              </TouchableHighlight>
                 <View style={styles.imageGrid}>
                 { this.state.images.map((image) => {
                     return (
