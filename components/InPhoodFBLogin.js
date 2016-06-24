@@ -32,23 +32,31 @@ class InPhoodFBLogin extends Component {
     super(props);
     this.state = {
       profile: '',
+      token: '',
     };
     this._responseInfoCallback = this._responseInfoCallback.bind(this);
     this._handleChangePage = this._handleChangePage.bind(this);
   }
 
   handleTokenChange (token) {
-    this.props.onChange(
+    this.props.onLogin(
       token,
     );
+    this.setState({
+      token: token
+    });
   }
 
   handleCleanup() {
-    this.props.onProfileChange(
+    this.props.onProfile(
+      '',
+    );
+    this.props.onLogin(
       '',
     );
     this.setState({
       profile: '',
+      token: '',
     });
   }
 
@@ -58,7 +66,7 @@ class InPhoodFBLogin extends Component {
       alert('Error fetching data: ' + error.toString());
     }
     else {
-      this.props.onProfileChange(
+      this.props.onProfile(
         result,
       );
       this.setState({
@@ -68,8 +76,14 @@ class InPhoodFBLogin extends Component {
         title: 'Camera',
         component: InPhoodCamera,
         passProps: {
-          onChange: this.props.onCameraChange,
-          token: this.props.token,
+          onCaptureImage: this.props.onCaptureImage,
+          onSelectImage: this.props.onSelectImage,
+          onCaptionChange: this.props.onCaptionChange,
+          token: this.state.token,
+          profile: this.state.profile,
+          client: this.props.client,
+          trainer: this.props.trainer,
+          photo: this.props.photo,
           image: this.props.image,
           caption: this.props.caption,
         }
@@ -82,8 +96,14 @@ class InPhoodFBLogin extends Component {
       title: 'Camera',
       component: InPhoodCamera,
       passProps: {
-        onChange: this.props.onCameraChange,
-        token: this.props.token,
+        onCaptureImage: this.props.onCaptureImage,
+        onSelectImage: this.props.onSelectImage,
+        onCaptionChange: this.props.onCaptionChange,
+        token: this.state.token,
+        profile: this.state.profile,
+        client: this.props.client,
+        trainer: this.props.trainer,
+        photo: this.props.photo,
         image: this.props.image,
         caption: this.props.caption,
       }
@@ -112,26 +132,66 @@ class InPhoodFBLogin extends Component {
     return (
       <View style={styles.container}>
         <TouchableHighlight onPress={this._handleChangePage}>
-          <Icon name="ios-camera" size={30} color="#4F8EF7" style={{marginLeft: 240}}/>
+          <Icon
+            name="ios-camera"
+            size={30}
+            color="#4F8EF7"
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              left: 125,
+            }}
+          />
         </TouchableHighlight>
         <Image source={require('./img/LaunchRetina4.png')} style={styles.containerImage}>
           <View style={styles.flexThreeStyle}>
           </View>
-          {/*Commenting this out for now*/}
-          {/*<View style={styles.flexTwoStyle}>
-            <Button
+          <View
+            style={{
+              marginBottom: 10,
+              borderRadius: 30,
+              flexDirection: 'row',
+            }}
+          >
+            <TouchableHighlight
               onPress={this.props.onSelectClient.bind(this)}
-              active={this.props.client}
-              style={styles.modalButton}>
-              Client
-            </Button>
-            <Button
+              //underLayColor={
+              //  if (this.props.client) {
+              //    "#4F8EF7"
+              //  }
+              //  else {
+              //    "#FFFFF7"
+              //  }
+              //}
+            >
+              <Icon
+                name="ios-shirt"
+                size={30}
+                style={{
+                  alignItems: 'flex-end'
+                }}
+              />
+            </TouchableHighlight>
+            <TouchableHighlight
               onPress={this.props.onSelectTrainer.bind(this)}
-              active={this.props.trainer}
-              style={styles.modalButton}>
-              Trainer
-            </Button>
-          </View>*/}
+              //underLayColor={
+              //  if (this.props.trainer) {
+              //    "#4F8EF7"
+              //  }
+              //  else {
+              //    "#FFFFF7"
+              //  }
+              //}
+            >
+              <Icon
+                name="ios-clipboard"
+                size={30}
+                style={{
+                  alignItems: 'flex-start'
+                }}
+              />
+            </TouchableHighlight>
+          </View>
           <Image
             source={{uri: this.state.profile}}
             style={{
@@ -198,6 +258,7 @@ const styles = StyleSheet.create({
   flexTwoStyle: {
     flex: 2,
     paddingBottom: 80,
+    flexDirection: 'row',
   },
   facebookButtonStyle: {
     borderWidth: 1,

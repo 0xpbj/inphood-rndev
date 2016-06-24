@@ -25,7 +25,7 @@ class InPhoodLibrary extends Component {
     super(props);
     this.state = {
       images: [],
-      selected: '',
+      selected: "",
     };
     this.storeImages = this.storeImages.bind(this);
     this.selectImage = this.selectImage.bind(this);
@@ -62,13 +62,25 @@ class InPhoodLibrary extends Component {
   selectImage(uri) {
     NativeModules.ReadImageData.readImage(uri, (image) => {
       this.setState({
-        selected: image,
+        selected: uri,
       });
-    });
-    this.props.navigator.push({
-      title: 'PhoodImage',
-      component: InPhoodImage,
-      passProps: {image: uri}
+      this.props.onSelectImage(
+        image,
+      );
+      this.props.navigator.push({
+        title: 'PhoodImage',
+        component: InPhoodImage,
+        passProps: {
+          onCaptionChange: this.props.onCaptionChange,
+          token: this.props.token,
+          profile: this.props.profile,
+          client: this.props.client,
+          trainer: this.props.trainer,
+          photo: this.props.photo,
+          image: this.state.selected,
+          caption: this.props.caption,
+        }
+      });
     });
   }
 
@@ -80,29 +92,48 @@ class InPhoodLibrary extends Component {
     this.props.navigator.push({
       title: 'PhoodImage',
       component: InPhoodImage,
-      passProps: {}
+      passProps: {
+        onCaptionChange: this.props.onCaptionChange,
+        token: this.props.token,
+        profile: this.props.profile,
+        client: this.props.client,
+        trainer: this.props.trainer,
+        photo: this.props.photo,
+        image: this.state.selected,
+        caption: this.props.caption,
+      }
     });
   }
 
   render() {
     return (
       <ScrollView style={styles.container}>
-        <TouchableHighlight onPress={this._handleBackPage}>
-          <Icon name="ios-camera" size={30} color="#4F8EF7" style={{marginRight: 240}}/>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this._handleFwdPage}>
-          <Icon name="ios-paper" size={30} color="#4F8EF7" style={{marginLeft: 240}}/>
-        </TouchableHighlight>
-          <View style={styles.imageGrid}>
-          { this.state.images.map((image) => {
-            return (
-              <TouchableHighlight onPress={this.selectImage.bind(null, image.uri)}>
-                <Image style={styles.image} source={{ uri: image.uri }} />
-              </TouchableHighlight>
-            );
-            })
-          }
-          </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableHighlight onPress={this._handleBackPage}>
+            <Icon
+              name="ios-camera"
+              size={30}
+              color="#4F8EF7"
+            />
+          </TouchableHighlight>
+          <TouchableHighlight onPress={this._handleFwdPage}>
+            <Icon
+              name="ios-paper"
+              size={30}
+              color="#4F8EF7"
+            />
+          </TouchableHighlight>
+        </View>
+        <View style={styles.imageGrid}>
+        { this.state.images.map((image) => {
+          return (
+            <TouchableHighlight onPress={this.selectImage.bind(null, image.uri)}>
+              <Image style={styles.image} source={{ uri: image.uri }} />
+            </TouchableHighlight>
+          );
+          })
+        }
+        </View>
       </ScrollView>
     );
   }

@@ -15,58 +15,17 @@ import React, {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-var InPhoodData = require('./InPhoodData');
 
-class InPhoodImage extends Component {
+class InPhoodData extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      caption: '',
-    };
     this._handleBackPage = this._handleBackPage.bind(this);
-    this._handleFwdPage = this._handleFwdPage.bind(this);
-    this.updateText = this.updateText.bind(this);
   }
   componentDidMount() {
+    console.log(this)
   }
   _handleBackPage() {
     this.props.navigator.pop();
-  }
-  _handleFwdPage() {
-    this.props.navigator.push({
-      title: 'PhoodData',
-      component: InPhoodData,
-      passProps: {
-        token: this.props.token,
-        profile: this.props.profile,
-        client: this.props.client,
-        trainer: this.props.trainer,
-        photo: this.props.photo,
-        image: this.props.image,
-        caption: this.state.caption,
-      }
-    });
-  }
-  updateText(text) {
-    this.props.onCaptionChange(
-      text,
-    );
-    this.setState({
-      caption: text,
-    });
-    this.props.navigator.push({
-      title: 'PhoodData',
-      component: InPhoodData,
-      passProps: {
-        token: this.props.token,
-        profile: this.props.profile,
-        client: this.props.client,
-        trainer: this.props.trainer,
-        photo: this.props.photo,
-        image: this.props.selected,
-        caption: this.state.caption,
-      }
-    });
   }
   render() {
     return (
@@ -74,14 +33,7 @@ class InPhoodImage extends Component {
         <View style={{flexDirection: 'row'}}>
           <TouchableHighlight onPress={this._handleBackPage}>
             <Icon
-              name="ios-photos"
-              size={30}
-              color="#4F8EF7"
-            />
-          </TouchableHighlight>
-          <TouchableHighlight onPress={this._handleFwdPage}>
-            <Icon
-              name="ios-share"
+              name="ios-paper"
               size={30}
               color="#4F8EF7"
             />
@@ -91,13 +43,27 @@ class InPhoodImage extends Component {
           style={styles.gif}
           source={{uri: this.props.image}}
         />
-        <TextInput
-          autoCapitalize="none"
-          placeholder="Describe your meal"
-          returnKeyType="done"
-          onSubmitEditing={(event) => this.updateText(event.nativeEvent.text)}
-          style={styles.default}
+        <Image
+          source={{uri: this.props.profile}}
+          style={{
+            width: 60,
+            height: 60,
+            marginBottom: 10,
+            borderRadius: 30,
+            // backgroundColor: 'transparent',
+            // marginRight: 10,
+          }}
         />
+        <Text style={styles.baseText}>
+          DATA DUMP! {'\n'}
+          {/*Token: {this.props.token + '\n'}*/}
+          {/*Profile: {this.props.profile + '\n'}*/}
+          Client: {this.props.client + '\n'}
+          Trainer: {this.props.trainer + '\n'}
+          Photo: {this.props.photo + '\n'}
+          Image: {this.props.image + '\n'}
+          Caption: {this.props.caption + '\n'}
+        </Text>
       </View>
     );
   }
@@ -162,7 +128,13 @@ var styles = StyleSheet.create({
     flex: 1,
     height: 50,
     resizeMode: 'contain',
+  },  baseText: {
+    fontFamily: 'Cochin',
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 
-module.exports = InPhoodImage;
+module.exports = InPhoodData;

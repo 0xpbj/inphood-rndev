@@ -29,21 +29,33 @@ class InPhoodCamera extends Component {
     this._handleBackPage = this._handleBackPage.bind(this);
     this._handleFwdPage = this._handleFwdPage.bind(this);
 
-    this.state = {cameraType: Camera.constants.Type.back};
+    this.state = {
+      cameraType: Camera.constants.Type.back,
+      photo: '',
+    };
   }
 
   _takePicture() {
     this.refs.cam.capture(function(err, data) {
       if (data) {
-        this.props.onChange(
+        this.props.onCaptureImage(
           data,
         );
+        this.setState({
+          photo: data,
+        });
         this.props.navigator.push({
           title: 'Collage',
           component: InPhoodLibrary,
           passProps: {
+            onSelectImage: this.props.onSelectImage,
+            onCaptionChange: this.props.onCaptionChange,
             token: this.props.token,
-            image: data,
+            profile: this.props.profile,
+            client: this.props.client,
+            trainer: this.props.trainer,
+            photo: this.state.photo,
+            image: this.props.image,
             caption: this.props.caption,
           }
         });
@@ -63,7 +75,13 @@ class InPhoodCamera extends Component {
       title: 'Collage',
       component: InPhoodLibrary,
       passProps: {
+        onSelectImage: this.props.onSelectImage,
+        onCaptionChange: this.props.onCaptionChange,
         token: this.props.token,
+        profile: this.props.profile,
+        client: this.props.client,
+        trainer: this.props.trainer,
+        photo: this.state.photo,
         image: this.props.image,
         caption: this.props.caption,
       }

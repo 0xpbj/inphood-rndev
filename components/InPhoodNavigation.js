@@ -20,9 +20,10 @@ class InPhoodNavigation extends Component {
     this.state = {
       token: '',
       profile: '',
+      photo: '',
       image: '',
       caption: '',
-      client: false,
+      client: true,
       trainer: false,
       navBarHidden: true,
     };
@@ -31,6 +32,7 @@ class InPhoodNavigation extends Component {
   propTypes: {
     token: React.PropTypes.string.isRequired,
     profile: React.PropTypes.object.isRequired,
+    photo: React.PropTypes.object,
     image: React.PropTypes.object,
     caption: React.PropTypes.string,
     client: React.PropTypes.bool.isRequired,
@@ -61,20 +63,25 @@ class InPhoodNavigation extends Component {
 
   }
 
-  onUserLogin (token) {
+  onLogin (token) {
     this.setState({
       token: token,
     });
   }
-  onProfile (data) {
+  onProfile (profile) {
     this.setState({
-      profile: data,
+      profile: profile,
     });
   }
   onCaptureImage (photo) {
     this.setState({
-      image: photo,
+      photo: photo,
     });
+  }
+  onSelectImage (image) {
+    this.setState({
+      image: image,
+    })
   }
   onCaptionChange (caption) {
     this.setState({
@@ -103,15 +110,18 @@ class InPhoodNavigation extends Component {
             component: InPhoodFBLogin,
             title: 'Login',
             passProps: {
-              onChange: this.onUserLogin.bind(this),
-              onProfileChange: this.onProfile.bind(this),
-              client: this.state.client,
-              trainer: this.state.trainer,
+              onLogin: this.onLogin.bind(this),
+              onProfile: this.onProfile.bind(this),
               onSelectClient: this.onSelectClient.bind(this),
               onSelectTrainer: this.onSelectTrainer.bind(this),
-              navBarHidden: this.state.navBarHidden,
-              onCameraChange: this.onCaptureImage.bind(this),
+              onCaptureImage: this.onCaptureImage.bind(this),
+              onSelectImage: this.onSelectImage.bind(this),
+              onCaptionChange: this.onCaptionChange.bind(this),
               token: this.state.token,
+              profile: this.state.profile,
+              client: this.state.client,
+              trainer: this.state.trainer,
+              photo: this.state.photo,
               image: this.state.image,
               caption: this.state.caption,
             },
