@@ -15,7 +15,7 @@ import React, {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-var InPhoodData = require('./InPhoodData');
+var InPhoodUpload = require('./InPhoodUpload');
 
 class InPhoodImage extends Component {
   constructor(props) {
@@ -34,8 +34,8 @@ class InPhoodImage extends Component {
   }
   _handleFwdPage() {
     this.props.navigator.push({
-      title: 'PhoodData',
-      component: InPhoodData,
+      title: 'PhoodUpload',
+      component: InPhoodUpload,
       passProps: {
         token: this.props.token,
         profile: this.props.profile,
@@ -55,8 +55,8 @@ class InPhoodImage extends Component {
       caption: text,
     });
     this.props.navigator.push({
-      title: 'PhoodData',
-      component: InPhoodData,
+      title: 'PhoodUpload',
+      component: InPhoodUpload,
       passProps: {
         token: this.props.token,
         profile: this.props.profile,

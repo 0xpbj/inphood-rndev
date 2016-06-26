@@ -33,9 +33,83 @@ class InPhoodFBLogin extends Component {
     this.state = {
       profile: '',
       token: '',
+      client: false,
+      trainer: false,
     };
     this._responseInfoCallback = this._responseInfoCallback.bind(this);
     this._handleChangePage = this._handleChangePage.bind(this);
+    this.selectClient = this.selectClient.bind(this);
+    this.selectTrainer = this.selectTrainer.bind(this);
+  }
+
+  selectClient () {
+    AccessToken.getCurrentAccessToken()
+    .then(
+      (token) => {
+        if (!token) {
+          alert("Please Login")
+          console.log(token)
+        }
+        else {
+          this.props.onSelectClient();
+          this.setState({
+            client: true,
+            trainer: false,
+          });
+          this.props.navigator.push({
+            title: 'Camera',
+            component: InPhoodCamera,
+            passProps: {
+              onCaptureImage: this.props.onCaptureImage,
+              onSelectImage: this.props.onSelectImage,
+              onCaptionChange: this.props.onCaptionChange,
+              token: this.state.token,
+              profile: this.state.profile,
+              client: this.state.client,
+              trainer: this.state.trainer,
+              photo: this.props.photo,
+              image: this.props.image,
+              caption: this.props.caption,
+            }
+          });
+        }
+      }
+    );
+  }
+
+  selectTrainer () {
+    AccessToken.getCurrentAccessToken()
+    .then(
+      (token) => {
+        if (!token) {
+          alert("Please Login")
+          console.log(token)
+        }
+        else {
+          this.props.onSelectTrainer();
+          this.setState({
+            client: false,
+            trainer: true,
+          });
+          this.props.navigator.push({
+            title: 'Camera',
+            component: InPhoodCamera,
+            passProps: {
+              onCaptureImage: this.props.onCaptureImage,
+              onSelectImage: this.props.onSelectImage,
+              onCaptionChange: this.props.onCaptionChange,
+              token: this.state.token,
+              profile: this.state.profile,
+              client: this.state.client,
+              trainer: this.state.trainer,
+              photo: this.props.photo,
+              image: this.props.image,
+              caption: this.props.caption,
+            }
+          });
+        }
+      }
+    );
   }
 
   handleTokenChange (token) {
@@ -57,6 +131,8 @@ class InPhoodFBLogin extends Component {
     this.setState({
       profile: '',
       token: '',
+      client: false,
+      trainer: false,
     });
   }
 
@@ -72,6 +148,14 @@ class InPhoodFBLogin extends Component {
       this.setState({
         profile: result.picture.data.url,
       });
+    }
+  }
+
+  _handleChangePage() {
+    if (!this.state.client && !this.state.trainer) {
+      alert("Please pick account type!")
+    }
+    else {
       this.props.navigator.push({
         title: 'Camera',
         component: InPhoodCamera,
@@ -81,33 +165,14 @@ class InPhoodFBLogin extends Component {
           onCaptionChange: this.props.onCaptionChange,
           token: this.state.token,
           profile: this.state.profile,
-          client: this.props.client,
-          trainer: this.props.trainer,
+          client: this.state.client,
+          trainer: this.state.trainer,
           photo: this.props.photo,
           image: this.props.image,
           caption: this.props.caption,
         }
       });
     }
-  }
-
-  _handleChangePage() {
-    this.props.navigator.push({
-      title: 'Camera',
-      component: InPhoodCamera,
-      passProps: {
-        onCaptureImage: this.props.onCaptureImage,
-        onSelectImage: this.props.onSelectImage,
-        onCaptionChange: this.props.onCaptionChange,
-        token: this.state.token,
-        profile: this.state.profile,
-        client: this.props.client,
-        trainer: this.props.trainer,
-        photo: this.props.photo,
-        image: this.props.image,
-        caption: this.props.caption,
-      }
-    });
   }
 
   componentDidMount() {
@@ -154,7 +219,11 @@ class InPhoodFBLogin extends Component {
             }}
           >
             <TouchableHighlight
-              onPress={this.props.onSelectClient.bind(this)}
+              onPress={
+                () => {
+                  this.selectClient()
+                }
+              }
               //underLayColor={
               //  if (this.props.client) {
               //    "#4F8EF7"
@@ -173,7 +242,11 @@ class InPhoodFBLogin extends Component {
               />
             </TouchableHighlight>
             <TouchableHighlight
-              onPress={this.props.onSelectTrainer.bind(this)}
+              onPress={
+                () => {
+                  this.selectTrainer()
+                }
+              }
               //underLayColor={
               //  if (this.props.trainer) {
               //    "#4F8EF7"

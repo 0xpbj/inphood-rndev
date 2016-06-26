@@ -22,7 +22,7 @@ class InPhoodData extends Component {
     this._handleBackPage = this._handleBackPage.bind(this);
   }
   componentDidMount() {
-    console.log(this)
+    // console.log(this)
   }
   _handleBackPage() {
     this.props.navigator.pop();

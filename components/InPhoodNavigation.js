@@ -23,7 +23,7 @@ class InPhoodNavigation extends Component {
       photo: '',
       image: '',
       caption: '',
-      client: true,
+      client: false,
       trainer: false,
       navBarHidden: true,
     };
@@ -88,13 +88,13 @@ class InPhoodNavigation extends Component {
       caption: caption,
     });
   }
-  onSelectClient(flag) {
+  onSelectClient() {
     this.setState({
       client: true,
       trainer: false
     });
   }
-  onSelectTrainer(flag) {
+  onSelectTrainer() {
     this.setState({
       client: false,
       trainer: true
