@@ -60,8 +60,8 @@ class InPhoodData extends Component {
           {/*Profile: {this.props.profile + '\n'}*/}
           Client: {this.props.client + '\n'}
           Trainer: {this.props.trainer + '\n'}
-          Photo: {this.props.photo + '\n'}
-          Image: {this.props.image + '\n'}
+          {/*Photo: {this.props.photo + '\n'}*/}
+          {/*Image: {this.props.image + '\n'}*/}
           Caption: {this.props.caption + '\n'}
         </Text>
       </View>

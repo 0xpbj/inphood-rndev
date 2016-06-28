@@ -15,7 +15,8 @@ import React, {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-var InPhoodUpload = require('./InPhoodUpload');
+import { RNS3 } from 'react-native-aws3';
+var InPhoodData = require('./InPhoodData');
 
 class InPhoodImage extends Component {
   constructor(props) {
@@ -34,8 +35,8 @@ class InPhoodImage extends Component {
   }
   _handleFwdPage() {
     this.props.navigator.push({
-      title: 'PhoodUpload',
-      component: InPhoodUpload,
+      title: 'PhoodData',
+      component: InPhoodData,
       passProps: {
         token: this.props.token,
         profile: this.props.profile,
@@ -54,16 +55,64 @@ class InPhoodImage extends Component {
     this.setState({
       caption: text,
     });
+
+    let file = {
+      uri: this.props.photo,
+      type: 'image/jpeg',
+      name: 'image1.jpg',
+    }
+
+    // Access Key ID:
+    // AKIAJOFOQUG7CWPJKQLA
+    // Secret Access Key:
+    // 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
+
+    // CDN User:
+    // Access Key ID:
+    // AKIAI25XHNISG4KDDM3Q
+    // Secret Access Key:
+    // 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
+
+    let options = {
+      keyPrefix: "images/",
+      bucket: 'inphoodcdn',
+      region: 'us-west-1',
+      accessKey: "AKIAI25XHNISG4KDDM3Q",
+      secretKey: "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",
+      successActionStatus: 201
+    }
+
+    this.setState({ uploading: true, showUploadModal: true, });
+
+    RNS3.put(file, options)
+    .then(response => {
+      if (response.status !== 201) {
+        console.log(response);
+        throw new Error("Failed to upload image to S3");
+      }
+      /**
+       * {
+       *   postResponse: {
+       *     bucket: "your-bucket",
+       *     etag : "9f620878e06d28774406017480a59fd4",
+       *     key: "uploads/image.png",
+       *     location: "https://your-bucket.s3.amazonaws.com/uploads%2Fimage.png"
+       *   }
+       * }
+       */
+    })
+    .catch(err => console.log('Errors uploading: ' + err));
+
     this.props.navigator.push({
-      title: 'PhoodUpload',
-      component: InPhoodUpload,
+      title: 'PhoodData',
+      component: InPhoodData,
       passProps: {
         token: this.props.token,
         profile: this.props.profile,
         client: this.props.client,
         trainer: this.props.trainer,
         photo: this.props.photo,
-        image: this.props.selected,
+        image: this.props.image,
         caption: this.state.caption,
       }
     });
