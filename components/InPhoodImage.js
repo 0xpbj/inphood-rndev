@@ -82,14 +82,11 @@ class InPhoodImage extends Component {
       successActionStatus: 201
     }
 
-    this.setState({ uploading: true, showUploadModal: true, });
-
     RNS3.put(file, options)
     .then(response => {
-      if (response.status !== 201) {
-        console.log(response);
+      if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
-      }
+      console.log(response.body);
       /**
        * {
        *   postResponse: {
