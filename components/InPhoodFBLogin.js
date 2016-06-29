@@ -51,19 +51,18 @@ class InPhoodFBLogin extends Component {
           console.log(token)
         }
         else {
-          this.props.onSelectClient();
           this.setState({
             client: true,
             trainer: false,
           });
+            console.log('\n\n\n Login Data')
+            console.log(this.props)
           this.props.navigator.push({
             title: 'Camera',
             component: InPhoodCamera,
             passProps: {
-              onCaptureImage: this.props.onCaptureImage,
-              onSelectImage: this.props.onSelectImage,
-              onCaptionChange: this.props.onCaptionChange,
               token: this.state.token,
+              id: this.state.id,
               profile: this.state.profile,
               client: this.state.client,
               trainer: this.state.trainer,
@@ -86,19 +85,18 @@ class InPhoodFBLogin extends Component {
           console.log(token)
         }
         else {
-          this.props.onSelectTrainer();
           this.setState({
             client: false,
             trainer: true,
           });
+            console.log('\n\n\n Login Data')
+            console.log(this.props)
           this.props.navigator.push({
             title: 'Camera',
             component: InPhoodCamera,
             passProps: {
-              onCaptureImage: this.props.onCaptureImage,
-              onSelectImage: this.props.onSelectImage,
-              onCaptionChange: this.props.onCaptionChange,
               token: this.state.token,
+              id: this.state.id,
               profile: this.state.profile,
               client: this.state.client,
               trainer: this.state.trainer,
@@ -113,23 +111,15 @@ class InPhoodFBLogin extends Component {
   }
 
   handleTokenChange (token) {
-    this.props.onLogin(
-      token,
-    );
     this.setState({
       token: token
     });
   }
 
   handleCleanup() {
-    this.props.onProfile(
-      '',
-    );
-    this.props.onLogin(
-      '',
-    );
     this.setState({
       profile: '',
+      id: '',
       token: '',
       client: false,
       trainer: false,
@@ -142,11 +132,10 @@ class InPhoodFBLogin extends Component {
       alert('Error fetching data: ' + error.toString());
     }
     else {
-      this.props.onProfile(
-        result,
-      );
+    console.log(result);
       this.setState({
         profile: result.picture.data.url,
+        id: result.id
       });
     }
   }
@@ -164,6 +153,7 @@ class InPhoodFBLogin extends Component {
           onSelectImage: this.props.onSelectImage,
           onCaptionChange: this.props.onCaptionChange,
           token: this.state.token,
+          id: this.state.id,
           profile: this.state.profile,
           client: this.state.client,
           trainer: this.state.trainer,

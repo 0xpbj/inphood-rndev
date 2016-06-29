@@ -29,6 +29,8 @@ class InPhoodImage extends Component {
     this.updateText = this.updateText.bind(this);
   }
   componentDidMount() {
+    console.log('\n\n\n Image Data')
+  console.log(this.props)
   }
   _handleBackPage() {
     this.props.navigator.pop();
@@ -49,9 +51,6 @@ class InPhoodImage extends Component {
     });
   }
   updateText(text) {
-    this.props.onCaptionChange(
-      text,
-    );
     this.setState({
       caption: text,
     });
@@ -59,7 +58,7 @@ class InPhoodImage extends Component {
     let file = {
       uri: this.props.image,
       type: 'image/jpeg',
-      name: this.props.token + '/image' + Date.now() + '.jpg',
+      name: this.props.id + '/image' + Date.now() + '.jpg',
     }
 
     let options = {
