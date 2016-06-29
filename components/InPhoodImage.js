@@ -105,99 +105,99 @@ class InPhoodImage extends Component {
   }
   render() {
     return (
-      <View style={{ borderBottomColor: '#000000', borderBottomWidth: 1, }}>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableHighlight onPress={this._handleBackPage}>
-            <Icon
-              name="ios-photos"
-              size={30}
-              color="#4F8EF7"
+      <View style={styles.container}>
+
+        <View style={styles.threeQuarterHeightContainer}>
+
+          <View style={styles.borderStyle}>
+
+            <Image
+              style={styles.gif}
+              source={{uri: this.props.image}}
             />
-          </TouchableHighlight>
-          <TouchableHighlight onPress={this._handleFwdPage}>
-            <Icon
-              name="ios-share"
-              size={30}
-              color="#4F8EF7"
+
+            <TextInput
+              autoCapitalize="none"
+              placeholder="Describe your meal"
+              returnKeyType="done"
+              onSubmitEditing={(event) => this.updateText(event.nativeEvent.text)}
+              style={styles.default}
             />
-          </TouchableHighlight>
+
+          </View>
+
         </View>
-        <Image
-          style={styles.gif}
-          source={{uri: this.props.image}}
-        />
-        <TextInput
-          autoCapitalize="none"
-          placeholder="Describe your meal"
-          returnKeyType="done"
-          onSubmitEditing={(event) => this.updateText(event.nativeEvent.text)}
-          style={styles.default}
-        />
+
+        <View style={styles.quarterHeightContainer}>
+
+          {/*Placeholder to match buttonbar height in start/login page.*/}
+          <View style={{height:60}}/>
+
+          <View style={styles.buttonRowStyle}>
+
+            <TouchableHighlight onPress={this._handleBackPage}>
+              <Icon
+                name="ios-photos"
+                size={30}
+                color="#3b5998"
+                style={styles.marginStyle}
+              />
+            </TouchableHighlight>
+
+            <TouchableHighlight onPress={this._handleFwdPage}>
+              <Icon
+                name="ios-share"
+                size={30}
+                color="#3b5998"
+                style={styles.marginStyle}
+              />
+            </TouchableHighlight>
+
+          </View>
+
+        </View>
+
       </View>
     );
   }
 };
 
 var styles = StyleSheet.create({
-  base: {
-    width: 38,
-    height: 38,
+  borderStyle: {
+    borderBottomColor: '#3b5998',
+    borderBottomWidth: 1,
   },
-  default: {
-    height: 26,
-    borderWidth: 0.5,
-    borderColor: '#0f0f0f',
+  container: {
     flex: 1,
-    fontSize: 13,
-    padding: 4,
   },
-  progress: {
-    flex: 1,
+  threeQuarterHeightContainer: {
+    flex: 0.75,
+  },
+  quarterHeightContainer: {
+    flex: 0.25,
     alignItems: 'center',
+  },
+  buttonRowStyle: {
     flexDirection: 'row',
-    width: 100
+    justifyContent: 'space-around',
   },
-  leftMargin: {
-    marginLeft: 10,
-  },
-  background: {
-    backgroundColor: '#222222'
-  },
-  sectionText: {
-    marginVertical: 6,
-  },
-  nestedText: {
-    marginLeft: 12,
-    marginTop: 20,
-    backgroundColor: 'transparent',
-    color: 'white'
-  },
-  resizeMode: {
-    width: 90,
-    height: 60,
-    borderWidth: 0.5,
-    borderColor: 'black'
-  },
-  resizeModeText: {
-    fontSize: 11,
-    marginBottom: 3,
-  },
-  icon: {
-    width: 15,
-    height: 15,
-  },
-  horizontal: {
-    flexDirection: 'row',
+  marginStyle: {
+    margin: 5,
   },
   gif: {
     flex: 2,
     height: 200,
   },
-  base64: {
+  default: {
+    height: 26,
+    borderWidth: 0.5,
+    borderColor: '#3b5998',
     flex: 1,
-    height: 50,
-    resizeMode: 'contain',
+    fontSize: 13,
+    padding: 4,
   },
+
+
 });
 
 module.exports = InPhoodImage;

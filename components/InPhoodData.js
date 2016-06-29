@@ -29,111 +29,89 @@ class InPhoodData extends Component {
   }
   render() {
     return (
-      <View style={{ borderBottomColor: '#000000', borderBottomWidth: 1, }}>
-        <View style={{flexDirection: 'row'}}>
+      <View style={styles.container}>
+
+        <View style={styles.threeQuarterHeightContainer}>
+
+          <View style={styles.borderStyle}>
+
+            <Image
+              style={styles.gif}
+              source={{uri: this.props.image}}
+            />
+
+            <Text style={styles.baseText}>
+              DATA DUMP! {'\n'}
+              {/*Token: {this.props.token + '\n'}*/}
+              {/*Profile: {this.props.profile + '\n'}*/}
+              Client: {this.props.client + '\n'}
+              Trainer: {this.props.trainer + '\n'}
+              {/*Photo: {this.props.photo + '\n'}*/}
+              {/*Image: {this.props.image + '\n'}*/}
+              Caption: {this.props.caption + '\n'}
+            </Text>
+
+          </View>
+
+        </View>
+
+        <View style={styles.quarterHeightContainer}>
+
+          <Image
+            source={{uri: this.props.profile}}
+            style={{
+              width: 60,
+              height: 60,
+              marginBottom: 10,
+              borderRadius: 30,
+              // backgroundColor: 'transparent',
+              // marginRight: 10,
+            }}
+          />
+
           <TouchableHighlight onPress={this._handleBackPage}>
             <Icon
               name="ios-paper"
               size={30}
-              color="#4F8EF7"
+              color="#3b5998"
+              style={styles.marginStyle}
             />
           </TouchableHighlight>
+
         </View>
-        <Image
-          style={styles.gif}
-          source={{uri: this.props.image}}
-        />
-        <Image
-          source={{uri: this.props.profile}}
-          style={{
-            width: 60,
-            height: 60,
-            marginBottom: 10,
-            borderRadius: 30,
-            // backgroundColor: 'transparent',
-            // marginRight: 10,
-          }}
-        />
-        <Text style={styles.baseText}>
-          DATA DUMP! {'\n'}
-          {/*Token: {this.props.token + '\n'}*/}
-          {/*Profile: {this.props.profile + '\n'}*/}
-          Client: {this.props.client + '\n'}
-          Trainer: {this.props.trainer + '\n'}
-          {/*Photo: {this.props.photo + '\n'}*/}
-          {/*Image: {this.props.image + '\n'}*/}
-          Caption: {this.props.caption + '\n'}
-        </Text>
+
       </View>
     );
   }
 };
 
 var styles = StyleSheet.create({
-  base: {
-    width: 38,
-    height: 38,
-  },
-  default: {
-    height: 26,
-    borderWidth: 0.5,
-    borderColor: '#0f0f0f',
+  container: {
     flex: 1,
-    fontSize: 13,
-    padding: 4,
   },
-  progress: {
-    flex: 1,
+  threeQuarterHeightContainer: {
+    flex: 0.75,
+  },
+  quarterHeightContainer: {
+    flex: 0.25,
     alignItems: 'center',
-    flexDirection: 'row',
-    width: 100
   },
-  leftMargin: {
-    marginLeft: 10,
+  borderStyle: {
+    borderBottomColor: '#3b5998',
+    borderBottomWidth: 1,
   },
-  background: {
-    backgroundColor: '#222222'
-  },
-  sectionText: {
-    marginVertical: 6,
-  },
-  nestedText: {
-    marginLeft: 12,
-    marginTop: 20,
-    backgroundColor: 'transparent',
-    color: 'white'
-  },
-  resizeMode: {
-    width: 90,
-    height: 60,
-    borderWidth: 0.5,
-    borderColor: 'black'
-  },
-  resizeModeText: {
-    fontSize: 11,
-    marginBottom: 3,
-  },
-  icon: {
-    width: 15,
-    height: 15,
-  },
-  horizontal: {
-    flexDirection: 'row',
+  marginStyle: {
+    margin: 5,
   },
   gif: {
     flex: 2,
     height: 200,
   },
-  base64: {
-    flex: 1,
-    height: 50,
-    resizeMode: 'contain',
-  },  baseText: {
-    fontFamily: 'Cochin',
-  },
-  titleText: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  baseText: {
+    fontFamily: 'Helvetica',
+    borderWidth: 0.5,
+    borderColor: '#3b5998',
+    padding: 4
   },
 });
 
