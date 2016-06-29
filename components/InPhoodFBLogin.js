@@ -196,125 +196,90 @@ class InPhoodFBLogin extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight onPress={this._handleChangePage}>
-          <Icon
-            name="ios-camera"
-            size={30}
-            color="#4F8EF7"
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-              left: 125,
-            }}
-          />
-        </TouchableHighlight>
-        <Image source={require('./img/LaunchRetina4.png')} style={styles.containerImage}>
-          <View style={styles.flexThreeStyle}>
-          </View>
-          <View
-            style={{
-              marginBottom: 10,
-              borderRadius: 30,
-              flexDirection: 'row',
-            }}
-          >
-            <TouchableHighlight
-              onPress={
-                () => {
-                  this.selectClient()
-                }
-              }
-              //underLayColor={
-              //  if (this.props.client) {
-              //    "#4F8EF7"
-              //  }
-              //  else {
-              //    "#FFFFF7"
-              //  }
-              //}
-            >
-              <Icon
-                name="ios-shirt"
-                size={30}
-                style={{
-                  alignItems: 'flex-end'
-                }}
-              />
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={
-                () => {
-                  this.selectTrainer()
-                }
-              }
-              //underLayColor={
-              //  if (this.props.trainer) {
-              //    "#4F8EF7"
-              //  }
-              //  else {
-              //    "#FFFFF7"
-              //  }
-              //}
-            >
-              <Icon
-                name="ios-clipboard"
-                size={30}
-                style={{
-                  alignItems: 'flex-start'
-                }}
-              />
-            </TouchableHighlight>
-          </View>
-          <Image
-            source={{uri: this.state.profile}}
-            style={{
-              width: 60,
-              height: 60,
-              marginBottom: 10,
-              borderRadius: 30,
-              // backgroundColor: 'transparent',
-              // marginRight: 10,
-            }}
-          />
-          <View style={styles.flexOneStyle}>
-            <LoginButton
-              onLoginFinished={(error, result) => {
-                if (error) {
-                  alert('Error logging in.');
-                }
-                else {
-                  if (result.isCanceled) {
-                    alert('Login cancelled.');
-                  } else {
-                    AccessToken.getCurrentAccessToken()
-                    .then(
-                      (token) => {
-                        this.handleTokenChange(token.accessToken.toString())
-                        // Create a graph request asking for user information with a callback to handle the response.
-                        const infoRequest = new GraphRequest(
-                          '/me?fields=id,first_name,last_name,name,picture.type(normal),email,gender,birthday',
-                          null,
-                          this._responseInfoCallback
-                        );
-                        // Start the graph request.
-                        const graphManager = new GraphRequestManager();
-                        graphManager.addRequest(infoRequest);
-                        graphManager.start();
-                      }
-                    )
-                  }
-                }
-              }}
-              onLogoutFinished={
-                () => {
-                  alert('Logged out.')
-                  this.handleCleanup()
-                }
-              }
-              readPermissions={["email", "user_friends", "user_birthday", "user_photos"]}
-              publishPermissions={['publish_actions']}
+        <Image source={require('./img/LaunchRetina4_High.png')} style={styles.containerImage}>
+
+          <View style={styles.quarterHeightContainer}/>
+          <View style={styles.quarterHeightContainer}/>
+          <View style={styles.quarterHeightContainer}/>
+
+          <View style={styles.quarterHeightContainer}>
+            <Image
+              source={{uri: this.state.profile}}
+              style={styles.profileImage}
             />
+
+            <View style={styles.buttonRowStyle}>
+
+              <TouchableHighlight onPress={() => {this.selectClient()}}>
+                <Icon
+                  name="ios-shirt"
+                  size={30}
+                  color="#3b5998"
+                  style={styles.marginStyle}
+                />
+              </TouchableHighlight>
+
+              <TouchableHighlight onPress={() => {this.selectTrainer()}}>
+                <Icon
+                  name="ios-clipboard"
+                  size={30}
+                  color="#3b5998"
+                  style={styles.marginStyle}
+                />
+              </TouchableHighlight>
+
+              <View style={styles.marginStyle}>
+                <LoginButton
+                  onLoginFinished={(error, result) => {
+                    if (error) {
+                      alert('Error logging in.');
+                    }
+                    else {
+                      if (result.isCanceled) {
+                        alert('Login cancelled.');
+                      } else {
+                        AccessToken.getCurrentAccessToken()
+                        .then(
+                          (token) => {
+                            this.handleTokenChange(token.accessToken.toString())
+                            // Create a graph request asking for user information with a callback to handle the response.
+                            const infoRequest = new GraphRequest(
+                              '/me?fields=id,first_name,last_name,name,picture.type(normal),email,gender,birthday',
+                              null,
+                              this._responseInfoCallback
+                            );
+                            // Start the graph request.
+                            const graphManager = new GraphRequestManager();
+                            graphManager.addRequest(infoRequest);
+                            graphManager.start();
+                          }
+                        )
+                      }
+                    }
+                  }}
+                  onLogoutFinished={
+                    () => {
+                      alert('Logged out.')
+                      this.handleCleanup()
+                    }
+                  }
+                  readPermissions={["email", "user_friends", "user_birthday", "user_photos"]}
+                  publishPermissions={['publish_actions']}
+                />
+              </View>
+
+              <TouchableHighlight onPress={this._handleChangePage}>
+                <Icon
+                  name="ios-camera"
+                  size={30}
+                  color="#3b5998"
+                  style={styles.marginStyle}
+                />
+              </TouchableHighlight>
+
+            </View>
           </View>
+
         </Image>
       </View>
     );
@@ -322,57 +287,32 @@ class InPhoodFBLogin extends Component {
 };
 
 const styles = StyleSheet.create({
-  flexThreeStyle: {
-    flex: 7,
-  },
-  flexOneStyle: {
+  container: {
     flex: 1,
+    alignItems: 'center',
   },
-  flexTwoStyle: {
-    flex: 2,
-    paddingBottom: 80,
-    flexDirection: 'row',
-  },
-  facebookButtonStyle: {
-    borderWidth: 1,
-    borderColor: 'black',
-    flex: 1,
+  quarterHeightContainer: {
+    flex: 0.25,
+    alignItems: 'center',
   },
   containerImage: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 1136,
-    width: 640,
     resizeMode: 'contain',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  profileImage: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    // marginBottom: 10,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  buttonRowStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
-  modalButton: {
-    marginTop: 10,
-  },
-  button: {
-    backgroundColor: "#009DDD",
-    justifyContent: 'flex-end',
-    marginLeft: 240,
-  },
-  buttonText: {
-    color: "#fff"
-  },
+  marginStyle: {
+    margin: 5,
+  }
 });
 
 module.exports = InPhoodFBLogin;

@@ -107,34 +107,54 @@ class InPhoodLibrary extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableHighlight onPress={this._handleBackPage}>
-            <Icon
-              name="ios-camera"
-              size={30}
-              color="#4F8EF7"
-            />
-          </TouchableHighlight>
-          <TouchableHighlight onPress={this._handleFwdPage}>
-            <Icon
-              name="ios-paper"
-              size={30}
-              color="#4F8EF7"
-            />
-          </TouchableHighlight>
-        </View>
-        <View style={styles.imageGrid}>
-        { this.state.images.map((image) => {
-          return (
-            <TouchableHighlight onPress={this.selectImage.bind(null, image.uri)}>
-              <Image style={styles.image} source={{ uri: image.uri }} />
+      <View style={styles.container}>
+
+        <ScrollView style={styles.threeQuarterHeightContainer}>
+
+          <View style={styles.imageGrid}>
+          { this.state.images.map((image) => {
+            return (
+              <TouchableHighlight onPress={this.selectImage.bind(null, image.uri)}>
+                <Image style={styles.image} source={{ uri: image.uri }} />
+              </TouchableHighlight>
+            );
+            })
+          }
+          </View>
+
+        </ScrollView>
+
+
+        <View style={styles.quarterHeightContainer}>
+
+          {/*Placeholder to match buttonbar height in start/login page.*/}
+          <View style={{height:60}}/>
+
+          <View style={styles.buttonRowStyle}>
+
+            <TouchableHighlight onPress={this._handleBackPage}>
+              <Icon
+                name="ios-camera"
+                size={30}
+                color="#3b5998"
+                style={styles.marginStyle}
+              />
             </TouchableHighlight>
-          );
-          })
-        }
+
+            <TouchableHighlight onPress={this._handleFwdPage}>
+              <Icon
+                name="ios-paper"
+                size={30}
+                color="#3b5998"
+                style={styles.marginStyle}
+              />
+            </TouchableHighlight>
+
+          </View>
+
         </View>
-      </ScrollView>
+
+      </View>
     );
   }
 }
@@ -142,19 +162,34 @@ class InPhoodLibrary extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+  },
+  threeQuarterHeightContainer: {
+    flex: 0.75,
+  },
+  quarterHeightContainer: {
+    flex: 0.25,
+    alignItems: 'center',
+  },
+  buttonRowStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   imageGrid: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   image: {
     width: 100,
     height: 100,
     margin: 10,
+    borderWidth: 1,
+    borderColor: "#3b5998",
   },
+  marginStyle: {
+    margin: 5,
+  }
 });
 
 module.exports = InPhoodLibrary;

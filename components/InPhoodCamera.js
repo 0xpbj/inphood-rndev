@@ -94,18 +94,44 @@ class InPhoodCamera extends Component {
           ref="cam"
           style={styles.container}
           type={this.state.cameraType}>
-          <TouchableHighlight onPress={this._handleBackPage}>
-            <Icon name="ios-person" size={30} color="#4F8EF7" style={{marginRight: 240}}/>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={this._handleFwdPage}>
-            <Icon name="ios-photos" size={30} color="#4F8EF7" style={{marginLeft: 240}}/>
-          </TouchableHighlight>
-          <View style={styles.buttonBar}>
-            <TouchableHighlight style={styles.shutter603X} onPress={this._takePicture.bind(this)}>
-              {/* Using Images:  https://facebook.github.io/react-native/docs/images.html -- density chosen automatically @2x vs. @3x */}
-              <Image source={require('./img/shutterInvert60.png')} style={styles.shutter30}/>
-              {/*<Text style={styles.buttonText}>Take</Text>*/}
-            </TouchableHighlight>
+
+          <View style={styles.quarterHeightContainer}/>
+          <View style={styles.quarterHeightContainer}/>
+          <View style={styles.quarterHeightContainer}/>
+
+          <View style={styles.quarterHeightContainer}>
+
+            {/*Placeholder to match buttonbar height in start/login page.*/}
+            <View style={{height:60}}/>
+
+            <View style={styles.buttonRowStyle}>
+
+              <TouchableHighlight onPress={this._handleBackPage}>
+                <Icon
+                  name="ios-person"
+                  size={30}
+                  color="#3b5998"
+                  style={styles.marginStyle}
+                />
+              </TouchableHighlight>
+
+              <TouchableHighlight style={styles.shutter603X} onPress={this._takePicture.bind(this)}>
+                {/* Using Images:  https://facebook.github.io/react-native/docs/images.html -- density chosen automatically @2x vs. @3x */}
+                <Image source={require('./img/shutterInvert60.png')} style={styles.shutter30}/>
+                {/*<Text style={styles.buttonText}>Take</Text>*/}
+              </TouchableHighlight>
+
+              <TouchableHighlight onPress={this._handleFwdPage}>
+                <Icon
+                  name="ios-photos"
+                  size={30}
+                  color="#3b5998"
+                  style={styles.marginStyle}
+                />
+              </TouchableHighlight>
+
+            </View>
+
           </View>
         </Camera>
     );
@@ -113,41 +139,32 @@ class InPhoodCamera extends Component {
 }
 
 const styles = StyleSheet.create({
-  topButtons: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "transparent",
   },
-  buttonBar: {
-    flexDirection: "row",
-    position: "absolute",
-    bottom: 25,
-    right: 0,
-    left: 0,
-    justifyContent: "center"
+  quarterHeightContainer: {
+    flex: 0.25,
+    alignItems: 'center',
   },
-  button: {
-    padding: 10,
-    // color: "#FFFFFF",
-    borderWidth: 1,
-    borderColor: "#FFFFFF",
-    margin: 5
-  },
-  buttonText: {
-    color: "#FFFFFF"
+  buttonRowStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   shutter30: {
-    margin: 0,
+    marginTop: 5,
+    marginBottom: 5,
+    marginRight: 35,
+    marginLeft: 35,
     width: 30,
     height: 30,
     backgroundColor: 'black',
   },
+  marginStyle: {
+    margin: 5,
+  }
 });
 
 module.exports = InPhoodCamera;
