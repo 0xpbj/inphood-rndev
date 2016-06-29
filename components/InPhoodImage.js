@@ -75,8 +75,8 @@ class InPhoodImage extends Component {
 
     let options = {
       keyPrefix: "images/",
-      bucket: 'inphoodcdn',
-      region: 'us-west-1',
+      bucket: 'inphoodimagescdn',
+      region: 'us-west-2',
       accessKey: "AKIAI25XHNISG4KDDM3Q",
       secretKey: "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",
       successActionStatus: 201
