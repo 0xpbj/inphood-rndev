@@ -195,7 +195,10 @@ class InPhoodFBLogin extends Component {
                           {alignItems: 'flex-start'}
                         ]}>
 
-                <TouchableHighlight onPress={() => {this.selectClient()}}>
+                <TouchableHighlight
+                  onPress={() => {this.selectClient()}}
+                  underlayColor='white'
+                >
                   <Icon
                     name="ios-shirt"
                     size={30}
@@ -203,7 +206,10 @@ class InPhoodFBLogin extends Component {
                   />
                 </TouchableHighlight>
 
-                <TouchableHighlight onPress={() => {this.selectTrainer()}}>
+                <TouchableHighlight
+                  onPress={() => {this.selectTrainer()}}
+                  underlayColor='white'
+                >
                   <Icon
                     name="ios-clipboard"
                     size={30}
@@ -279,6 +285,7 @@ class InPhoodFBLogin extends Component {
 
               <TouchableHighlight
                 onPress={this._handleChangePage}
+                underlayColor='white'
               >
                 <Icon
                   name="ios-camera"

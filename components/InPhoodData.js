@@ -69,7 +69,10 @@ class InPhoodData extends Component {
             }}
           />
 
-          <TouchableHighlight onPress={this._handleBackPage}>
+          <TouchableHighlight
+            onPress={this._handleBackPage}
+            underlayColor='white'
+          >
             <Icon
               name="ios-paper"
               size={30}

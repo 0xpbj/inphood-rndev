@@ -111,7 +111,10 @@ class InPhoodLibrary extends Component {
           <View style={styles.imageGrid}>
           { this.state.images.map((image) => {
             return (
-              <TouchableHighlight onPress={this.selectImage.bind(null, image.uri)}>
+              <TouchableHighlight
+                onPress={this.selectImage.bind(null, image.uri)}
+                underlayColor='white'
+              >
                 <Image style={styles.image} source={{ uri: image.uri }} />
               </TouchableHighlight>
             );
@@ -129,7 +132,10 @@ class InPhoodLibrary extends Component {
 
           <View style={styles.buttonRowStyle}>
 
-            <TouchableHighlight onPress={this._handleBackPage}>
+            <TouchableHighlight
+              onPress={this._handleBackPage}
+              underlayColor='white'
+            >
               <Icon
                 name="ios-camera"
                 size={30}
@@ -138,7 +144,10 @@ class InPhoodLibrary extends Component {
               />
             </TouchableHighlight>
 
-            <TouchableHighlight onPress={this._handleFwdPage}>
+            <TouchableHighlight
+              onPress={this._handleFwdPage}
+              underlayColor='white'
+            >
               <Icon
                 name="ios-paper"
                 size={30}

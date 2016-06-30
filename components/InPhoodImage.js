@@ -134,7 +134,10 @@ class InPhoodImage extends Component {
 
           <View style={styles.buttonRowStyle}>
 
-            <TouchableHighlight onPress={this._handleBackPage}>
+            <TouchableHighlight
+              onPress={this._handleBackPage}
+              underlayColor='white'
+            >
               <Icon
                 name="ios-photos"
                 size={30}
@@ -143,7 +146,10 @@ class InPhoodImage extends Component {
               />
             </TouchableHighlight>
 
-            <TouchableHighlight onPress={this._handleFwdPage}>
+            <TouchableHighlight
+              onPress={this._handleFwdPage}
+              underlayColor='white'
+            >
               <Icon
                 name="ios-share"
                 size={30}
