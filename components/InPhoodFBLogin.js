@@ -198,9 +198,41 @@ class InPhoodFBLogin extends Component {
       <View style={styles.container}>
         <Image source={require('./img/LaunchRetina4_High.png')} style={styles.containerImage}>
 
+          <View style={styles.quarterHeightContainer}>
+            <View style={[
+                          {flexDirection: 'row'},
+                          {justifyContent: 'flex-start'},
+                          {alignItems: 'flex-start'}
+                        ]}>
+
+                <TouchableHighlight onPress={() => {this.selectClient()}}>
+                  <Icon
+                    name="ios-shirt"
+                    size={30}
+                    color="rgba(59,89,152,0.20)"
+                  />
+                </TouchableHighlight>
+
+                <TouchableHighlight onPress={() => {this.selectTrainer()}}>
+                  <Icon
+                    name="ios-clipboard"
+                    size={30}
+                    color="rgba(59,89,152,0.20)"
+                  />
+                </TouchableHighlight>
+
+                <View style={[
+                  {height: 30},
+                  {flex: 1}
+                ]}/>
+
+            </View>
+          </View>
+
+
           <View style={styles.quarterHeightContainer}/>
           <View style={styles.quarterHeightContainer}/>
-          <View style={styles.quarterHeightContainer}/>
+
 
           <View style={styles.quarterHeightContainer}>
             <Image
@@ -210,23 +242,10 @@ class InPhoodFBLogin extends Component {
 
             <View style={styles.buttonRowStyle}>
 
-              <TouchableHighlight onPress={() => {this.selectClient()}}>
-                <Icon
-                  name="ios-shirt"
-                  size={30}
-                  color="#3b5998"
-                  style={styles.marginStyle}
-                />
-              </TouchableHighlight>
-
-              <TouchableHighlight onPress={() => {this.selectTrainer()}}>
-                <Icon
-                  name="ios-clipboard"
-                  size={30}
-                  color="#3b5998"
-                  style={styles.marginStyle}
-                />
-              </TouchableHighlight>
+              <View style={[{height: 30},
+                            {width: 30},
+                            {margin: 5},
+                          ]}/>
 
               <View style={styles.marginStyle}>
                 <LoginButton
@@ -268,7 +287,9 @@ class InPhoodFBLogin extends Component {
                 />
               </View>
 
-              <TouchableHighlight onPress={this._handleChangePage}>
+              <TouchableHighlight
+                onPress={this._handleChangePage}
+              >
                 <Icon
                   name="ios-camera"
                   size={30}
@@ -278,6 +299,7 @@ class InPhoodFBLogin extends Component {
               </TouchableHighlight>
 
             </View>
+
           </View>
 
         </Image>
@@ -298,7 +320,6 @@ const styles = StyleSheet.create({
   containerImage: {
     flex: 1,
     resizeMode: 'contain',
-    alignItems: 'center',
   },
   profileImage: {
     width: 60,
@@ -309,10 +330,15 @@ const styles = StyleSheet.create({
   buttonRowStyle: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center'
+  },
+  buttonColumnStyle: {
+    flex: 1,
+    alignItems: 'center'
   },
   marginStyle: {
     margin: 5,
-  }
+  },
 });
 
 module.exports = InPhoodFBLogin;

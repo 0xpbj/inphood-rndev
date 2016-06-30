@@ -115,11 +115,14 @@ class InPhoodCamera extends Component {
                 />
               </TouchableHighlight>
 
-              <TouchableHighlight style={styles.shutter603X} onPress={this._takePicture.bind(this)}>
-                {/* Using Images:  https://facebook.github.io/react-native/docs/images.html -- density chosen automatically @2x vs. @3x */}
-                <Image source={require('./img/shutterInvert60.png')} style={styles.shutter30}/>
-                {/*<Text style={styles.buttonText}>Take</Text>*/}
-              </TouchableHighlight>
+              {/* Outer view is  circular shutter outline that is not animated as per Apple, by TouchableHighlight. */}
+              <View style={styles.shutterOuterViewStyle}>
+                <TouchableHighlight style={styles.shutterInnerViewStyle} onPress={this._takePicture.bind(this)}>
+                  {/*Empty view needed as child for TouchableHighlight ...*/}
+                  <View/>
+                </TouchableHighlight>
+              </View>
+
 
               <TouchableHighlight onPress={this._handleFwdPage}>
                 <Icon
@@ -153,17 +156,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  shutter30: {
+  marginStyle: {
+    margin: 5,
+  },
+  shutterInnerViewStyle: {
+    marginTop: 2.5,
+    width: 25,
+    height: 25,
+    borderRadius: 25,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#3b5998',
+  },
+  shutterOuterViewStyle: {
     marginTop: 5,
     marginBottom: 5,
     marginRight: 35,
     marginLeft: 35,
     width: 30,
     height: 30,
-    backgroundColor: 'black',
-  },
-  marginStyle: {
-    margin: 5,
+    borderRadius: 30,
+    backgroundColor: 'white',
+    alignItems: 'center',
   }
 });
 

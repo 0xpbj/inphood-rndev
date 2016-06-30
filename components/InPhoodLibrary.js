@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderWidth: 1,
     borderColor: "#3b5998",
+    borderRadius: 50,
   },
   marginStyle: {
     margin: 5,
