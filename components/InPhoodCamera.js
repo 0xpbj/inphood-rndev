@@ -38,19 +38,16 @@ class InPhoodCamera extends Component {
   _takePicture() {
     this.refs.cam.capture(function(err, data) {
       if (data) {
-        this.props.onCaptureImage(
-          data,
-        );
         this.setState({
           photo: data,
         });
+          console.log('\n\n\n Camera Data')
         this.props.navigator.push({
           title: 'Collage',
           component: InPhoodLibrary,
           passProps: {
-            onSelectImage: this.props.onSelectImage,
-            onCaptionChange: this.props.onCaptionChange,
             token: this.props.token,
+            id: this.props.id,
             profile: this.props.profile,
             client: this.props.client,
             trainer: this.props.trainer,
@@ -71,13 +68,13 @@ class InPhoodCamera extends Component {
   }
 
   _handleFwdPage() {
+    console.log('\n\n\n Camera Data')
     this.props.navigator.push({
       title: 'Collage',
       component: InPhoodLibrary,
       passProps: {
-        onSelectImage: this.props.onSelectImage,
-        onCaptionChange: this.props.onCaptionChange,
         token: this.props.token,
+        id: this.props.id,
         profile: this.props.profile,
         client: this.props.client,
         trainer: this.props.trainer,

@@ -20,6 +20,7 @@ class InPhoodNavigation extends Component {
     this.state = {
       token: '',
       profile: '',
+      id: '',
       photo: '',
       image: '',
       caption: '',
@@ -31,6 +32,7 @@ class InPhoodNavigation extends Component {
 
   propTypes: {
     token: React.PropTypes.string.isRequired,
+    id: React.PropTypes.string.isRequired,
     profile: React.PropTypes.object.isRequired,
     photo: React.PropTypes.object,
     image: React.PropTypes.object,
@@ -63,44 +65,6 @@ class InPhoodNavigation extends Component {
 
   }
 
-  onLogin (token) {
-    this.setState({
-      token: token,
-    });
-  }
-  onProfile (profile) {
-    this.setState({
-      profile: profile,
-    });
-  }
-  onCaptureImage (photo) {
-    this.setState({
-      photo: photo,
-    });
-  }
-  onSelectImage (image) {
-    this.setState({
-      image: image,
-    })
-  }
-  onCaptionChange (caption) {
-    this.setState({
-      caption: caption,
-    });
-  }
-  onSelectClient() {
-    this.setState({
-      client: true,
-      trainer: false
-    });
-  }
-  onSelectTrainer() {
-    this.setState({
-      client: false,
-      trainer: true
-    });
-  }
-
   render() {
     console.disableYellowBox = true;
     return (
@@ -110,14 +74,8 @@ class InPhoodNavigation extends Component {
             component: InPhoodFBLogin,
             title: 'Login',
             passProps: {
-              onLogin: this.onLogin.bind(this),
-              onProfile: this.onProfile.bind(this),
-              onSelectClient: this.onSelectClient.bind(this),
-              onSelectTrainer: this.onSelectTrainer.bind(this),
-              onCaptureImage: this.onCaptureImage.bind(this),
-              onSelectImage: this.onSelectImage.bind(this),
-              onCaptionChange: this.onCaptionChange.bind(this),
               token: this.state.token,
+              id: this.state.id,
               profile: this.state.profile,
               client: this.state.client,
               trainer: this.state.trainer,

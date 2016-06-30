@@ -64,15 +64,12 @@ class InPhoodLibrary extends Component {
       this.setState({
         selected: uri,
       });
-      this.props.onSelectImage(
-        image,
-      );
       this.props.navigator.push({
         title: 'PhoodImage',
         component: InPhoodImage,
         passProps: {
-          onCaptionChange: this.props.onCaptionChange,
           token: this.props.token,
+          id: this.props.id,
           profile: this.props.profile,
           client: this.props.client,
           trainer: this.props.trainer,
@@ -93,8 +90,8 @@ class InPhoodLibrary extends Component {
       title: 'PhoodImage',
       component: InPhoodImage,
       passProps: {
-        onCaptionChange: this.props.onCaptionChange,
         token: this.props.token,
+        id: this.props.id,
         profile: this.props.profile,
         client: this.props.client,
         trainer: this.props.trainer,

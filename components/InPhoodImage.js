@@ -29,6 +29,8 @@ class InPhoodImage extends Component {
     this.updateText = this.updateText.bind(this);
   }
   componentDidMount() {
+    console.log('\n\n\n Image Data')
+  console.log(this.props)
   }
   _handleBackPage() {
     this.props.navigator.pop();
@@ -49,29 +51,15 @@ class InPhoodImage extends Component {
     });
   }
   updateText(text) {
-    this.props.onCaptionChange(
-      text,
-    );
     this.setState({
       caption: text,
     });
 
     let file = {
-      uri: this.props.photo,
+      uri: this.props.image,
       type: 'image/jpeg',
-      name: 'image1.jpg',
+      name: this.props.id + '/image' + Date.now() + '.jpg',
     }
-
-    // Access Key ID:
-    // AKIAJOFOQUG7CWPJKQLA
-    // Secret Access Key:
-    // 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
-
-    // CDN User:
-    // Access Key ID:
-    // AKIAI25XHNISG4KDDM3Q
-    // Secret Access Key:
-    // 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
 
     let options = {
       keyPrefix: "images/",
@@ -86,7 +74,7 @@ class InPhoodImage extends Component {
     .then(response => {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
-      console.log(response.body);
+      // console.log(response.body);
       /**
        * {
        *   postResponse: {
