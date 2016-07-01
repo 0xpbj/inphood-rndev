@@ -41,14 +41,7 @@ class InPhoodData extends Component {
             />
 
             <Text style={styles.baseText}>
-              DATA DUMP! {'\n'}
-              {/*Token: {this.props.token + '\n'}*/}
-              {/*Profile: {this.props.profile + '\n'}*/}
-              Client: {this.props.client + '\n'}
-              Trainer: {this.props.trainer + '\n'}
-              {/*Photo: {this.props.photo + '\n'}*/}
-              {/*Image: {this.props.image + '\n'}*/}
-              Caption: {this.props.caption + '\n'}
+              Firebase Data Transmitted!
             </Text>
 
           </View>

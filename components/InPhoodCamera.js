@@ -41,7 +41,7 @@ class InPhoodCamera extends Component {
         this.setState({
           photo: data,
         });
-          console.log('\n\n\n Camera Data')
+          // console.log('\n\n\n Camera Data')
         this.props.navigator.push({
           title: 'Collage',
           component: InPhoodLibrary,
@@ -68,7 +68,7 @@ class InPhoodCamera extends Component {
   }
 
   _handleFwdPage() {
-    console.log('\n\n\n Camera Data')
+    // console.log('\n\n\n Camera Data')
     this.props.navigator.push({
       title: 'Collage',
       component: InPhoodLibrary,

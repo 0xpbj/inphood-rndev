@@ -17,24 +17,29 @@ import React, {
 import Icon from 'react-native-vector-icons/Ionicons';
 import { RNS3 } from 'react-native-aws3';
 var InPhoodData = require('./InPhoodData');
+const Firebase = require('firebase');
 
 class InPhoodImage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       caption: '',
+      imageName: '',
     };
     this._handleBackPage = this._handleBackPage.bind(this);
     this._handleFwdPage = this._handleFwdPage.bind(this);
     this.updateText = this.updateText.bind(this);
   }
+
   componentDidMount() {
-    console.log('\n\n\n Image Data')
-  console.log(this.props)
+    // console.log('\n\n\n Image Data')
+    // console.log(this.props)
   }
+
   _handleBackPage() {
     this.props.navigator.pop();
   }
+
   _handleFwdPage() {
     this.props.navigator.push({
       title: 'PhoodData',
@@ -47,22 +52,32 @@ class InPhoodImage extends Component {
         photo: this.props.photo,
         image: this.props.image,
         caption: this.state.caption,
+        imageName: this.state.imageName,
       }
     });
   }
+
   updateText(text) {
+    let text1 = text.toLowerCase();
     this.setState({
-      caption: text,
+      caption: text1,
     });
 
-    let file = {
+    let date = Date.now();
+    let file_name = this.props.id + '/images/' + date + '.jpg';
+
+    this.setState({
+      imageName: file_name,
+    });
+
+    let imgfile = {
       uri: this.props.image,
       type: 'image/jpeg',
-      name: this.props.id + '/image' + Date.now() + '.jpg',
+      name: file_name,
     }
 
     let options = {
-      keyPrefix: "images/",
+      keyPrefix: "data/",
       bucket: 'inphoodimagescdn',
       region: 'us-west-2',
       accessKey: "AKIAI25XHNISG4KDDM3Q",
@@ -70,7 +85,7 @@ class InPhoodImage extends Component {
       successActionStatus: 201
     }
 
-    RNS3.put(file, options)
+    RNS3.put(imgfile, options)
     .then(response => {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
@@ -88,6 +103,20 @@ class InPhoodImage extends Component {
     })
     .catch(err => console.log('Errors uploading: ' + err));
 
+    let firebaseUrl = 'https://shining-torch-3197.firebaseio.com/';
+    var myFirebaseRef = new Firebase(firebaseUrl);
+    let caption_array = text1.split(' ');
+    let fileNameRef = myFirebaseRef.child('file_name')
+    let captionRef = myFirebaseRef.child('caption_tags')
+    let fidRef = fileNameRef.child(this.props.id)
+    let cidRef = captionRef.child(this.props.id
+    fidRef.push({
+      file_name,
+    });
+    cidRef.push({
+      caption_array,
+    });
+
     this.props.navigator.push({
       title: 'PhoodData',
       component: InPhoodData,
@@ -99,9 +128,11 @@ class InPhoodImage extends Component {
         photo: this.props.photo,
         image: this.props.image,
         caption: this.state.caption,
+        imageName: this.state.imageName,
       }
     });
   }
+
   render() {
     return (
       <View style={styles.container}>

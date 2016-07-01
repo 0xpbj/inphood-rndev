@@ -48,15 +48,15 @@ class InPhoodFBLogin extends Component {
       (token) => {
         if (!token) {
           alert("Please Login")
-          console.log(token)
+          // console.log(token)
         }
         else {
           this.setState({
             client: true,
             trainer: false,
           });
-            console.log('\n\n\n Login Data')
-            console.log(this.props)
+            // console.log('\n\n\n Login Data')
+            // console.log(this.props)
           this.props.navigator.push({
             title: 'Camera',
             component: InPhoodCamera,
@@ -82,15 +82,15 @@ class InPhoodFBLogin extends Component {
       (token) => {
         if (!token) {
           alert("Please Login")
-          console.log(token)
+          // console.log(token)
         }
         else {
           this.setState({
             client: false,
             trainer: true,
           });
-            console.log('\n\n\n Login Data')
-            console.log(this.props)
+            // console.log('\n\n\n Login Data')
+            // console.log(this.props)
           this.props.navigator.push({
             title: 'Camera',
             component: InPhoodCamera,
@@ -132,7 +132,7 @@ class InPhoodFBLogin extends Component {
       alert('Error fetching data: ' + error.toString());
     }
     else {
-    console.log(result);
+    // console.log(result);
       this.setState({
         profile: result.picture.data.url,
         id: result.id
