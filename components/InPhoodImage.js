@@ -141,17 +141,17 @@ class InPhoodImage extends Component {
 
           <View style={styles.borderStyle}>
 
-            <Image
-              style={styles.image}
-              source={{uri: this.props.image}}
-            />
-
             <TextInput
               autoCapitalize="none"
               placeholder="Describe your meal"
               returnKeyType="done"
               onSubmitEditing={(event) => this.updateText(event.nativeEvent.text)}
               style={styles.textBarStyle}
+            />
+
+            <Image
+              style={styles.image}
+              source={{uri: this.props.image}}
             />
 
           </View>
@@ -215,10 +215,10 @@ var styles = StyleSheet.create({
   image: {
     flex: 1,
     // height: 200,
-    resizeMode: 'contain',
-    // borderWidth: 0.5,
-    // borderRadius: 5,
-    // borderColor: '#3b5998',
+    resizeMode: 'cover',
+    borderWidth: 0.5,
+    borderRadius: 5,
+    borderColor: '#3b5998',
     margin: 5,
     backgroundColor: 'black',
   },

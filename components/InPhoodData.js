@@ -35,11 +35,6 @@ class InPhoodData extends Component {
 
           <View style={styles.borderStyle}>
 
-            <Image
-              style={styles.image}
-              source={{uri: this.props.image}}
-            />
-
             {/*Horrible workaround for React bug (radius of border reveals
             current backgroundColor instead of parent backgroundColor: )*/}
             {/*<Text style={styles.textBarStyle}>
@@ -47,10 +42,15 @@ class InPhoodData extends Component {
             </Text>*/}
             <TextInput
               autoCapitalize="none"
-              placeholder="Firbase Data Transmitted!"
+              placeholder="Firebase Data Transmitted!"
               returnKeyType="done"
               style={styles.textBarStyle}
               editable="false"
+            />
+
+            <Image
+              style={styles.image}
+              source={{uri: this.props.image}}
             />
 
           </View>
@@ -107,10 +107,10 @@ var styles = StyleSheet.create({
   image: {
     flex: 1,
     // height: 200,
-    resizeMode: 'contain',
-    // borderWidth: 0.5,
-    // borderRadius: 5,
-    // borderColor: '#3b5998',
+    resizeMode: 'cover',
+    borderWidth: 0.5,
+    borderRadius: 5,
+    borderColor: '#3b5998',
     margin: 5,
     backgroundColor: 'black',
   },
