@@ -106,7 +106,7 @@ class InPhoodCamera extends Component {
               <TouchableHighlight onPress={this._handleBackPage}>
                 <Icon
                   name="ios-person"
-                  size={30}
+                  size={45}
                   color="#3b5998"
                   style={styles.marginStyle}
                 />
@@ -124,7 +124,7 @@ class InPhoodCamera extends Component {
               <TouchableHighlight onPress={this._handleFwdPage}>
                 <Icon
                   name="ios-photos"
-                  size={30}
+                  size={45}
                   color="#3b5998"
                   style={styles.marginStyle}
                 />

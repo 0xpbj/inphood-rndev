@@ -289,7 +289,7 @@ class InPhoodFBLogin extends Component {
               >
                 <Icon
                   name="ios-camera"
-                  size={30}
+                  size={45}
                   color="#3b5998"
                   style={styles.marginStyle}
                 />

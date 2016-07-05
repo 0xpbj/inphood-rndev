@@ -106,14 +106,14 @@ class InPhoodLibrary extends Component {
     return (
       <View style={styles.container}>
 
-        <ScrollView style={styles.threeQuarterHeightContainer}>
+        <ScrollView style={styles.largeContainer}>
 
           <View style={styles.imageGrid}>
           { this.state.images.map((image) => {
             return (
               <TouchableHighlight
                 onPress={this.selectImage.bind(null, image.uri)}
-                underlayColor='white'
+                underlayColor='black'
               >
                 <Image style={styles.image} source={{ uri: image.uri }} />
               </TouchableHighlight>
@@ -125,10 +125,10 @@ class InPhoodLibrary extends Component {
         </ScrollView>
 
 
-        <View style={styles.quarterHeightContainer}>
+        <View style={styles.smallContainer}>
 
           {/*Placeholder to match buttonbar height in start/login page.*/}
-          <View style={{height:60}}/>
+          {/*<View style={{height:60}}/>*/}
 
           <View style={styles.buttonRowStyle}>
 
@@ -138,7 +138,7 @@ class InPhoodLibrary extends Component {
             >
               <Icon
                 name="ios-camera"
-                size={30}
+                size={45}
                 color="#3b5998"
                 style={styles.marginStyle}
               />
@@ -150,7 +150,7 @@ class InPhoodLibrary extends Component {
             >
               <Icon
                 name="ios-paper"
-                size={30}
+                size={45}
                 color="#3b5998"
                 style={styles.marginStyle}
               />
@@ -169,11 +169,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  threeQuarterHeightContainer: {
-    flex: 0.75,
+  largeContainer: {
+    flex: 0.85,
+    borderColor: "#3b5998",
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: 'black',
   },
-  quarterHeightContainer: {
-    flex: 0.25,
+  smallContainer: {
+    flex: 0.15,
     alignItems: 'center',
   },
   buttonRowStyle: {
