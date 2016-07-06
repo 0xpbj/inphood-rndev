@@ -2,17 +2,10 @@
 
 'use strict';
 
-var InPhoodFBLogin = require('./InPhoodFBLogin');
+import React, { Component } from "react";
+import {AppRegistry, StyleSheet, Text, TouchableHighlight, View, NavigatorIOS} from "react-native";
 
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-  NavigatorIOS
-} from 'react-native';
+var InPhoodFBLogin = require('./InPhoodFBLogin');
 
 class InPhoodNavigation extends Component {
   constructor(props) {

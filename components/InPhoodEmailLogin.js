@@ -1,29 +1,21 @@
 /* @flow */
 
 'use strict';
+import React, {Component} from 'react';
+import {AppRegistry, Text, View, AsyncStorage, Navigator} from 'react-native';
 
-import React, {
-  AppRegistry,
-  Component,
-  Text,
-  View,
-  Navigator,
-  AsyncStorage
-} from 'react-native';
-
-import SignUp from './pages/SignUp';
-import Account from './pages/Account';
+import Signup from './Signup';
+import Account from './Account';
 
 import Header from './Header';
 
 import Firebase from 'firebase';
 
-let app = new Firebase("https://shining-torch-3197.firebaseio.com");
+let app = new Firebase("https://shining-torch-3197.firebaseio.com/");
 
 import styles from './styles/common-styles.js';
 
 class InPhoodEmailLogin extends Component {
-
   constructor(props){
     super(props);
     this.state = {
@@ -33,11 +25,9 @@ class InPhoodEmailLogin extends Component {
   }
 
   componentWillMount(){
-
     AsyncStorage.getItem('user_data').then((user_data_json) => {
-
       let user_data = JSON.parse(user_data_json);
-      let component = {component: SignUp};
+      let component = {component: Signup};
       if(user_data != null){
         app.authWithCustomToken(user_data.token, (error, authData) => {
           if(error){
@@ -50,11 +40,9 @@ class InPhoodEmailLogin extends Component {
         this.setState(component);
       }
     });
-
   }
-
+  
   render(){
-
     if(this.state.component){
       return (
         <Navigator
@@ -77,9 +65,7 @@ class InPhoodEmailLogin extends Component {
         </View>
       );
     }
-
   }
-
 }
 
 module.exports = InPhoodEmailLogin;

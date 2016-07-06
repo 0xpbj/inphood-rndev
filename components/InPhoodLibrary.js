@@ -2,18 +2,8 @@
 
 'use strict';
 
-import React, {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    ScrollView,
-    Image,
-    CameraRoll,
-    TouchableHighlight,
-    NativeModules,
-    Component
-} from 'react-native';
+import React, { Component } from "react";
+import {AppRegistry, StyleSheet, Text, TextInput, TouchableHighlight, View, Image, CameraRoll, NativeModules} from "react-native";
 
 import Icon from 'react-native-vector-icons/Ionicons';
 

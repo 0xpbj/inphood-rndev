@@ -6,19 +6,12 @@
 
 'use strict';
 
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-  Image
-} from 'react-native';
+import React, { Component } from "react";
+import {AppRegistry, StyleSheet, Text, TextInput, TouchableHighlight, View, Image} from "react-native";
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-var Camera = require("react-native-camera");
+import Camera from 'react-native-camera'
 var InPhoodLibrary = require('./InPhoodLibrary');
 
 class InPhoodCamera extends Component {

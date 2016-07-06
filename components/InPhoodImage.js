@@ -2,17 +2,8 @@
 
 'use strict';
 
-import React, {
-  Component,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  ScrollView,
-  Image,
-  NavigatorIOS,
-  TouchableHighlight
-} from 'react-native';
+import React, { Component } from "react";
+import {AppRegistry, StyleSheet, Text, TextInput, TouchableHighlight, View, Image} from "react-native";
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { RNS3 } from 'react-native-aws3';
@@ -64,7 +55,21 @@ class InPhoodImage extends Component {
     });
 
     let date = Date.now();
-    let file_name = this.props.id + '/images/' + date + '.jpg';
+    let firebaseUrl = 'https://shining-torch-3197.firebaseio.com/';
+    var myFirebaseRef = new Firebase(firebaseUrl);
+    let caption_array = text1.split(' ');
+
+    // let fileNameRef = myFirebaseRef.child('file_name')
+    // let captionRef = myFirebaseRef.child('caption_tags')
+    // let fidRef = fileNameRef.child(this.props.id)
+    // let cidRef = captionRef.child(this.props.id)
+    // let retFid = fidRef.push()
+    // let retCid = cidRef.push()
+
+    let path = 'data/' + this.props.id
+    let dataRef = myFirebaseRef.child(path)
+    let dataId = dataRef.push()
+    let file_name = this.props.id + '/' + dataId.path.u[2] + '.jpg';
 
     this.setState({
       imageName: file_name,
@@ -103,17 +108,15 @@ class InPhoodImage extends Component {
     })
     .catch(err => console.log('Errors uploading: ' + err));
 
-    let firebaseUrl = 'https://shining-torch-3197.firebaseio.com/';
-    var myFirebaseRef = new Firebase(firebaseUrl);
-    let caption_array = text1.split(' ');
-    let fileNameRef = myFirebaseRef.child('file_name')
-    let captionRef = myFirebaseRef.child('caption_tags')
-    let fidRef = fileNameRef.child(this.props.id)
-    let cidRef = captionRef.child(this.props.id
-    fidRef.push({
+    // retFid.set({
+    //   file_name,
+    // });
+    // retCid.set({
+    //   caption_array,
+    // });
+
+    dataId.set({
       file_name,
-    });
-    cidRef.push({
       caption_array,
     });
 

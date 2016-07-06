@@ -2,19 +2,11 @@
 
 'use strict';
 
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-  Image
-} from 'react-native';
+import React, { Component } from "react";
+import {AppRegistry, StyleSheet, Text, TouchableHighlight, View, Image} from "react-native";
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-var Button = require('./Button');
 var InPhoodCamera = require('./InPhoodCamera');
 
 const FBSDK = require('react-native-fbsdk');
@@ -27,87 +19,38 @@ const {
   Profile,
 } = FBSDK;
 
+var config = {
+    apiKey: "AIzaSyCDzrz6xKXMUqsirFLVyzXKQDR7zOlkZTA",
+    authDomain: "shining-torch-3197.firebaseapp.com",
+    databaseURL: "https://shining-torch-3197.firebaseio.com",
+    storageBucket: "shining-torch-3197.appspot.com",
+  };
+var firebase = require("firebase/app");
+  require("firebase/auth");
+  require("firebase/database");
+var provider = new firebase.auth.FacebookAuthProvider();
+provider.addScope('id');
+provider.addScope('first_name');
+provider.addScope('last_name');
+provider.addScope('name');
+provider.addScope('picture.type(normal)');
+provider.addScope('email');
+provider.addScope('gender');
+provider.addScope('birthday');
+
 class InPhoodFBLogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
       profile: '',
       token: '',
-      client: false,
-      trainer: false,
     };
     this._responseInfoCallback = this._responseInfoCallback.bind(this);
+    this._handleEmailLogin = this._handleEmailLogin.bind(this);
     this._handleChangePage = this._handleChangePage.bind(this);
-    this.selectClient = this.selectClient.bind(this);
-    this.selectTrainer = this.selectTrainer.bind(this);
-  }
-
-  selectClient () {
-    AccessToken.getCurrentAccessToken()
-    .then(
-      (token) => {
-        if (!token) {
-          alert("Please Login")
-          // console.log(token)
-        }
-        else {
-          this.setState({
-            client: true,
-            trainer: false,
-          });
-            // console.log('\n\n\n Login Data')
-            // console.log(this.props)
-          this.props.navigator.push({
-            title: 'Camera',
-            component: InPhoodCamera,
-            passProps: {
-              token: this.state.token,
-              id: this.state.id,
-              profile: this.state.profile,
-              client: this.state.client,
-              trainer: this.state.trainer,
-              photo: this.props.photo,
-              image: this.props.image,
-              caption: this.props.caption,
-            }
-          });
-        }
-      }
-    );
-  }
-
-  selectTrainer () {
-    AccessToken.getCurrentAccessToken()
-    .then(
-      (token) => {
-        if (!token) {
-          alert("Please Login")
-          // console.log(token)
-        }
-        else {
-          this.setState({
-            client: false,
-            trainer: true,
-          });
-            // console.log('\n\n\n Login Data')
-            // console.log(this.props)
-          this.props.navigator.push({
-            title: 'Camera',
-            component: InPhoodCamera,
-            passProps: {
-              token: this.state.token,
-              id: this.state.id,
-              profile: this.state.profile,
-              client: this.state.client,
-              trainer: this.state.trainer,
-              photo: this.props.photo,
-              image: this.props.image,
-              caption: this.props.caption,
-            }
-          });
-        }
-      }
-    );
+    this.handleCleanup = this.handleCleanup.bind(this);
+    this.handleTokenChange = this.handleTokenChange.bind(this);
+    // this.handleFirebaseLogin = this.handleFirebaseLogin.bind(this);
   }
 
   handleTokenChange (token) {
@@ -116,13 +59,61 @@ class InPhoodFBLogin extends Component {
     });
   }
 
+  // handleFirebaseLogin() {
+  //   console.log("Login Function")
+  //   firebase.auth().signInWithPopup(provider).then(function(result) {
+  //     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+  //     var token = result.credential.accessToken;
+  //     console.log(token);
+  //     // The signed-in user info.
+  //     var user = result.user;
+  //     console.log(user);
+  //     this.setState({
+  //       profile: result.picture.data.url,
+  //       id: result.id
+  //     });
+  //
+  //     this.props.navigator.push({
+  //       title: 'Camera',
+  //       component: InPhoodCamera,
+  //       passProps: {
+  //         onCaptureImage: this.props.onCaptureImage,
+  //         onSelectImage: this.props.onSelectImage,
+  //         onCaptionChange: this.props.onCaptionChange,
+  //         token: this.state.token,
+  //         id: this.state.id,
+  //         profile: this.state.profile,
+  //         client: true,
+  //         trainer: false,
+  //         photo: this.props.photo,
+  //         image: this.props.image,
+  //         caption: this.props.caption,
+  //       }
+  //     });
+  //   }).catch(function(error) {
+  //     // Handle Errors here.
+  //     console.log(error);
+  //     var errorCode = error.code;
+  //     var errorMessage = error.message;
+  //     // The email of the user's account used.
+  //     var email = error.email;
+  //     // The firebase.auth.AuthCredential type that was used.
+  //     var credential = error.credential;
+  //     // ...
+  //   });
+  // }
+
   handleCleanup() {
     this.setState({
       profile: '',
       id: '',
       token: '',
-      client: false,
-      trainer: false,
+    });
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      alert('Logged out.');
+    }, function(error) {
+      // An error happened.
     });
   }
 
@@ -132,19 +123,34 @@ class InPhoodFBLogin extends Component {
       alert('Error fetching data: ' + error.toString());
     }
     else {
-    // console.log(result);
+      //Create response callback.
+      var credential = firebase.auth.FacebookAuthProvider.credential(
+                    this.state.token);
+      console.log(credential)
+      firebase.auth().signInWithCredential(credential).catch(function(error) {
+        // Handle Errors here.
+        console.log('In error console');
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // [START_EXCLUDE]
+        if (errorCode === 'auth/account-exists-with-different-credential') {
+          alert('You have already signed up with a different auth provider for that email.');
+          // If you are using multiple auth providers on your app you should handle linking
+          // the user's accounts here.
+        } else {
+          console.error(error);
+        }
+        // [END_EXCLUDE]
+      });
       this.setState({
         profile: result.picture.data.url,
         id: result.id
       });
-    }
-  }
 
-  _handleChangePage() {
-    if (!this.state.client && !this.state.trainer) {
-      alert("Please pick account type!")
-    }
-    else {
       this.props.navigator.push({
         title: 'Camera',
         component: InPhoodCamera,
@@ -155,8 +161,8 @@ class InPhoodFBLogin extends Component {
           token: this.state.token,
           id: this.state.id,
           profile: this.state.profile,
-          client: this.state.client,
-          trainer: this.state.trainer,
+          client: true,
+          trainer: false,
           photo: this.props.photo,
           image: this.props.image,
           caption: this.props.caption,
@@ -165,7 +171,38 @@ class InPhoodFBLogin extends Component {
     }
   }
 
+  _handleEmailLogin() {
+    // firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+    //   // Handle Errors here.
+    //   console.log('Email errors: ' + error)
+    //   var errorCode = error.code;
+    //   var errorMessage = error.message;
+    //   // ...
+    // });
+  }
+
+  _handleChangePage() {
+    this.props.navigator.push({
+      title: 'Camera',
+      component: InPhoodCamera,
+      passProps: {
+        onCaptureImage: this.props.onCaptureImage,
+        onSelectImage: this.props.onSelectImage,
+        onCaptionChange: this.props.onCaptionChange,
+        token: this.state.token,
+        id: this.state.id,
+        profile: this.state.profile,
+        client: true,
+        trainer: false,
+        photo: this.props.photo,
+        image: this.props.image,
+        caption: this.props.caption,
+      }
+    });
+  }
+
   componentDidMount() {
+    firebase.initializeApp(config)
     AccessToken.getCurrentAccessToken()
     .then(
       (token) => {
@@ -186,50 +223,10 @@ class InPhoodFBLogin extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={require('./img/LaunchRetina4_High.png')} style={styles.containerImage}>
-
-          <View style={styles.quarterHeightContainer}>
-            <View style={[
-                          {flexDirection: 'row'},
-                          {justifyContent: 'flex-start'},
-                          {alignItems: 'flex-start'}
-                        ]}>
-
-                <TouchableHighlight
-                  onPress={() => {this.selectClient()}}
-                  underlayColor='white'
-                >
-                  <Icon
-                    name="ios-shirt"
-                    size={30}
-                    color="rgba(59,89,152,0.20)"
-                  />
-                </TouchableHighlight>
-
-                <TouchableHighlight
-                  onPress={() => {this.selectTrainer()}}
-                  underlayColor='white'
-                >
-                  <Icon
-                    name="ios-clipboard"
-                    size={30}
-                    color="rgba(59,89,152,0.20)"
-                  />
-                </TouchableHighlight>
-
-                <View style={[
-                  {height: 30},
-                  {flex: 1}
-                ]}/>
-
-            </View>
-          </View>
-
-
+        {/*<Image source={require('./img/LaunchRetina4_High.png')} style={styles.containerImage}>*/}
           <View style={styles.quarterHeightContainer}/>
           <View style={styles.quarterHeightContainer}/>
-
-
+          <View style={styles.quarterHeightContainer}/>
           <View style={styles.quarterHeightContainer}>
             <Image
               source={{uri: this.state.profile}}
@@ -242,45 +239,51 @@ class InPhoodFBLogin extends Component {
                             {width: 30},
                             {margin: 5},
                           ]}/>
+              <TouchableHighlight
+                onPress={this._handleEmailLogin}
+                underlayColor='white'
+              >
+                <Icon
+                  name="ios-mail"
+                  size={30}
+                  color="#3b5998"
+                  style={styles.marginStyle}
+                />
+              </TouchableHighlight>
 
               <View style={styles.marginStyle}>
-                <LoginButton
-                  onLoginFinished={(error, result) => {
-                    if (error) {
-                      alert('Error logging in.');
-                    }
-                    else {
-                      if (result.isCanceled) {
-                        alert('Login cancelled.');
-                      } else {
-                        AccessToken.getCurrentAccessToken()
-                        .then(
-                          (token) => {
-                            this.handleTokenChange(token.accessToken.toString())
-                            // Create a graph request asking for user information with a callback to handle the response.
-                            const infoRequest = new GraphRequest(
-                              '/me?fields=id,first_name,last_name,name,picture.type(normal),email,gender,birthday',
-                              null,
-                              this._responseInfoCallback
-                            );
-                            // Start the graph request.
-                            const graphManager = new GraphRequestManager();
-                            graphManager.addRequest(infoRequest);
-                            graphManager.start();
-                          }
-                        )
-                      }
-                    }
-                  }}
-                  onLogoutFinished={
-                    () => {
-                      alert('Logged out.')
-                      this.handleCleanup()
-                    }
-                  }
-                  readPermissions={["email", "user_friends", "user_birthday", "user_photos"]}
-                  publishPermissions={['publish_actions']}
-                />
+              <LoginButton
+               onLoginFinished={(error, result) => {
+                 if (error) {
+                   alert('Error logging in.');
+                 }
+                 else {
+                   if (result.isCanceled) {
+                     alert('Login cancelled.');
+                   } else {
+                     AccessToken.getCurrentAccessToken()
+                     .then(
+                       (token) => {
+                         this.handleTokenChange(token.accessToken.toString())
+                         // Create a graph request asking for user information with a callback to handle the response.
+                         const infoRequest = new GraphRequest(
+                           '/me?fields=id,first_name,last_name,name,picture.type(normal),email,gender,birthday',
+                           null,
+                           this._responseInfoCallback
+                         );
+                         // Start the graph request.
+                         const graphManager = new GraphRequestManager();
+                         graphManager.addRequest(infoRequest);
+                         graphManager.start();
+                       }
+                     )
+                   }
+                 }
+               }}
+                 onLogoutFinished={() => {this.handleCleanup()}}
+                 readPermissions={["email", "user_friends", "user_birthday", "user_photos"]}
+                 publishPermissions={['publish_actions']}
+               />
               </View>
 
               <TouchableHighlight
@@ -299,7 +302,7 @@ class InPhoodFBLogin extends Component {
 
           </View>
 
-        </Image>
+        {/*</Image>*/}
       </View>
     );
   }

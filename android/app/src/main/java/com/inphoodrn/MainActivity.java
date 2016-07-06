@@ -1,6 +1,7 @@
 package com.inphoodrn;
 
 import com.facebook.react.ReactActivity;
+import com.auth0.lock.react.LockReactPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import fr.bamlab.rncameraroll.CameraRollPackage;
@@ -39,6 +40,7 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new LockReactPackage(),
             new FBSDKPackage(),
             new VectorIconsPackage(),
             new CameraRollPackage(),

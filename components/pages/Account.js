@@ -2,15 +2,8 @@
 
 'use strict';
 
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  AsyncStorage
-} from 'react-native';
+import React, {Component} from 'react';
+import {AppRegistry, StyleSheet, Text, View, Image, AsyncStorage} from 'react-native';
 
 import Button from '../Button';
 import Header from '../Header';

@@ -6,7 +6,8 @@
 
 'use strict';
 
-import {AppRegistry, } from 'react-native';
+import React, { Component } from "react";
+import {AppRegistry} from "react-native";
 
 var InPhoodNavigation = require('./components/InPhoodNavigation');
 

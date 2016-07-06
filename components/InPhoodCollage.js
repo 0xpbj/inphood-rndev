@@ -6,15 +6,8 @@
 
  'use strict';
 
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView
-} from 'react-native';
+ import React, { Component } from "react";
+ import {AppRegistry, StyleSheet, Text, TextInput, TouchableHighlight, View, Image} from "react-native";
 
 import CameraRoll from 'rn-camera-roll';
 const Firebase = require('firebase');
