@@ -22,26 +22,35 @@ class InPhoodData extends Component {
     return (
       <View style={styles.container}>
 
-        <View style={styles.threeQuarterHeightContainer}>
+        <View style={styles.largeContainer}>
 
           <View style={styles.borderStyle}>
 
-            <Image
-              style={styles.gif}
-              source={{uri: this.props.image}}
+            {/*Horrible workaround for React bug (radius of border reveals
+            current backgroundColor instead of parent backgroundColor: )*/}
+            {/*<Text style={styles.textBarStyle}>
+              Firebase Data Transmitted!
+            </Text>*/}
+            <TextInput
+              autoCapitalize="none"
+              placeholder="Firebase Data Transmitted!"
+              returnKeyType="done"
+              style={styles.textBarStyle}
+              editable="false"
             />
 
-            <Text style={styles.baseText}>
-              Firebase Data Transmitted!
-            </Text>
+            <Image
+              style={styles.image}
+              source={{uri: this.props.image}}
+            />
 
           </View>
 
         </View>
 
-        <View style={styles.quarterHeightContainer}>
+        <View style={styles.smallContainer}>
 
-          <Image
+          {/*<Image
             source={{uri: this.props.profile}}
             style={{
               width: 60,
@@ -51,7 +60,7 @@ class InPhoodData extends Component {
               // backgroundColor: 'transparent',
               // marginRight: 10,
             }}
-          />
+          />*/}
 
           <TouchableHighlight
             onPress={this._handleBackPage}
@@ -59,7 +68,7 @@ class InPhoodData extends Component {
           >
             <Icon
               name="ios-paper"
-              size={30}
+              size={45}
               color="#3b5998"
               style={styles.marginStyle}
             />
@@ -76,29 +85,45 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  threeQuarterHeightContainer: {
-    flex: 0.75,
-  },
-  quarterHeightContainer: {
-    flex: 0.25,
-    alignItems: 'center',
+  largeContainer: {
+    flex: 0.85,
   },
   borderStyle: {
-    borderBottomColor: '#3b5998',
-    borderBottomWidth: 1,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#3b5998',
+    flex: 1,
+    backgroundColor: 'black'
+  },
+  image: {
+    flex: 1,
+    // height: 200,
+    resizeMode: 'cover',
+    borderWidth: 0.5,
+    borderRadius: 5,
+    borderColor: '#3b5998',
+    margin: 5,
+    backgroundColor: 'black',
+  },
+  textBarStyle: {
+    fontFamily: 'Helvetica',
+    height: 26,
+    borderWidth: 0.5,
+    borderRadius: 5,
+    borderColor: '#3b5998',
+    backgroundColor: 'white',
+    // flex: 1,
+    fontSize: 13,
+    padding: 4,
+    margin: 5,
+  },
+
+  smallContainer: {
+    flex: 0.15,
+    alignItems: 'center',
   },
   marginStyle: {
     margin: 5,
-  },
-  gif: {
-    flex: 2,
-    height: 200,
-  },
-  baseText: {
-    fontFamily: 'Helvetica',
-    borderWidth: 0.5,
-    borderColor: '#3b5998',
-    padding: 4
   },
 });
 
