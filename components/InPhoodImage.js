@@ -8,7 +8,6 @@ import {AppRegistry, StyleSheet, Text, TextInput, TouchableHighlight, View, Imag
 import Icon from 'react-native-vector-icons/Ionicons';
 import { RNS3 } from 'react-native-aws3';
 var InPhoodData = require('./InPhoodData');
-const Firebase = require('firebase');
 
 class InPhoodImage extends Component {
   constructor(props) {
@@ -53,23 +52,16 @@ class InPhoodImage extends Component {
     this.setState({
       caption: text1,
     });
-
     let date = Date.now();
-    let firebaseUrl = 'https://shining-torch-3197.firebaseio.com/';
-    var myFirebaseRef = new Firebase(firebaseUrl);
+    let myFirebaseRef = this.props.rootRef;
     let caption_array = text1.split(' ');
-
-    // let fileNameRef = myFirebaseRef.child('file_name')
-    // let captionRef = myFirebaseRef.child('caption_tags')
-    // let fidRef = fileNameRef.child(this.props.id)
-    // let cidRef = captionRef.child(this.props.id)
-    // let retFid = fidRef.push()
-    // let retCid = cidRef.push()
-
     let path = 'data/' + this.props.id
     let dataRef = myFirebaseRef.child(path)
-    let dataId = dataRef.push()
-    let file_name = this.props.id + '/' + dataId.path.u[2] + '.jpg';
+    let file_name = this.props.id + '/' + date + '.jpg';
+    dataRef.set({
+      file_name,
+      caption_array,
+    });
 
     this.setState({
       imageName: file_name,
@@ -108,29 +100,6 @@ class InPhoodImage extends Component {
     })
     .catch(err => console.log('Errors uploading: ' + err));
 
-<<<<<<< HEAD
-    // retFid.set({
-    //   file_name,
-    // });
-    // retCid.set({
-    //   caption_array,
-    // });
-
-    dataId.set({
-=======
-    let firebaseUrl = 'https://shining-torch-3197.firebaseio.com/';
-    var myFirebaseRef = new Firebase(firebaseUrl);
-    let caption_array = text1.split(' ');
-    let fileNameRef = myFirebaseRef.child('file_name')
-    let captionRef = myFirebaseRef.child('caption_tags')
-    let fidRef = fileNameRef.child(this.props.id)
-    let cidRef = captionRef.child(this.props.id)
-    fidRef.push({
->>>>>>> 4859e9af37264d911a73b6dcb9062ba05e4e83c8
-      file_name,
-      caption_array,
-    });
-
     this.props.navigator.push({
       title: 'PhoodData',
       component: InPhoodData,
@@ -151,31 +120,31 @@ class InPhoodImage extends Component {
     return (
       <View style={styles.container}>
 
-        <View style={styles.largeContainer}>
+        <View style={styles.threeQuarterHeightContainer}>
 
           <View style={styles.borderStyle}>
+
+            <Image
+              style={styles.gif}
+              source={{uri: this.props.image}}
+            />
 
             <TextInput
               autoCapitalize="none"
               placeholder="Describe your meal"
               returnKeyType="done"
               onSubmitEditing={(event) => this.updateText(event.nativeEvent.text)}
-              style={styles.textBarStyle}
-            />
-
-            <Image
-              style={styles.image}
-              source={{uri: this.props.image}}
+              style={styles.default}
             />
 
           </View>
 
         </View>
 
-        <View style={styles.smallContainer}>
+        <View style={styles.quarterHeightContainer}>
 
           {/*Placeholder to match buttonbar height in start/login page.*/}
-          {/*<View style={{height:60}}/>*/}
+          <View style={{height:60}}/>
 
           <View style={styles.buttonRowStyle}>
 
@@ -185,7 +154,7 @@ class InPhoodImage extends Component {
             >
               <Icon
                 name="ios-photos"
-                size={45}
+                size={30}
                 color="#3b5998"
                 style={styles.marginStyle}
               />
@@ -197,7 +166,7 @@ class InPhoodImage extends Component {
             >
               <Icon
                 name="ios-share"
-                size={45}
+                size={30}
                 color="#3b5998"
                 style={styles.marginStyle}
               />
@@ -213,44 +182,18 @@ class InPhoodImage extends Component {
 };
 
 var styles = StyleSheet.create({
+  borderStyle: {
+    borderBottomColor: '#3b5998',
+    borderBottomWidth: 1,
+  },
   container: {
     flex: 1,
   },
-  largeContainer: {
-    flex: 0.85,
+  threeQuarterHeightContainer: {
+    flex: 0.75,
   },
-  borderStyle: {
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: '#3b5998',
-    flex: 1,
-    backgroundColor: 'black'
-  },
-  image: {
-    flex: 1,
-    // height: 200,
-    resizeMode: 'cover',
-    borderWidth: 0.5,
-    borderRadius: 5,
-    borderColor: '#3b5998',
-    margin: 5,
-    backgroundColor: 'black',
-  },
-  textBarStyle: {
-    fontFamily: 'Helvetica',
-    height: 26,
-    borderWidth: 0.5,
-    borderRadius: 5,
-    borderColor: '#3b5998',
-    backgroundColor: 'white',
-    // flex: 1,
-    fontSize: 13,
-    padding: 4,
-    margin: 5,
-  },
-
-  smallContainer: {
-    flex: 0.15,
+  quarterHeightContainer: {
+    flex: 0.25,
     alignItems: 'center',
   },
   buttonRowStyle: {
@@ -260,6 +203,20 @@ var styles = StyleSheet.create({
   marginStyle: {
     margin: 5,
   },
+  gif: {
+    flex: 2,
+    height: 200,
+  },
+  default: {
+    height: 26,
+    borderWidth: 0.5,
+    borderColor: '#3b5998',
+    flex: 1,
+    fontSize: 13,
+    padding: 4,
+  },
+
+
 });
 
 module.exports = InPhoodImage;

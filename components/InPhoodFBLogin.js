@@ -44,6 +44,7 @@ class InPhoodFBLogin extends Component {
     this.state = {
       profile: '',
       token: '',
+      rootRef: null,
     };
     this._responseInfoCallback = this._responseInfoCallback.bind(this);
     this._handleEmailLogin = this._handleEmailLogin.bind(this);
@@ -58,50 +59,6 @@ class InPhoodFBLogin extends Component {
       token: token
     });
   }
-
-  // handleFirebaseLogin() {
-  //   console.log("Login Function")
-  //   firebase.auth().signInWithPopup(provider).then(function(result) {
-  //     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-  //     var token = result.credential.accessToken;
-  //     console.log(token);
-  //     // The signed-in user info.
-  //     var user = result.user;
-  //     console.log(user);
-  //     this.setState({
-  //       profile: result.picture.data.url,
-  //       id: result.id
-  //     });
-  //
-  //     this.props.navigator.push({
-  //       title: 'Camera',
-  //       component: InPhoodCamera,
-  //       passProps: {
-  //         onCaptureImage: this.props.onCaptureImage,
-  //         onSelectImage: this.props.onSelectImage,
-  //         onCaptionChange: this.props.onCaptionChange,
-  //         token: this.state.token,
-  //         id: this.state.id,
-  //         profile: this.state.profile,
-  //         client: true,
-  //         trainer: false,
-  //         photo: this.props.photo,
-  //         image: this.props.image,
-  //         caption: this.props.caption,
-  //       }
-  //     });
-  //   }).catch(function(error) {
-  //     // Handle Errors here.
-  //     console.log(error);
-  //     var errorCode = error.code;
-  //     var errorMessage = error.message;
-  //     // The email of the user's account used.
-  //     var email = error.email;
-  //     // The firebase.auth.AuthCredential type that was used.
-  //     var credential = error.credential;
-  //     // ...
-  //   });
-  // }
 
   handleCleanup() {
     this.setState({
@@ -124,50 +81,55 @@ class InPhoodFBLogin extends Component {
     }
     else {
       //Create response callback.
-      var credential = firebase.auth.FacebookAuthProvider.credential(
-                    this.state.token);
-      console.log(credential)
-      firebase.auth().signInWithCredential(credential).catch(function(error) {
-        // Handle Errors here.
-        console.log('In error console');
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // [START_EXCLUDE]
-        if (errorCode === 'auth/account-exists-with-different-credential') {
-          alert('You have already signed up with a different auth provider for that email.');
-          // If you are using multiple auth providers on your app you should handle linking
-          // the user's accounts here.
-        } else {
-          console.error(error);
-        }
-        // [END_EXCLUDE]
-      });
-      this.setState({
-        profile: result.picture.data.url,
-        id: result.id
-      });
+      if (this.state.token) {
+        this.setState({
+          rootRef: firebase.database().ref(),
+        })
+        var credential = firebase.auth.FacebookAuthProvider.credential(
+                      this.state.token);
+        firebase.auth().signInWithCredential(credential).catch(function(error) {
+          // Handle Errors here.
+          // console.log('In error console');
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/account-exists-with-different-credential') {
+            alert('You have already signed up with a different auth provider for that email.');
+            // If you are using multiple auth providers on your app you should handle linking
+            // the user's accounts here.
+          } else {
+            // console.error(error);
+          }
+          // [END_EXCLUDE]
+        });
+        this.setState({
+          profile: result.picture.data.url,
+          id: result.id
+        });
 
-      this.props.navigator.push({
-        title: 'Camera',
-        component: InPhoodCamera,
-        passProps: {
-          onCaptureImage: this.props.onCaptureImage,
-          onSelectImage: this.props.onSelectImage,
-          onCaptionChange: this.props.onCaptionChange,
-          token: this.state.token,
-          id: this.state.id,
-          profile: this.state.profile,
-          client: true,
-          trainer: false,
-          photo: this.props.photo,
-          image: this.props.image,
-          caption: this.props.caption,
-        }
-      });
+        this.props.navigator.push({
+          title: 'Camera',
+          component: InPhoodCamera,
+          passProps: {
+            onCaptureImage: this.props.onCaptureImage,
+            onSelectImage: this.props.onSelectImage,
+            onCaptionChange: this.props.onCaptionChange,
+            token: this.state.token,
+            id: this.state.id,
+            profile: this.state.profile,
+            client: true,
+            trainer: false,
+            photo: this.props.photo,
+            image: this.props.image,
+            caption: this.props.caption,
+            rootRef: this.state.rootRef,
+          }
+        });
+      }
     }
   }
 
@@ -197,6 +159,7 @@ class InPhoodFBLogin extends Component {
         photo: this.props.photo,
         image: this.props.image,
         caption: this.props.caption,
+        rootRef: this.state.rootRef,
       }
     });
   }

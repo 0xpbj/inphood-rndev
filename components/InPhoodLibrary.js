@@ -3,7 +3,7 @@
 'use strict';
 
 import React, { Component } from "react";
-import {AppRegistry, StyleSheet, Text, TextInput, TouchableHighlight, View, Image, CameraRoll, NativeModules} from "react-native";
+import {AppRegistry, StyleSheet, Text, TextInput, TouchableHighlight, View, Image, CameraRoll, NativeModules, ScrollView} from "react-native";
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -66,6 +66,7 @@ class InPhoodLibrary extends Component {
           photo: this.props.photo,
           image: this.state.selected,
           caption: this.props.caption,
+          rootRef: this.props.rootRef,
         }
       });
     });
@@ -88,6 +89,7 @@ class InPhoodLibrary extends Component {
         photo: this.props.photo,
         image: this.state.selected,
         caption: this.props.caption,
+        rootRef: this.props.rootRef,
       }
     });
   }

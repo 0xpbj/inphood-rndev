@@ -47,6 +47,7 @@ class InPhoodCamera extends Component {
             photo: this.state.photo,
             image: this.props.image,
             caption: this.props.caption,
+            rootRef: this.props.rootRef,
           }
         });
       }
@@ -74,6 +75,7 @@ class InPhoodCamera extends Component {
         photo: this.state.photo,
         image: this.props.image,
         caption: this.props.caption,
+        rootRef: this.props.rootRef,
       }
     });
   }
