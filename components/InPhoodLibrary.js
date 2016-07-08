@@ -15,7 +15,7 @@ class InPhoodLibrary extends Component {
     super(props);
     this.state = {
       images: [],
-      selected: "",
+      selected: '',
     };
     this.storeImages = this.storeImages.bind(this);
     this.selectImage = this.selectImage.bind(this);
@@ -66,6 +66,8 @@ class InPhoodLibrary extends Component {
           photo: this.props.photo,
           image: this.state.selected,
           caption: this.props.caption,
+          name: this.props.name,
+          gender: this.props.gender,
         }
       });
     });
@@ -76,20 +78,27 @@ class InPhoodLibrary extends Component {
   }
 
   _handleFwdPage() {
-    this.props.navigator.push({
-      title: 'PhoodImage',
-      component: InPhoodImage,
-      passProps: {
-        token: this.props.token,
-        id: this.props.id,
-        profile: this.props.profile,
-        client: this.props.client,
-        trainer: this.props.trainer,
-        photo: this.props.photo,
-        image: this.state.selected,
-        caption: this.props.caption,
-      }
-    });
+    if (this.state.selected) {
+      this.props.navigator.push({
+        title: 'PhoodImage',
+        component: InPhoodImage,
+        passProps: {
+          token: this.props.token,
+          id: this.props.id,
+          profile: this.props.profile,
+          client: this.props.client,
+          trainer: this.props.trainer,
+          photo: this.props.photo,
+          image: this.state.selected,
+          caption: this.props.caption,
+          name: this.props.name,
+          gender: this.props.gender,
+        }
+      });
+    }
+    else {
+      alert('Please select a image.')
+    }
   }
 
   render() {

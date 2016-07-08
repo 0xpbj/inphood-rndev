@@ -34,29 +34,15 @@ class InPhoodNavigation extends Component {
     trainer: React.PropTypes.bool.isRequired,
   }
 
-  componentWillMount() {
+  componentWillMount() {}
 
-  }
+  componentDidMount() {}
 
-  componentDidMount() {
+  componentWillUpdate() {}
 
-  }
+  componentDidUpdate() {}
 
-  // shouldComponentUpdate (nextProps, nextState) {
-  //   return nextProps.id !== this.props.id;
-  // }
-
-  componentWillUpdate() {
-
-  }
-
-  componentDidUpdate() {
-
-  }
-
-  componentWillUnmount() {
-
-  }
+  componentWillUnmount() {}
 
   render() {
     console.disableYellowBox = true;

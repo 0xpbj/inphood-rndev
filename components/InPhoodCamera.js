@@ -42,11 +42,11 @@ class InPhoodCamera extends Component {
             token: this.props.token,
             id: this.props.id,
             profile: this.props.profile,
-            client: this.props.client,
-            trainer: this.props.trainer,
             photo: this.state.photo,
             image: this.props.image,
             caption: this.props.caption,
+            name: this.props.name,
+            gender: this.props.gender,
           }
         });
       }
@@ -61,7 +61,6 @@ class InPhoodCamera extends Component {
   }
 
   _handleFwdPage() {
-    // console.log('\n\n\n Camera Data')
     this.props.navigator.push({
       title: 'Collage',
       component: InPhoodLibrary,
@@ -69,11 +68,11 @@ class InPhoodCamera extends Component {
         token: this.props.token,
         id: this.props.id,
         profile: this.props.profile,
-        client: this.props.client,
-        trainer: this.props.trainer,
         photo: this.state.photo,
         image: this.props.image,
         caption: this.props.caption,
+        name: this.props.name,
+        gender: this.props.gender,
       }
     });
   }

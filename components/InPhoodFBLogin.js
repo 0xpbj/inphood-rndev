@@ -25,18 +25,10 @@ var config = {
     databaseURL: "https://shining-torch-3197.firebaseio.com",
     storageBucket: "shining-torch-3197.appspot.com",
   };
-var firebase = require("firebase/app");
+import firebase from 'firebase'
+  require("firebase/app");
   require("firebase/auth");
   require("firebase/database");
-var provider = new firebase.auth.FacebookAuthProvider();
-provider.addScope('id');
-provider.addScope('first_name');
-provider.addScope('last_name');
-provider.addScope('name');
-provider.addScope('picture.type(normal)');
-provider.addScope('email');
-provider.addScope('gender');
-provider.addScope('birthday');
 
 class InPhoodFBLogin extends Component {
   constructor(props) {
@@ -44,6 +36,9 @@ class InPhoodFBLogin extends Component {
     this.state = {
       profile: '',
       token: '',
+      id: '',
+      name: '',
+      gender: '',
     };
     this._responseInfoCallback = this._responseInfoCallback.bind(this);
     this._handleEmailLogin = this._handleEmailLogin.bind(this);
@@ -62,8 +57,10 @@ class InPhoodFBLogin extends Component {
   handleCleanup() {
     this.setState({
       profile: '',
-      id: '',
       token: '',
+      id: '',
+      name: '',
+      gender: '',
     });
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
@@ -80,48 +77,49 @@ class InPhoodFBLogin extends Component {
     }
     else {
       //Create response callback.
+      console.log(result);
       if (this.state.token) {
-        // var credential = firebase.auth.FacebookAuthProvider.credential(
-        //               this.state.token);
-        // firebase.auth().signInWithCredential(credential).catch(function(error) {
-        //   // Handle Errors here.
-        //   // console.log('In error console');
-        //   var errorCode = error.code;
-        //   var errorMessage = error.message;
-        //   // The email of the user's account used.
-        //   var email = error.email;
-        //   // The firebase.auth.AuthCredential type that was used.
-        //   var credential = error.credential;
-        //   // [START_EXCLUDE]
-        //   if (errorCode === 'auth/account-exists-with-different-credential') {
-        //     alert('You have already signed up with a different auth provider for that email.');
-        //     // If you are using multiple auth providers on your app you should handle linking
-        //     // the user's accounts here.
-        //   } else {
-        //     // console.error(error);
-        //   }
-        //   // [END_EXCLUDE]
-        // });
+        let credential = firebase.auth.FacebookAuthProvider.credential(
+                      this.state.token);
+        firebase.auth().signInWithCredential(credential)
+        .catch(function(error) {
+          // Handle Errors here.
+          // console.log('In error console');
+          let errorCode = error.code;
+          let errorMessage = error.message;
+          // The email of the user's account used.
+          let email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          let credential = error.credential;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/account-exists-with-different-credential') {
+            alert('You have already signed up with a different auth provider for that email.');
+            // If you are using multiple auth providers on your app you should handle linking
+            // the user's accounts here.
+          } else {
+            // console.error(error);
+          }
+          // [END_EXCLUDE]
+        });
         this.setState({
           profile: result.picture.data.url,
-          id: result.id
+          id: result.id,
+          name: result.name,
+          gender: result.gender,
         });
 
         this.props.navigator.push({
           title: 'Camera',
           component: InPhoodCamera,
           passProps: {
-            onCaptureImage: this.props.onCaptureImage,
-            onSelectImage: this.props.onSelectImage,
-            onCaptionChange: this.props.onCaptionChange,
             token: this.state.token,
             id: this.state.id,
             profile: this.state.profile,
-            client: true,
-            trainer: false,
             photo: this.props.photo,
             image: this.props.image,
             caption: this.props.caption,
+            name: this.state.name,
+            gender: this.state.gender,
           }
         });
       }
@@ -129,6 +127,7 @@ class InPhoodFBLogin extends Component {
   }
 
   _handleEmailLogin() {
+    alert ("Email login is not supported yet.")
     // firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
     //   // Handle Errors here.
     //   console.log('Email errors: ' + error)
@@ -139,24 +138,25 @@ class InPhoodFBLogin extends Component {
   }
 
   _handleChangePage() {
-    this.props.navigator.push({
-      title: 'Camera',
-      component: InPhoodCamera,
-      passProps: {
-        onCaptureImage: this.props.onCaptureImage,
-        onSelectImage: this.props.onSelectImage,
-        onCaptionChange: this.props.onCaptionChange,
-        token: this.state.token,
-        id: this.state.id,
-        profile: this.state.profile,
-        client: true,
-        trainer: false,
-        photo: this.props.photo,
-        image: this.props.image,
-        caption: this.props.caption,
-        rootRef: this.state.rootRef,
-      }
-    });
+    if (this.state.token) {
+      this.props.navigator.push({
+        title: 'Camera',
+        component: InPhoodCamera,
+        passProps: {
+          token: this.state.token,
+          id: this.state.id,
+          profile: this.state.profile,
+          photo: this.props.photo,
+          image: this.props.image,
+          caption: this.props.caption,
+          name: this.state.name,
+          gender: this.state.gender,
+        }
+      });
+    }
+    else {
+      alert ('Please login.')
+    }
   }
 
   componentDidMount() {
@@ -166,7 +166,7 @@ class InPhoodFBLogin extends Component {
       (token) => {
         this.handleTokenChange(token.accessToken.toString())
         const infoRequest = new GraphRequest(
-          '/me?fields=id,first_name,last_name,name,picture.type(normal),email,gender,birthday',
+          '/me?fields=id,email,gender,birthday,first_name,last_name,name,picture.type(normal)',
           null,
           this._responseInfoCallback
         );
@@ -197,7 +197,7 @@ class InPhoodFBLogin extends Component {
                             {width: 30},
                             {margin: 5},
                           ]}/>
-              <TouchableHighlight
+              {/*<TouchableHighlight
                 onPress={this._handleEmailLogin}
                 underlayColor='white'
               >
@@ -207,7 +207,7 @@ class InPhoodFBLogin extends Component {
                   color="#3b5998"
                   style={styles.marginStyle}
                 />
-              </TouchableHighlight>
+              </TouchableHighlight>*/}
 
               <View style={styles.marginStyle}>
               <LoginButton
@@ -225,7 +225,7 @@ class InPhoodFBLogin extends Component {
                          this.handleTokenChange(token.accessToken.toString())
                          // Create a graph request asking for user information with a callback to handle the response.
                          const infoRequest = new GraphRequest(
-                           '/me?fields=id,first_name,last_name,name,picture.type(normal),email,gender,birthday',
+                           '/me?fields=id,email,gender,birthday,first_name,last_name,name,picture.type(normal)',
                            null,
                            this._responseInfoCallback
                          );
@@ -239,7 +239,7 @@ class InPhoodFBLogin extends Component {
                  }
                }}
                  onLogoutFinished={() => {this.handleCleanup()}}
-                 readPermissions={["email", "user_friends", "user_birthday", "user_photos"]}
+                 readPermissions={["email", "user_friends", "user_birthday", "user_photos", "public_profile"]}
                  publishPermissions={['publish_actions']}
                />
               </View>

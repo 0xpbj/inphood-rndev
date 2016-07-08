@@ -72,8 +72,8 @@ class InPhoodCollage extends Component {
      enabling a quick comment and or icon (thumbs up/thumbs down).
   */
   render() {
-    console.log("Collage Props");
-    console.log(this);
+    // console.log("Collage Props");
+    // console.log(this);
     return (
       <View style={styles.collageContainer}>
 

@@ -21,30 +21,32 @@ class InPhoodImage extends Component {
     this.updateText = this.updateText.bind(this);
   }
 
-  componentDidMount() {
-    // console.log('\n\n\n Image Data')
-    // console.log(this.props)
-  }
+  componentDidMount() {}
 
   _handleBackPage() {
     this.props.navigator.pop();
   }
 
   _handleFwdPage() {
-    this.props.navigator.push({
-      title: 'PhoodData',
-      component: InPhoodData,
-      passProps: {
-        token: this.props.token,
-        profile: this.props.profile,
-        client: this.props.client,
-        trainer: this.props.trainer,
-        photo: this.props.photo,
-        image: this.props.image,
-        caption: this.state.caption,
-        imageName: this.state.imageName,
-      }
-    });
+    if (this.state.caption) {
+      this.props.navigator.push({
+        title: 'PhoodData',
+        component: InPhoodData,
+        passProps: {
+          token: this.props.token,
+          profile: this.props.profile,
+          photo: this.props.photo,
+          image: this.props.image,
+          caption: this.state.caption,
+          imageName: this.state.imageName,
+          name: this.props.name,
+          gender: this.props.gender,
+        }
+      });
+    }
+    else {
+      alert ('Please enter a description.')
+    }
   }
 
   updateText(text) {
@@ -55,19 +57,22 @@ class InPhoodImage extends Component {
     let date = Date.now();
     // let myFirebaseRef = this.props.rootRef;
     let caption_array = text1.split(' ');
-    let path = 'data/' + this.props.id
-    let file_name = this.props.id + '/' + date + '.jpg';
-    var key = firebase.database().ref().child(path).push().key;
-    console.log('MyKey: ' + key)
-    var updates = {
-      file_name: file_name,
-      caption_array: caption_array,
-    };
-    firebase.database().ref().update(updates)
-    // firebase.database().ref(path).set({
-    //   file_name,
-    //   caption_array,
-    // });
+    let name = this.props.name
+    let gender = this.props.gender
+    let token = this.props.token
+    let profile = this.props.profile
+    firebase.database().ref(this.props.id + '/userinfo').set({
+      name,
+      gender,
+      token,
+      profile,
+    })
+    let key = firebase.database().ref(this.props.id + '/userdata').push()
+    let file_name = this.props.id + '/' + key.path.o[2] + '.jpg';
+    key.set({
+      file_name,
+      caption_array,
+    });
 
     this.setState({
       imageName: file_name,
@@ -92,17 +97,6 @@ class InPhoodImage extends Component {
     .then(response => {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
-      // console.log(response.body);
-      /**
-       * {
-       *   postResponse: {
-       *     bucket: "your-bucket",
-       *     etag : "9f620878e06d28774406017480a59fd4",
-       *     key: "uploads/image.png",
-       *     location: "https://your-bucket.s3.amazonaws.com/uploads%2Fimage.png"
-       *   }
-       * }
-       */
     })
     .catch(err => console.log('Errors uploading: ' + err));
 
@@ -112,12 +106,12 @@ class InPhoodImage extends Component {
       passProps: {
         token: this.props.token,
         profile: this.props.profile,
-        client: this.props.client,
-        trainer: this.props.trainer,
         photo: this.props.photo,
         image: this.props.image,
         caption: this.state.caption,
         imageName: this.state.imageName,
+        name: this.props.name,
+        gender: this.props.gender,
       }
     });
   }
