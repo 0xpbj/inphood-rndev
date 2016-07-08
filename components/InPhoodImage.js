@@ -53,15 +53,21 @@ class InPhoodImage extends Component {
       caption: text1,
     });
     let date = Date.now();
-    let myFirebaseRef = this.props.rootRef;
+    // let myFirebaseRef = this.props.rootRef;
     let caption_array = text1.split(' ');
     let path = 'data/' + this.props.id
-    let dataRef = myFirebaseRef.child(path)
     let file_name = this.props.id + '/' + date + '.jpg';
-    dataRef.set({
-      file_name,
-      caption_array,
-    });
+    var key = firebase.database().ref().child(path).push().key;
+    console.log('MyKey: ' + key)
+    var updates = {
+      file_name: file_name,
+      caption_array: caption_array,
+    };
+    firebase.database().ref().update(updates)
+    // firebase.database().ref(path).set({
+    //   file_name,
+    //   caption_array,
+    // });
 
     this.setState({
       imageName: file_name,

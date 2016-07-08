@@ -44,7 +44,6 @@ class InPhoodFBLogin extends Component {
     this.state = {
       profile: '',
       token: '',
-      rootRef: null,
     };
     this._responseInfoCallback = this._responseInfoCallback.bind(this);
     this._handleEmailLogin = this._handleEmailLogin.bind(this);
@@ -82,30 +81,27 @@ class InPhoodFBLogin extends Component {
     else {
       //Create response callback.
       if (this.state.token) {
-        this.setState({
-          rootRef: firebase.database().ref(),
-        })
-        var credential = firebase.auth.FacebookAuthProvider.credential(
-                      this.state.token);
-        firebase.auth().signInWithCredential(credential).catch(function(error) {
-          // Handle Errors here.
-          // console.log('In error console');
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // [START_EXCLUDE]
-          if (errorCode === 'auth/account-exists-with-different-credential') {
-            alert('You have already signed up with a different auth provider for that email.');
-            // If you are using multiple auth providers on your app you should handle linking
-            // the user's accounts here.
-          } else {
-            // console.error(error);
-          }
-          // [END_EXCLUDE]
-        });
+        // var credential = firebase.auth.FacebookAuthProvider.credential(
+        //               this.state.token);
+        // firebase.auth().signInWithCredential(credential).catch(function(error) {
+        //   // Handle Errors here.
+        //   // console.log('In error console');
+        //   var errorCode = error.code;
+        //   var errorMessage = error.message;
+        //   // The email of the user's account used.
+        //   var email = error.email;
+        //   // The firebase.auth.AuthCredential type that was used.
+        //   var credential = error.credential;
+        //   // [START_EXCLUDE]
+        //   if (errorCode === 'auth/account-exists-with-different-credential') {
+        //     alert('You have already signed up with a different auth provider for that email.');
+        //     // If you are using multiple auth providers on your app you should handle linking
+        //     // the user's accounts here.
+        //   } else {
+        //     // console.error(error);
+        //   }
+        //   // [END_EXCLUDE]
+        // });
         this.setState({
           profile: result.picture.data.url,
           id: result.id
@@ -126,7 +122,6 @@ class InPhoodFBLogin extends Component {
             photo: this.props.photo,
             image: this.props.image,
             caption: this.props.caption,
-            rootRef: this.state.rootRef,
           }
         });
       }

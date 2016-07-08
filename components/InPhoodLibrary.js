@@ -66,7 +66,6 @@ class InPhoodLibrary extends Component {
           photo: this.props.photo,
           image: this.state.selected,
           caption: this.props.caption,
-          rootRef: this.props.rootRef,
         }
       });
     });
@@ -89,7 +88,6 @@ class InPhoodLibrary extends Component {
         photo: this.props.photo,
         image: this.state.selected,
         caption: this.props.caption,
-        rootRef: this.props.rootRef,
       }
     });
   }
