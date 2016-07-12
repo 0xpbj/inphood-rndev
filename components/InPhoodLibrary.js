@@ -39,7 +39,7 @@ class InPhoodLibrary extends Component {
     const assets = data.edges;
     const images = assets.map(
       (asset) => asset.node.image
-    );
+    ).reverse();
     this.setState({
       images: images,
     });
@@ -102,20 +102,36 @@ class InPhoodLibrary extends Component {
   }
 
   render() {
+    var x_offset = 0
+    var y_offset = -120
+
     return (
       <View style={styles.container}>
 
         <ScrollView style={styles.largeContainer}>
+        {console.log('Initializing count to zero:')}
 
           <View style={styles.imageGrid}>
           { this.state.images.map((image) => {
-            console.log('count')
+
+            if (x_offset == 0) {
+              y_offset += 120
+            }
+
+            x_offset = 120 - x_offset
+
+            console.log('(x, y) = ()' + x_offset + ", " + y_offset + ")")
+
             return (
               <TouchableHighlight
                 onPress={this.selectImage.bind(null, image.uri)}
                 underlayColor='black'
               >
-                <Image style={styles.image} source={{ uri: image.uri }} />
+                {/*<Image style={styles.image} source={{ uri: image.uri }} />*/}
+                <Image
+                  style={{width: 100, height: 100, margin: 10, borderWidth: 1, borderColor: "#3b5998", borderRadius: 50, position: "absolute", top: y_offset, left: x_offset}}
+                  source={{ uri: image.uri }}
+                />
               </TouchableHighlight>
             );
             })
@@ -186,9 +202,9 @@ const styles = StyleSheet.create({
   },
   imageGrid: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+    // justifyContent: 'center',
   },
   image: {
     width: 100,
