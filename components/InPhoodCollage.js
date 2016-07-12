@@ -1,132 +1,99 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
  /* @flow */
 
- 'use strict';
+'use strict';
+import React, { Component } from 'react';
+import {
+ ActionSheetIOS,
+ CameraRoll,
+ ListView,
+ StyleSheet,
+ NavigatorIOS,
+ Text,
+ TouchableOpacity,
+ View,
+ Platform,
+} from 'react-native';
 
- import React, { Component } from "react";
- import {AppRegistry, StyleSheet, Text, TextInput, TouchableHighlight, View, Image} from "react-native";
+import PhotoBrowser from 'react-native-photo-browser';
 
-import CameraRoll from 'rn-camera-roll';
-const Firebase = require('firebase');
+class InPhoodCollage extends Component {
+  constructor(props) {
+    super(props);
+    this._onSelectionChanged = this._onSelectionChanged.bind(this)
+    this._onActionButton = this._onActionButton.bind(this)
+    this._handleBackPage = this._handleBackPage.bind(this)
+    this.state = {
+      dsiplayActionButton: true,
+      displayNavArrows: true,
+      displaySelectionButtons: true,
+      startOnGrid: true,
+      enableGrid: true,
+      media: this.props.media,
+      initialIndex: 0,
+    };
+  }
 
-class FoodImage extends Component {
+  _onSelectionChanged(media, index, selected) {
+    alert(`${media.photo} selection status: ${selected}`);
+  }
+
+  _handleBackPage() {
+    this.props.navigator.pop();
+  }
+
+  _onActionButton(media, index) {
+    if (Platform.OS === 'ios') {
+      ActionSheetIOS.showShareActionSheetWithOptions({
+        url: media.photo,
+        message: media.caption,
+      },
+      () => {},
+      () => {});
+    } else {
+      alert(`handle sharing on android for ${media.photo}, index: ${index}`);
+    }
+  }
+
   render() {
-
-    /*console.log("FoodImage Props:");
-    console.log(this);*/
-
-      /* current image uri's:
-          https://s3.amazonaws.com/static.caloriecount.about.com/images/medium/bananas-170061.jpg
-          https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjkIod6Vy7I83bsejHc3eGX0CdTgqugiSuOXjcw-pKa7EMVsmzWA
-          https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQkDAhkRotNhcRD2XKejg7YDju4j27twyDXHg6VC280EU3NYnwK
-          https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSRXEYDNQEGCZv_RFee9YIIrj32aCPA6tEHHnCCWMiTDJZh2QDp
-          https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSxyQ5UxODEz093JHQR9HE6o5JAA4V1YSoVliAcrr1bdS9L4vwu
-       */
-
-    /* Using Images:  https://facebook.github.io/react-native/docs/images.html */
     return (
-      <Image
-        style={styles.cellStyle}
-        source={require('./img/exampleBanana.jpg')}
+      <PhotoBrowser
+        onBack={this._handleBackPage}
+        mediaList={this.state.media}
+        initialIndex={this.state.initialIndex}
+        displayNavArrows={this.state.displayNavArrows}
+        displaySelectionButtons={this.state.displaySelectionButtons}
+        displayActionButton={this.state.displayActionButton}
+        startOnGrid={this.state.startOnGrid}
+        enableGrid={this.state.enableGrid}
+        //useCircleProgress
+        onSelectionChanged={this._onSelectionChanged}
+        onActionButton={this._onActionButton}
       />
     );
   }
 }
 
-class FoodImageList extends Component {
-  render() {
-
-    /*console.log("FoodImageList Props:");
-    console.log(this);*/
-
-    return (
-      <View style={styles.flexStyle}>
-        <Text style={styles.dayTextStyle}>Day</Text>
-        <View style={styles.flexStyle}>
-          <ScrollView horizontal={false} style={styles.dayColumnStyle}>
-
-            <FoodImage />
-            <FoodImage />
-            <FoodImage />
-            <FoodImage />
-            <FoodImage />
-            <FoodImage />
-            <FoodImage />
-
-          </ScrollView>
-        </View>
-      </View>
-    );
-  }
-}
-
-class InPhoodCollage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  /* This will be a horizontal scroll view of vertical scroll views containing the user's food images.  Each one should be clickable
-     enabling a quick comment and or icon (thumbs up/thumbs down).
-  */
-  render() {
-    // console.log("Collage Props");
-    // console.log(this);
-    return (
-      <View style={styles.collageContainer}>
-
-        <View style={styles.height20Style}>
-        </View>
-        <ScrollView horizontal={true} style={styles.flexStyle}>
-
-          <FoodImageList />
-          <FoodImageList />
-          <FoodImageList />
-          <FoodImageList />
-          <FoodImageList />
-
-        </ScrollView>
-      </View>
-    );
-  }
-}
-
 const styles = StyleSheet.create({
-  collageContainer: {
+  container: {
     flex: 1,
-    margin: 0,
-    backgroundColor: 'black',
   },
-  textStyle: {
-    fontSize: 20,
-    textAlign: 'left',
-  },
-  flexStyle: {
+  list: {
     flex: 1,
-    flexDirection: 'column',
+    paddingTop: 54,
+    paddingLeft: 16,
   },
-  dayTextStyle: {
-    margin: 0,
-    width: 100,
+  row: {
+    flex: 1,
+    padding: 8,
+    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+    borderBottomWidth: 1,
+  },
+  rowTitle: {
     fontSize: 14,
-    textAlign: 'center',
-    color: 'white',
   },
-  dayColumnStyle: {
-    height: 400,
+  rowDescription: {
+    fontSize: 12,
   },
-  cellStyle: {
-    width: 100,
-    height: 100,
-    margin: 0,
-    borderWidth: 1,
-    borderColor: 'black',
-  },
-  height20Style: {
-    height: 20,
-  }
 });
 
 module.exports = InPhoodCollage;

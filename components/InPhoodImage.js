@@ -7,7 +7,7 @@ import {AppRegistry, StyleSheet, Text, TextInput, TouchableHighlight, View, Imag
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { RNS3 } from 'react-native-aws3';
-var InPhoodData = require('./InPhoodData');
+var InPhoodCollage = require('./InPhoodCollage');
 
 class InPhoodImage extends Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class InPhoodImage extends Component {
     this.state = {
       caption: '',
       imageName: '',
+      media: [],
     };
     this._handleBackPage = this._handleBackPage.bind(this);
     this._handleFwdPage = this._handleFwdPage.bind(this);
@@ -28,11 +29,24 @@ class InPhoodImage extends Component {
   }
 
   _handleFwdPage() {
-    if (this.state.caption) {
+    let data = []
+    let urlHead = 'https://dqh688v4tjben.cloudfront.net/data/'
+    let imageRef = firebase.database().ref(this.props.id + '/userdata')
+    imageRef.orderByKey().on('value', function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        let photo = urlHead+childSnapshot.val().file_name
+        let caption = childSnapshot.val().caption
+        let obj = {photo,caption,false}
+        data.push(obj)
+      });
+      // console.log('Inside')
+      // console.log(data)
+      this.setState({media: data})
       this.props.navigator.push({
-        title: 'PhoodData',
-        component: InPhoodData,
+        title: 'PhoodCollage',
+        component: InPhoodCollage,
         passProps: {
+          id: this.props.id,
           token: this.props.token,
           profile: this.props.profile,
           photo: this.props.photo,
@@ -41,12 +55,10 @@ class InPhoodImage extends Component {
           imageName: this.state.imageName,
           name: this.props.name,
           gender: this.props.gender,
+          media: this.state.media,
         }
       });
-    }
-    else {
-      alert ('Please enter a description.')
-    }
+    }.bind(this));
   }
 
   updateText(text) {
@@ -56,7 +68,8 @@ class InPhoodImage extends Component {
     });
     let date = Date.now();
     // let myFirebaseRef = this.props.rootRef;
-    let caption_array = text1.split(' ');
+    // let caption_array = text1.split(' ');
+    let caption = text1
     let name = this.props.name
     let gender = this.props.gender
     let token = this.props.token
@@ -71,12 +84,9 @@ class InPhoodImage extends Component {
     let file_name = this.props.id + '/' + key.path.o[2] + '.jpg';
     key.set({
       file_name,
-      caption_array,
+      caption,
     });
 
-    this.setState({
-      imageName: file_name,
-    });
 
     let imgfile = {
       uri: this.props.image,
@@ -100,20 +110,39 @@ class InPhoodImage extends Component {
     })
     .catch(err => console.log('Errors uploading: ' + err));
 
-    this.props.navigator.push({
-      title: 'PhoodData',
-      component: InPhoodData,
-      passProps: {
-        token: this.props.token,
-        profile: this.props.profile,
-        photo: this.props.photo,
-        image: this.props.image,
-        caption: this.state.caption,
-        imageName: this.state.imageName,
-        name: this.props.name,
-        gender: this.props.gender,
-      }
-    });
+    let data = []
+    let urlHead = 'https://dqh688v4tjben.cloudfront.net/data/'
+    let imageRef = firebase.database().ref(this.props.id + '/userdata')
+    imageRef.orderByKey().on('value', function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        let photo = urlHead+childSnapshot.val().file_name
+        let caption = childSnapshot.val().caption
+        let obj = {photo,caption,false}
+        data.push(obj)
+      });
+      this.setState({
+        imageName: file_name,
+        media: data,
+      });
+      this.props.navigator.push({
+        title: 'PhoodCollage',
+        component: InPhoodCollage,
+        passProps: {
+          id: this.props.id,
+          token: this.props.token,
+          profile: this.props.profile,
+          photo: this.props.photo,
+          image: this.props.image,
+          caption: this.state.caption,
+          imageName: this.state.imageName,
+          name: this.props.name,
+          gender: this.props.gender,
+          media: this.state.media,
+        }
+      });
+      // console.log(this.state)
+      // this.setState({media: data})
+    }.bind(this));
   }
 
   render() {

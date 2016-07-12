@@ -77,14 +77,13 @@ class InPhoodFBLogin extends Component {
     }
     else {
       //Create response callback.
-      console.log(result);
+      // console.log(result);
       if (this.state.token) {
         let credential = firebase.auth.FacebookAuthProvider.credential(
                       this.state.token);
         firebase.auth().signInWithCredential(credential)
         .catch(function(error) {
           // Handle Errors here.
-          // console.log('In error console');
           let errorCode = error.code;
           let errorMessage = error.message;
           // The email of the user's account used.
@@ -123,6 +122,9 @@ class InPhoodFBLogin extends Component {
           }
         });
       }
+      else {
+        alert ('Please login.')
+      }
     }
   }
 
@@ -138,25 +140,21 @@ class InPhoodFBLogin extends Component {
   }
 
   _handleChangePage() {
-    if (this.state.token) {
-      this.props.navigator.push({
-        title: 'Camera',
-        component: InPhoodCamera,
-        passProps: {
-          token: this.state.token,
-          id: this.state.id,
-          profile: this.state.profile,
-          photo: this.props.photo,
-          image: this.props.image,
-          caption: this.props.caption,
-          name: this.state.name,
-          gender: this.state.gender,
-        }
-      });
-    }
-    else {
-      alert ('Please login.')
-    }
+    AccessToken.getCurrentAccessToken()
+    .then(
+      (token) => {
+        this.handleTokenChange(token.accessToken.toString())
+        const infoRequest = new GraphRequest(
+          '/me?fields=id,email,gender,birthday,first_name,last_name,name,picture.type(normal)',
+          null,
+          this._responseInfoCallback
+        );
+        // Start the graph request.
+        const graphManager = new GraphRequestManager();
+        graphManager.addRequest(infoRequest);
+        graphManager.start();
+      }
+    );
   }
 
   componentDidMount() {

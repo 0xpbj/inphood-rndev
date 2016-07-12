@@ -109,6 +109,7 @@ class InPhoodLibrary extends Component {
 
           <View style={styles.imageGrid}>
           { this.state.images.map((image) => {
+            console.log('count')
             return (
               <TouchableHighlight
                 onPress={this.selectImage.bind(null, image.uri)}
