@@ -178,8 +178,8 @@ class InPhoodFBLogin extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {/*<Image source={require('./img/LaunchRetina4_High.png')} style={styles.containerImage}>*/}
+
+        <Image source={require('./img/LaunchRetina4_High.png')} style={styles.containerImage}>
           <View style={styles.quarterHeightContainer}/>
           <View style={styles.quarterHeightContainer}/>
           <View style={styles.quarterHeightContainer}/>
@@ -258,17 +258,13 @@ class InPhoodFBLogin extends Component {
 
           </View>
 
-        {/*</Image>*/}
-      </View>
+        </Image>
+
     );
   }
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
   quarterHeightContainer: {
     flex: 0.25,
     alignItems: 'center',
@@ -276,6 +272,11 @@ const styles = StyleSheet.create({
   containerImage: {
     flex: 1,
     resizeMode: 'contain',
+    //  The null assignments below causes the renderer to re-determine size (which was broken
+    // when the push direct to the camera view was implemented).
+    height: null,
+    width: null,
+    alignItems: 'center',
   },
   profileImage: {
     width: 60,
