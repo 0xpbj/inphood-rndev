@@ -41,22 +41,23 @@ class InPhoodImage extends Component {
       });
       // console.log('Inside')
       // console.log(data)
-      this.setState({media: data})
-      this.props.navigator.push({
-        title: 'PhoodCollage',
-        component: InPhoodCollage,
-        passProps: {
-          id: this.props.id,
-          token: this.props.token,
-          profile: this.props.profile,
-          photo: this.props.photo,
-          image: this.props.image,
-          caption: this.state.caption,
-          imageName: this.state.imageName,
-          name: this.props.name,
-          gender: this.props.gender,
-          media: this.state.media,
-        }
+      this.setState({media: data}, function(){
+        this.props.navigator.push({
+          title: 'PhoodCollage',
+          component: InPhoodCollage,
+          passProps: {
+            id: this.props.id,
+            token: this.props.token,
+            profile: this.props.profile,
+            photo: this.props.photo,
+            image: this.props.image,
+            caption: this.state.caption,
+            imageName: this.state.imageName,
+            name: this.props.name,
+            gender: this.props.gender,
+            media: this.state.media,
+          }
+        })
       });
     }.bind(this));
   }

@@ -39,6 +39,7 @@ class InPhoodFBLogin extends Component {
       id: '',
       name: '',
       gender: '',
+      credential: '',
     };
     this._responseInfoCallback = this._responseInfoCallback.bind(this);
     this._handleEmailLogin = this._handleEmailLogin.bind(this);
@@ -105,21 +106,22 @@ class InPhoodFBLogin extends Component {
           id: result.id,
           name: result.name,
           gender: result.gender,
-        });
-
-        this.props.navigator.push({
-          title: 'Camera',
-          component: InPhoodCamera,
-          passProps: {
-            token: this.state.token,
-            id: this.state.id,
-            profile: this.state.profile,
-            photo: this.props.photo,
-            image: this.props.image,
-            caption: this.props.caption,
-            name: this.state.name,
-            gender: this.state.gender,
-          }
+          credential: credential,
+        }, function(){
+          this.props.navigator.push({
+            title: 'Camera',
+            component: InPhoodCamera,
+            passProps: {
+              token: this.state.token,
+              id: this.state.id,
+              profile: this.state.profile,
+              photo: this.props.photo,
+              image: this.props.image,
+              caption: this.props.caption,
+              name: this.state.name,
+              gender: this.state.gender,
+            }
+          })
         });
       }
       else {
