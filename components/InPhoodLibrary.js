@@ -102,12 +102,20 @@ class InPhoodLibrary extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     var x_offset = 0
     var y_offset = -120
+=======
+    let x_max = 180
+    let x_min = 150
+    var x_offset = x_min
+    var y_offset = -100
+>>>>>>> 0b6fc7cf85d6811a2efa5e27cd8e27cece421943
 
     return (
       <View style={styles.container}>
 
+<<<<<<< HEAD
         <ScrollView style={styles.largeContainer}>
         {/*{console.log('Initializing count to zero:')}*/}
 
@@ -137,8 +145,47 @@ class InPhoodLibrary extends Component {
             })
           }
           </View>
+=======
+        {/* Hack to get border to respect boundaries of images.  New react
+            release doesn't respect borders, layering or container hierarchy: */}
+        <View style={styles.largeContainer}>
 
-        </ScrollView>
+          <ScrollView
+            style={styles.scrollContainer}
+          >
+          {console.log('Initializing count to zero:')}
+
+            <View style={styles.imageGrid}>
+            { this.state.images.map((image) => {
+>>>>>>> 0b6fc7cf85d6811a2efa5e27cd8e27cece421943
+
+              if (x_offset === x_min) {
+                y_offset += 120
+              }
+
+              x_offset = x_max - x_offset
+
+              console.log('(x, y) = ()' + x_offset + ", " + y_offset + ")")
+
+              return (
+                <TouchableHighlight
+                  onPress={this.selectImage.bind(null, image.uri)}
+                  underlayColor='black'
+                >
+                  {/*<Image style={styles.image} source={{ uri: image.uri }} />*/}
+                  <Image
+                    style={{width: 100, height: 100, margin: 10, borderWidth: 1, borderColor: "#3b5998", borderRadius: 50, position: 'absolute', marginTop: y_offset, marginLeft: x_offset}}
+                    source={{ uri: image.uri }}
+                  />
+                </TouchableHighlight>
+              );
+              })
+            }
+            </View>
+
+          </ScrollView>
+
+        </View>
 
 
         <View style={styles.smallContainer}>
@@ -192,6 +239,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'black',
   },
+  scrollContainer: {
+    flex: 1,
+    borderRadius: 10,
+    backgroundColor: 'black',
+  },
   smallContainer: {
     flex: 0.15,
     alignItems: 'center',
@@ -201,7 +253,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   imageGrid: {
+<<<<<<< HEAD
     flex: 1,
+=======
+    // flex: 1,
+    // alignItems: 'center',
+    // height: null,
+    // width: null,
+>>>>>>> 0b6fc7cf85d6811a2efa5e27cd8e27cece421943
     // flexDirection: 'row',
     // flexWrap: 'wrap',
     // justifyContent: 'center',
