@@ -19,12 +19,6 @@ const {
   Profile,
 } = FBSDK;
 
-var config = {
-    apiKey: "AIzaSyCDzrz6xKXMUqsirFLVyzXKQDR7zOlkZTA",
-    authDomain: "shining-torch-3197.firebaseapp.com",
-    databaseURL: "https://shining-torch-3197.firebaseio.com",
-    storageBucket: "shining-torch-3197.appspot.com",
-  };
 import firebase from 'firebase'
   require("firebase/app");
   require("firebase/auth");

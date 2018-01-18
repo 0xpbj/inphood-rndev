@@ -96,12 +96,6 @@ class InPhoodImage extends Component {
     }
 
     let options = {
-      keyPrefix: "data/",
-      bucket: 'inphoodimagescdn',
-      region: 'us-west-2',
-      accessKey: "AKIAI25XHNISG4KDDM3Q",
-      secretKey: "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",
-      successActionStatus: 201
     }
 
     RNS3.put(imgfile, options)
